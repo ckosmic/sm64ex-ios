@@ -8,6 +8,8 @@ extern "C" {
 void game_deinit(void);
 void game_exit(void);
 
+void main_func(void);
+
 #ifdef __cplusplus
 }
 #endif

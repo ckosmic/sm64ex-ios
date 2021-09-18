@@ -11,11 +11,11 @@ default: all
 # by building with 'make SETTING=value'. 'make clean' may be required.
 
 # Build debug version
-DEBUG ?= 0
+DEBUG ?= 1
 # Version of the game to build
 VERSION ?= us
 # Graphics microcode used
-GRUCODE ?= f3dex2e
+GRUCODE ?= f3d_old
 # If COMPARE is 1, check the output sha1sum when building 'all'
 COMPARE ?= 1
 # If NON_MATCHING is 1, define the NON_MATCHING and AVOID_UB macros when building (recommended)
@@ -27,8 +27,10 @@ TARGET_RPI ?= 0
 # Build for Emscripten/WebGL
 TARGET_WEB ?= 0
 
+TARGET_IOS ?= 1
+
 # Makeflag to enable OSX fixes
-OSX_BUILD ?= 0
+OSX_BUILD ?= 1
 
 # Enable -no-pie linker option
 NO_PIE ?= 1
@@ -184,6 +186,11 @@ endif
 endif
 endif
 
+ifeq ($(TARGET_IOS),1)
+  TARGET := sm64ios
+  GRUCODE_DEF := F3D_OLD
+endif
+
 GRUCODE_CFLAGS := -D$(GRUCODE_DEF)
 GRUCODE_ASFLAGS := $(GRUCODE_ASFLAGS) --defsym $(GRUCODE_DEF)=1
 
@@ -287,7 +294,7 @@ LEVEL_DIRS := $(patsubst levels/%,%,$(dir $(wildcard levels/*/header.h)))
 # Directories containing source files
 
 # Hi, I'm a PC
-SRC_DIRS := src src/engine src/game src/audio src/menu src/buffers actors levels bin data assets src/pc src/pc/gfx src/pc/audio src/pc/controller src/pc/fs src/pc/fs/packtypes
+SRC_DIRS := src src/engine src/game src/audio src/menu src/buffers actors levels bin data assets src/pc src/pc/gfx src/pc/audio src/pc/controller src/pc/fs src/pc/fs/packtypes src/ios
 ASM_DIRS :=
 
 ifeq ($(DISCORDRPC),1)
@@ -355,6 +362,7 @@ include Makefile.split
 # Source code files
 LEVEL_C_FILES := $(wildcard levels/*/leveldata.c) $(wildcard levels/*/script.c) $(wildcard levels/*/geo.c)
 C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c)) $(LEVEL_C_FILES)
+M_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.m))
 CXX_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 S_FILES := $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
 GODDARD_C_FILES := $(foreach dir,$(GODDARD_SRC_DIRS),$(wildcard $(dir)/*.c))
@@ -401,6 +409,7 @@ SOUND_OBJ_FILES := $(SOUND_BIN_DIR)/sound_data.o
 
 # Object files
 O_FILES := $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file:.c=.o)) \
+           $(foreach file,$(M_FILES),$(BUILD_DIR)/$(file:.m=.o)) \
            $(foreach file,$(CXX_FILES),$(BUILD_DIR)/$(file:.cpp=.o)) \
            $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file:.s=.o)) \
            $(foreach file,$(GENERATED_C_FILES),$(file:.c=.o))
@@ -467,7 +476,7 @@ ifeq ($(WINDOWS_BUILD),1) # fixes compilation in MXE on Linux and WSL
   OBJCOPY := objcopy
   OBJDUMP := $(CROSS)objdump
 else ifeq ($(OSX_BUILD),1)
-  CPP := cpp-9 -P
+  CPP := cpp-10 -P
   OBJDUMP := i686-w64-mingw32-objdump
   OBJCOPY := i686-w64-mingw32-objcopy
 else # Linux & other builds
@@ -503,7 +512,7 @@ else ifeq ($(findstring SDL,$(WINDOW_API)),SDL)
   else ifeq ($(TARGET_RPI),1)
     BACKEND_LDFLAGS += -lGLESv2
   else ifeq ($(OSX_BUILD),1)
-    BACKEND_LDFLAGS += -framework OpenGL `pkg-config --libs glew`
+    BACKEND_LDFLAGS += -framework OpenGLES -framework AVFoundation -framework AudioToolbox -framework CoreFoundation -framework CoreGraphics -framework CoreBluetooth -framework CoreAudio -framework IOKit -framework GameController -framework Foundation -framework UIKit -framework QuartzCore -framework CoreMotion -framework CoreHaptics -framework Metal -L. -lSDL2 -D.
   else
     BACKEND_LDFLAGS += -lGL
   endif
@@ -532,11 +541,16 @@ else ifeq ($(SDL1_USED),1)
 endif
 
 ifneq ($(SDL1_USED)$(SDL2_USED),00)
-  BACKEND_CFLAGS += `$(SDLCONFIG) --cflags`
-  ifeq ($(WINDOWS_BUILD),1)
-    BACKEND_LDFLAGS += `$(SDLCONFIG) --static-libs` -lsetupapi -luser32 -limm32 -lole32 -loleaut32 -lshell32 -lwinmm -lversion
+  ifeq ($(TARGET_IOS),1)
+  	BACKEND_CFLAGS += -I$(IOSINCLUDE)
+	BACKEND_LDFLAGS += -L$(IOSLIBS)
   else
-    BACKEND_LDFLAGS += `$(SDLCONFIG) --libs`
+	BACKEND_CFLAGS += `$(SDLCONFIG) --cflags`
+    ifeq ($(WINDOWS_BUILD),1)
+      BACKEND_LDFLAGS += `$(SDLCONFIG) --static-libs` -lsetupapi -luser32 -limm32 -lole32 -loleaut32 -lshell32 -lwinmm -lversion
+    else
+      BACKEND_LDFLAGS += `$(SDLCONFIG) --libs`
+    endif
   endif
 endif
 
@@ -740,6 +754,7 @@ $(BUILD_DIR)/$(RPC_LIBS):
 	@$(CP) -f $(RPC_LIBS) $(BUILD_DIR)
 
 libultra: $(BUILD_DIR)/libultra.a
+libsm64ios: $(BUILD_DIR)/libsm64ios.a
 
 $(BUILD_DIR)/asm/boot.o: $(IPL3_RAW_FILES)
 $(BUILD_DIR)/src/game/crash_screen.o: $(CRASH_TEXTURE_C_FILES)
@@ -987,6 +1002,9 @@ $(BUILD_DIR)/%.o: %.c
 $(BUILD_DIR)/%.o: $(BUILD_DIR)/%.c
 	@$(CC_CHECK) $(CC_CHECK_CFLAGS) -MMD -MP -MT $@ -MF $(BUILD_DIR)/$*.d $<
 	$(CC) -c $(CFLAGS) -o $@ $<
+	
+$(BUILD_DIR)/%.o: %.m
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 $(BUILD_DIR)/%.o: %.s
 	$(AS) $(ASFLAGS) -MD $(BUILD_DIR)/$*.d -o $@ $<
@@ -995,8 +1013,19 @@ $(BUILD_DIR)/%.o: %.s
 
 $(EXE): $(O_FILES) $(MIO0_FILES:.mio0=.o) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(BUILD_DIR)/$(RPC_LIBS)
 	$(LD) -L $(BUILD_DIR) -o $@ $(O_FILES) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(LDFLAGS)
+	
+$(BUILD_DIR)/libsm64ios.a: $(O_FILES) $(MIO0_FILES:.mio0=.o) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(BUILD_DIR)/$(RPC_LIBS)
+	$(LD) -L $(BUILD_DIR) -o $@ $(O_FILES) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(LDFLAGS)
+	
+#ifeq ($(TARGET_IOS),1)
+#ifneq ($(wildcard $(BUILD_DIR_BASE)/sm64ios.app),)
+#	rm -rf $(BUILD_DIR_BASE)/sm64ios.app
+#endif
+#	cp ios/Info.plist $(BUILD_DIR)/Info.plist
+#	cp -R $(BUILD_DIR_BASE)/$(VERSION)_pc $(BUILD_DIR_BASE)/sm64ios.app
+#endif
 
-.PHONY: all clean distclean default diff test load libultra res
+.PHONY: all clean distclean default diff test load libultra res libsm64ios
 .PRECIOUS: $(BUILD_DIR)/bin/%.elf $(SOUND_BIN_DIR)/%.ctl $(SOUND_BIN_DIR)/%.tbl $(SOUND_SAMPLE_TABLES) $(SOUND_BIN_DIR)/%.s $(BUILD_DIR)/%
 .DELETE_ON_ERROR:
 

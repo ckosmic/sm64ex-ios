@@ -45,14 +45,14 @@ void fail_parse(const char *fmt, ...)
     char *formatted = NULL;
     va_list ap;
     va_start(ap, fmt);
-    int size = vsnprintf(NULL, 0, fmt, ap);
+    int size = vsprintf(NULL, fmt, ap);
     va_end(ap);
     if (size >= 0) {
         size++;
         formatted = malloc(size);
         if (formatted != NULL) {
             va_start(ap, fmt);
-            size = vsnprintf(formatted, size, fmt, ap);
+            size = vsprintf(formatted, fmt, ap);
             va_end(ap);
             if (size < 0) {
                 free(formatted);

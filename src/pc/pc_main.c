@@ -6,6 +6,8 @@
 #include <emscripten/html5.h>
 #endif
 
+#include <SDL2/SDL.h>
+
 #include "sm64.h"
 
 #include "game/memory.h"
@@ -220,7 +222,7 @@ void main_func(void) {
     " nightly " GIT_HASH
     #endif
     ;
-
+    
     gfx_init(wm_api, rendering_api, window_title);
     wm_api->set_keyboard_callbacks(keyboard_on_key_down, keyboard_on_key_up, keyboard_on_all_keys_up);
 
@@ -232,10 +234,10 @@ void main_func(void) {
     if (audio_api == NULL) {
         audio_api = &audio_null;
     }
-
+    
     audio_init();
     sound_init();
-
+    
     thread5_game_loop(NULL);
 
     inited = true;
@@ -266,8 +268,10 @@ void main_func(void) {
 #endif
 }
 
-int main(int argc, char *argv[]) {
+/*int main(int argc, char *argv[]) {
     parse_cli_opts(argc, argv);
     main_func();
     return 0;
 }
+
+*/

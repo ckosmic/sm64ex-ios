@@ -17,10 +17,12 @@
 #define GL_GLEXT_PROTOTYPES 1
 
 #ifdef OSX_BUILD
-#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_opengles2.h>
 #else
 #include <SDL2/SDL_opengles2.h>
 #endif
+
+#include <SDL2/SDL_syswm.h>
 
 #endif // End of OS-Specific GL defines
 
@@ -35,6 +37,8 @@
 #include "../cliopts.h"
 
 #include "src/pc/controller/controller_keyboard.h"
+
+#import <UIKit/UIKit.h>
 
 // TODO: figure out if this shit even works
 #ifdef VERSION_EU
@@ -109,6 +113,16 @@ const SDL_Scancode scancode_rmapping_nonextended[][2] = {
 };
 
 #define IS_FULLSCREEN() ((SDL_GetWindowFlags(wnd) & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0)
+
+@interface SDL_uikitviewcontroller : UIViewController
+-   (BOOL)prefersHomeIndicatorAutoHidden;
+@end
+
+@implementation SDL_uikitviewcontroller (SDL_uikitviewcontroller_Extensions)
+-   (BOOL)prefersHomeIndicatorAutoHidden {
+    return TRUE;
+}
+@end
 
 static inline void sys_sleep(const uint64_t us) {
     // TODO: not everything has usleep()
@@ -187,8 +201,8 @@ static void gfx_sdl_reset_dimension_and_pos(void) {
     if (configWindow.reset) {
         configWindow.x = WAPI_WIN_CENTERPOS;
         configWindow.y = WAPI_WIN_CENTERPOS;
-        configWindow.w = DESIRED_SCREEN_WIDTH;
-        configWindow.h = DESIRED_SCREEN_HEIGHT;
+        //configWindow.w = DESIRED_SCREEN_WIDTH;
+        //configWindow.h = DESIRED_SCREEN_HEIGHT;
         configWindow.reset = false;
     } else if (!configWindow.settings_changed) {
         return;
@@ -221,16 +235,35 @@ static void gfx_sdl_init(const char *window_title) {
     int xpos = (configWindow.x == WAPI_WIN_CENTERPOS) ? SDL_WINDOWPOS_CENTERED : configWindow.x;
     int ypos = (configWindow.y == WAPI_WIN_CENTERPOS) ? SDL_WINDOWPOS_CENTERED : configWindow.y;
 
+    float ddpi, hdpi, vdpi;
+    
+    SDL_DisplayMode dm;
+    SDL_GetDesktopDisplayMode(0, &dm);
+    SDL_GetDisplayDPI(0, &ddpi, &hdpi, &vdpi);
+    
     wnd = SDL_CreateWindow(
         window_title,
-        xpos, ypos, configWindow.w, configWindow.h,
-        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
+        0, 0, configWindow.w, configWindow.h,
+        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS
     );
+    
     ctx = SDL_GL_CreateContext(wnd);
+    
+    SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
+    configWindow.reset = true;
+    configWindow.settings_changed = true;
 
     gfx_sdl_set_vsync(configWindow.vsync);
 
     gfx_sdl_set_fullscreen();
+    
+    SDL_SysWMinfo systemWindowInfo;
+    SDL_VERSION(&systemWindowInfo.version);
+    SDL_GetWindowWMInfo(wnd, &systemWindowInfo);
+    
+    UIWindow *uiWindow = systemWindowInfo.info.uikit.window;
+    UIViewController *rootViewController = uiWindow.rootViewController;
+    //rootViewController.homeIndicatorHidden = true;
 
     perf_freq = SDL_GetPerformanceFrequency();
     frame_time = perf_freq / FRAMERATE;

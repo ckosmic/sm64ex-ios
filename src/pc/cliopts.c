@@ -45,6 +45,11 @@ void parse_cli_opts(int argc, char* argv[]) {
     // Initialize options with false values.
     memset(&gCLIOpts, 0, sizeof(gCLIOpts));
 
+    char spbuf[512];
+    strcpy(spbuf, getenv("HOME"));
+    strcat(spbuf, "/Documents");
+    arg_string("--savepath", spbuf, gCLIOpts.SavePath);
+    
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--skip-intro") == 0) // Skip Peach Intro
             gCLIOpts.SkipIntro = 1;

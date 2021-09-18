@@ -206,6 +206,7 @@ Gfx *geo_intro_backdrop(s32 sp48, struct GraphNode *sp4c, UNUSED void *context) 
             gSPDisplayList(displayListIter++, intro_backdrop_one_image(i, backgroundTable));
         }
         gSPDisplayList(displayListIter++, &title_screen_bg_dl_0A000190);
+        //displayListIter += num_tiles_h*3 + 3;
         gSPEndDisplayList(displayListIter);
     }
     return displayList;
