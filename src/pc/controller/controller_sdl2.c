@@ -223,9 +223,12 @@ static void controller_sdl_read(OSContPad *pad) {
     update_button(VK_RTRIGGER - VK_BASE_SDL_GAMEPAD, rtrig > AXIS_THRESHOLD);
 
     u32 buttons_down = 0;
-    for (u32 i = 0; i < num_joy_binds; ++i)
-        if (joy_buttons[joy_binds[i][0]])
+    for (u32 i = 0; i < num_joy_binds; ++i) {
+        if (joy_buttons[joy_binds[i][0]]) {
             buttons_down |= joy_binds[i][1];
+            set_current_input(SDL2);
+        }
+    }
 
     pad->button |= buttons_down;
 
@@ -251,6 +254,7 @@ static void controller_sdl_read(OSContPad *pad) {
         pad->stick_x = leftx / 0x100;
         int stick_y = -lefty / 0x100;
         pad->stick_y = stick_y == 128 ? 127 : stick_y;
+        set_current_input(SDL2);
     }
 
     magnitude_sq = (uint32_t)(rightx * rightx) + (uint32_t)(righty * righty);
@@ -259,6 +263,7 @@ static void controller_sdl_read(OSContPad *pad) {
         pad->ext_stick_x = rightx / 0x100;
         int stick_y = -righty / 0x100;
         pad->ext_stick_y = stick_y == 128 ? 127 : stick_y;
+        set_current_input(SDL2);
     }
 }
 

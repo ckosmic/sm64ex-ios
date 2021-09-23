@@ -19,8 +19,16 @@
 
 #include <ultra64.h>
 
+// Auto hide touch by JustMeDaFaq
+enum ControllerType {
+    Keyboard,
+    Emscripten,
+    SDL2,
+    Touch
+};
+
 struct ControllerAPI {
-   const u32 vkbase;                            // base number in the virtual keyspace (e.g. keyboard is 0x0000-0x1000)
+    const u32 vkbase;                            // base number in the virtual keyspace (e.g. keyboard is 0x0000-0x1000)
     void (*init)(void);                         // call once, also calls reconfig()
     void (*read)(OSContPad *pad);               // read controller and update N64 pad values
     u32  (*rawkey)(void);                       // returns last pressed virtual key or VK_INVALID if none
@@ -40,5 +48,8 @@ void controller_rumble_stop(void);
 
 // calls the shutdown() function of all controller subsystems
 void controller_shutdown(void);
+
+void set_current_input(int type);
+int get_current_input();
 
 #endif

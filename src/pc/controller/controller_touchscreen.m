@@ -105,6 +105,7 @@ void touch_down(struct TouchEvent* event) {
             }
         }
     }
+    set_current_input(Touch);
 }
 
 void touch_motion(struct TouchEvent* event) {
@@ -185,6 +186,13 @@ void add_button_label(OverlayImageView *button, NSString *labelString, CGRect re
 }
 
 void render_touch_controls(void) {
+    if(get_current_input() != Touch) {
+        overlayView.hidden = YES;
+        return;
+    } else {
+        overlayView.hidden = NO;
+    }
+    
     struct Position pos;
     for (int i = 0; i < ControlElementsLength; i++) {
         pos = ControlElements[i].GetPos();

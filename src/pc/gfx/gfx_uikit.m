@@ -11,7 +11,7 @@
 
 #include "gfx_uikit.h"
 
-UIView *overlayView;
+OverlayView *overlayView;
 
 @implementation OverlayView
 
@@ -91,7 +91,7 @@ void gfx_uikit_init(long *viewControllerPointer) {
     UIViewController *viewController = (UIViewController *)viewControllerPointer;
     
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
-    overlayView = [[UIView alloc] initWithFrame:mainScreenBounds];
+    overlayView = [[OverlayView alloc] initWithFrame:mainScreenBounds];
     
     
     

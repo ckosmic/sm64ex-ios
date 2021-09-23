@@ -28,6 +28,8 @@
 -   (void)drawRect:(CGRect)rect;
 @end
 
+OverlayView *overlayView;
+
 void gfx_uikit_init(long *viewControllerPointer);
 OverlayImageView *add_image_subview(CGImageRef imageRef, CGRect rect);
 CGImageRef create_imageref(const char *path);

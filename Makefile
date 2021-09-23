@@ -188,7 +188,6 @@ endif
 
 ifeq ($(TARGET_IOS),1)
   TARGET := sm64ios
-  #GRUCODE_DEF := F3D_OLD
 endif
 
 GRUCODE_CFLAGS := -D$(GRUCODE_DEF)
