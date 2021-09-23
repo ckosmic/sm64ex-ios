@@ -73,6 +73,7 @@ sm64config.txt
 !/actors/**/*custom*/**/*.png
 !/textures/**/*custom*.png
 !/textures/**/*custom*/**/*.png
+!/textures/touchcontrols/*.png
 !/sound/**/*custom*.m64
 !/sound/**/*custom*/**/*.m64
 !/sound/**/*custom*.aiff

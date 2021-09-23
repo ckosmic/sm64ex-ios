@@ -4,5 +4,6 @@
 #include "gfx_window_manager_api.h"
 
 extern struct GfxWindowManagerAPI gfx_sdl;
+long* get_sdl_viewcontroller();
 
 #endif

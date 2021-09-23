@@ -3,13 +3,11 @@ export CXX="clang++ -arch arm64 -mios-version-min=13.2 -isysroot /Applications/X
 export IOSINCLUDE="/Users/christiankosman/Documents/ioslib/include"
 export IOSLIBS="/Users/christiankosman/Documents/ioslib/lib"
 
-gmake libsm64ios OSX_BUILD=1 TARGET_IOS=1
+gmake OSX_BUILD=1 TARGET_IOS=1
 
 if [ $? -eq 0 ]; then
     rm -rf build/sm64ios.app
-    cp ios/Info.plist build/us_pc/Info.plist
-    cp "ios/Default-375w-812h@3x.png" "build/us_pc/Default-375w-812h@3x.png"
-    cp ios/embedded.mobileprovision build/us_pc/embedded.mobileprovision
+    cp -a ios/. build/us_pc/
     cp -R build/us_pc build/sm64ios.app
     codesign -f -s "Apple Development" --entitlements sm64ios.entitlements build/sm64ios.app
     rm -rf build/Payload

@@ -5,7 +5,7 @@
 # obtain a list of segments from the *.c files in bin directory
 SEGMENTS := $(notdir $(basename $(wildcard bin/*.c))) $(addprefix $(VERSION)/,$(notdir $(basename $(wildcard bin/$(VERSION)/*.c)))) $(addsuffix _skybox,$(notdir $(basename $(wildcard textures/skyboxes/*.png))))
 ACTORS := $(filter %/,$(wildcard actors/*/))
-TEXTURE_DIRS := $(addprefix textures/,$(SEGMENTS)) $(ACTORS) textures/crash_screen textures/intro_raw textures/ipl3_raw textures/skybox_tiles
+TEXTURE_DIRS := $(addprefix textures/,$(SEGMENTS)) $(ACTORS) textures/crash_screen textures/intro_raw textures/ipl3_raw textures/skybox_tiles textures/touchcontrols
 
 # NOTE: textures assume naming convention "texture.<encoding>.png" generates "texture.<encoding>"
 
@@ -189,6 +189,7 @@ SKY_FILES                    := $(patsubst %.png,%.inc.c,$(wildcard $(TEXTURE_DI
 MACHINE_FILES                := $(patsubst %.png,%.inc.c,$(wildcard $(TEXTURE_DIR)/machine/*.png))
 MOUNTAIN_FILES               := $(patsubst %.png,%.inc.c,$(wildcard $(TEXTURE_DIR)/mountain/*.png))
 GRASS_FILES                  := $(patsubst %.png,%.inc.c,$(wildcard $(TEXTURE_DIR)/grass/*.png))
+TOUCH_FILES                  := $(patsubst %.png,%.inc.c,$(wildcard $(TEXTURE_DIR)/touchcontrols/*.png))
 
 # Texture Files
 $(BUILD_DIR)/bin/segment2.o: $(addprefix $(BUILD_DIR)/,$(SEGMENT2_FILES))
@@ -206,6 +207,7 @@ $(BUILD_DIR)/bin/sky.o: $(addprefix $(BUILD_DIR)/,$(SKY_FILES))
 $(BUILD_DIR)/bin/machine.o: $(addprefix $(BUILD_DIR)/,$(MACHINE_FILES))
 $(BUILD_DIR)/bin/mountain.o: $(addprefix $(BUILD_DIR)/,$(MOUNTAIN_FILES))
 $(BUILD_DIR)/bin/grass.o: $(addprefix $(BUILD_DIR)/,$(GRASS_FILES))
+$(BUILD_DIR)/src/pc/controller/controller_touchscreen.o: $(addprefix $(BUILD_DIR)/,$(TOUCH_FILES))
 
 # Others
 $(BUILD_DIR)/bin/segment2.elf: SEGMENT_ADDRESS := 0x02000000

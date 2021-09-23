@@ -396,6 +396,13 @@ static struct ShaderProgram *gfx_opengl_create_and_load_new_shader(uint32_t shad
     puts(fs_buf);
     puts("End");*/
     
+    /*char spbuf[512];
+    strcpy(spbuf, getenv("HOME"));
+    strcat(spbuf, "/Documents/lolidiot.txt");
+    FILE *f = fopen(spbuf, "a");
+    fprintf(f, "up: %d\n", event.touchID);
+    fclose(f);*/
+    
     
     const GLchar *sources[2] = { vs_buf, fs_buf };
     const GLint lengths[2] = { vs_len, fs_len };

@@ -15,7 +15,7 @@ DEBUG ?= 1
 # Version of the game to build
 VERSION ?= us
 # Graphics microcode used
-GRUCODE ?= f3d_old
+GRUCODE ?= f3dex2e
 # If COMPARE is 1, check the output sha1sum when building 'all'
 COMPARE ?= 1
 # If NON_MATCHING is 1, define the NON_MATCHING and AVOID_UB macros when building (recommended)
@@ -188,7 +188,7 @@ endif
 
 ifeq ($(TARGET_IOS),1)
   TARGET := sm64ios
-  GRUCODE_DEF := F3D_OLD
+  #GRUCODE_DEF := F3D_OLD
 endif
 
 GRUCODE_CFLAGS := -D$(GRUCODE_DEF)
@@ -1016,14 +1016,6 @@ $(EXE): $(O_FILES) $(MIO0_FILES:.mio0=.o) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(
 	
 $(BUILD_DIR)/libsm64ios.a: $(O_FILES) $(MIO0_FILES:.mio0=.o) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(BUILD_DIR)/$(RPC_LIBS)
 	$(LD) -L $(BUILD_DIR) -o $@ $(O_FILES) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(LDFLAGS)
-	
-#ifeq ($(TARGET_IOS),1)
-#ifneq ($(wildcard $(BUILD_DIR_BASE)/sm64ios.app),)
-#	rm -rf $(BUILD_DIR_BASE)/sm64ios.app
-#endif
-#	cp ios/Info.plist $(BUILD_DIR)/Info.plist
-#	cp -R $(BUILD_DIR_BASE)/$(VERSION)_pc $(BUILD_DIR_BASE)/sm64ios.app
-#endif
 
 .PHONY: all clean distclean default diff test load libultra res libsm64ios
 .PRECIOUS: $(BUILD_DIR)/bin/%.elf $(SOUND_BIN_DIR)/%.ctl $(SOUND_BIN_DIR)/%.tbl $(SOUND_SAMPLE_TABLES) $(SOUND_BIN_DIR)/%.s $(BUILD_DIR)/%
