@@ -3,7 +3,7 @@ export CXX="clang++ -arch arm64 -mios-version-min=13.2 -isysroot /Applications/X
 export IOSINCLUDE="/Users/christiankosman/Documents/ioslib/include"
 export IOSLIBS="/Users/christiankosman/Documents/ioslib/lib"
 
-gmake OSX_BUILD=1 TARGET_IOS=1
+gmake TARGET_IOS=1
 
 if [ $? -eq 0 ]; then
     rm -rf build/sm64ios.app

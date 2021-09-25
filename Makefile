@@ -95,6 +95,9 @@ ifeq ($(TARGET_WEB),0)
   ifeq ($(HOST_OS),Windows)
     WINDOWS_BUILD := 1
   endif
+  ifeq ($(TARGET_IOS),1)
+    OSX_BUILD = 1
+  endif
 endif
 
 # MXE overrides
@@ -365,6 +368,7 @@ M_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.m))
 CXX_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 S_FILES := $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
 GODDARD_C_FILES := $(foreach dir,$(GODDARD_SRC_DIRS),$(wildcard $(dir)/*.c))
+STORYBOARD_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.storyboard))
 
 GENERATED_C_FILES := $(BUILD_DIR)/assets/mario_anim_data.c $(BUILD_DIR)/assets/demo_data.c \
   $(addprefix $(BUILD_DIR)/bin/,$(addsuffix _skybox.c,$(notdir $(basename $(wildcard textures/skyboxes/*.png)))))
@@ -687,6 +691,7 @@ LOADER = loader64
 LOADER_FLAGS = -vwf
 SHA1SUM = sha1sum
 ZEROTERM = $(PYTHON) $(TOOLS_DIR)/zeroterm.py
+IBTOOL = ibtool
 
 ###################### Dependency Check #####################
 
@@ -695,6 +700,9 @@ ZEROTERM = $(PYTHON) $(TOOLS_DIR)/zeroterm.py
 ######################## Targets #############################
 
 all: $(EXE)
+ifeq ($(TARGET_IOS),1)
+	@for storyboard_path in ${STORYBOARD_FILES}; do ${IBTOOL} $${storyboard_path} --compilation-directory ${BUILD_DIR}/src/ios; done
+endif
 
 # thank you apple very cool
 ifeq ($(HOST_OS),Darwin)
@@ -1007,7 +1015,6 @@ $(BUILD_DIR)/%.o: %.m
 
 $(BUILD_DIR)/%.o: %.s
 	$(AS) $(ASFLAGS) -MD $(BUILD_DIR)/$*.d -o $@ $<
-
 
 
 $(EXE): $(O_FILES) $(MIO0_FILES:.mio0=.o) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(BUILD_DIR)/$(RPC_LIBS)
