@@ -1,0 +1,64 @@
+diff --git a/src/game/game_init.c b/src/game/game_init.c
+index c2df451..6fabe6f 100644
+--- a/src/game/game_init.c
++++ b/src/game/game_init.c
+@@ -63,6 +63,29 @@ struct DemoInput *gCurrDemoInput = NULL; // demo input sequence
+ u16 gDemoInputListID = 0;
+ struct DemoInput gRecordedDemoInput = { 0 }; // possibly removed in EU. TODO: Check
+ 
++static OSTime gLastOSTime = 0;
++static u8 gRenderFPS = FALSE;
++
++static void render_fps(void) {
++    // Toggle rendering framerate with the L button.
++    if (gPlayer1Controller->buttonPressed & L_TRIG) {
++        gRenderFPS ^= 1;
++    }
++
++#ifdef _60FPS_PATCH
++    float multiplier = 2.0f;
++#else
++    float multiplier = 1.0f;
++#endif
++    if (gRenderFPS) {
++        OSTime newTime = osGetTime();
++        float fps = multiplier * 1000000.0f / (newTime - gLastOSTime);
++
++        print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(22), 184, "FPS %d", fps);
++        gLastOSTime = newTime;
++    }
++}
++
+ /**
+  * Initializes the Reality Display Processor (RDP).
+  * This function initializes settings such as texture filtering mode,
+@@ -596,6 +619,7 @@ void game_loop_one_iteration(void) {
+     read_controller_inputs();
+     levelCommandAddr = level_script_execute(levelCommandAddr);
+     display_and_vsync();
++    render_fps();
+ 
+     // when debug info is enabled, print the "BUF %d" information.
+     if (gShowDebugText) {
+diff --git a/src/pc/ultra_reimplementation.c b/src/pc/ultra_reimplementation.c
+index 0389776..4b1015a 100644
+--- a/src/pc/ultra_reimplementation.c
++++ b/src/pc/ultra_reimplementation.c
+@@ -1,5 +1,6 @@
+ #include <stdio.h>
+ #include <string.h>
++#include <sys/time.h>
+ #include "lib/src/libultra_internal.h"
+ #include "macros.h"
+ #include "platform.h"
+@@ -77,7 +78,9 @@ void osViSwapBuffer(UNUSED void *vaddr) {
+ }
+ 
+ OSTime osGetTime(void) {
+-    return 0;
++    struct timeval tv;
++    gettimeofday(&tv, NULL);
++    return (unsigned long)tv.tv_sec * 1000000 + tv.tv_usec;
+ }
+ 
+ void osWritebackDCacheAll(void) {
