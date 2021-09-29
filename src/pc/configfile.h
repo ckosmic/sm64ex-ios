@@ -59,6 +59,7 @@ extern bool         configSkipIntro;
 #ifdef DISCORDRPC
 extern bool         configDiscordRPC;
 #endif
+extern unsigned int configTouchMode;
 
 void configfile_load(const char *filename);
 void configfile_save(const char *filename);

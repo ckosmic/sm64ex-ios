@@ -8,7 +8,12 @@ struct Position GetDefaultJoystickPos() {
 }
 
 struct Position GetDefaultStartPos() {
-    struct Position ret = { .x = SCREEN_WIDTH_API / 2, .y = 880 };
+    struct Position ret = { .x = SCREEN_WIDTH_API / 2 - 68, .y = 880 };
+    return ret;
+}
+
+struct Position GetDefaultMenuPos() {
+    struct Position ret = { .x = SCREEN_WIDTH_API / 2 + 68, .y = 880 };
     return ret;
 }
 
@@ -55,6 +60,7 @@ struct Position GetDefaultRightPos() {
 static struct ControlElement ControlElementsDefault[] = {
 {.type = Joystick, .GetPos = GetDefaultJoystickPos},
 {.type = Button, .GetPos = GetDefaultStartPos, .label = @"S", .buttonID = START_BUTTON},
+{.type = Button, .GetPos = GetDefaultMenuPos, .label = @"M", .menuButton = 1},
 {.type = Button, .GetPos = GetDefaultAPos, .label = @"A", .buttonID = A_BUTTON},
 {.type = Button, .GetPos = GetDefaultBPos, .label = @"B", .buttonID = B_BUTTON},
 {.type = Button, .GetPos = GetDefaultZPos, .label = @"Z", .buttonID = Z_TRIG}, //There's no z character, so let's just call it t for trigger

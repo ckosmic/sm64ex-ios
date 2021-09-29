@@ -33,6 +33,8 @@
 		<integer>2</integer>
 		<integer>1</integer>
 	</array>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeRight</string>

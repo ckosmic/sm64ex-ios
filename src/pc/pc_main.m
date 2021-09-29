@@ -8,6 +8,8 @@
 
 #include <SDL2/SDL.h>
 
+#import <UIKit/UIKit.h>
+
 #include "sm64.h"
 
 #include "game/memory.h"
@@ -23,6 +25,7 @@
 #include "gfx/gfx_sdl.h"
 
 #include "gfx/gfx_uikit.h"
+#include "ios/native_ui_controller.h"
 
 #include "audio/audio_api.h"
 #include "audio/audio_sdl.h"
@@ -176,6 +179,10 @@ static void on_anim_frame(double time) {
 }
 #endif
 
+void present_first_screen(void) {
+    present_viewcontroller(@"FirstScreen");
+}
+
 void main_func(void) {
     const char *gamedir = gCLIOpts.GameDir[0] ? gCLIOpts.GameDir : FS_BASEDIR;
     const char *userpath = gCLIOpts.SavePath[0] ? gCLIOpts.SavePath : sys_user_path();
@@ -230,9 +237,13 @@ void main_func(void) {
     wm_api->set_keyboard_callbacks(keyboard_on_key_down, keyboard_on_key_up, keyboard_on_all_keys_up);
     wm_api->set_touchscreen_callbacks((void*)touch_down, (void*)touch_motion, (void*)touch_up);
     
-    gfx_uikit_init(get_sdl_viewcontroller());
+    UIViewController *gfxVc = get_sdl_viewcontroller();
+    gfx_uikit_init(gfxVc);
     configWindow.settings_changed = true;
     wm_api->reset_dimension_and_pos();
+    
+    set_root_viewcontroller(gfxVc);
+    menu_button_pressed = &present_first_screen;
 
     #if defined(AAPI_SDL1) || defined(AAPI_SDL2)
     if (audio_api == NULL && audio_sdl.init()) 

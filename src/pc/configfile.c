@@ -93,6 +93,7 @@ bool         configHUD           = true;
 #ifdef DISCORDRPC
 bool         configDiscordRPC    = true;
 #endif
+unsigned int configTouchMode = 2;
 
 static const struct ConfigOption options[] = {
     {.name = "fullscreen",           .type = CONFIG_TYPE_BOOL, .boolValue = &configWindow.fullscreen},
@@ -140,7 +141,8 @@ static const struct ConfigOption options[] = {
     {.name = "skip_intro",           .type = CONFIG_TYPE_BOOL, .boolValue = &configSkipIntro},
     #ifdef DISCORDRPC
     {.name = "discordrpc_enable",    .type = CONFIG_TYPE_BOOL, .boolValue = &configDiscordRPC},
-    #endif 
+    #endif
+    {.name = "touch_controls_mode",  .type = CONFIG_TYPE_UINT, .uintValue = &configTouchMode},
 };
 
 // Reads an entire line from a file (excluding the newline character) and returns an allocated string

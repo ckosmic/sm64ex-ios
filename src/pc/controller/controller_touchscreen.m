@@ -19,6 +19,7 @@
 #include "gfx_dimensions.h"
 #include "pc/gfx/gfx_pc.h"
 #include "pc/gfx/gfx_uikit.h"
+#include "../configfile.h"
 
 #include "controller_api.h"
 #include "controller_touchscreen.h"
@@ -61,6 +62,7 @@ struct ControlElement {
     //Button
     int buttonID;
     NSString *label;
+    bool menuButton;
     int slideTouch;
     OverlayImageView *imageView;
     OverlayImageView *subImageView;
@@ -80,6 +82,7 @@ CGImageRef image_b;
 CGImageRef image_z;
 CGImageRef image_r;
 CGImageRef image_start;
+CGImageRef image_menu;
 
 #define TRIGGER_DETECT(size) (((pos.x + size / 2 > CORRECT_TOUCH_X(event->x)) && (pos.x - size / 2 < CORRECT_TOUCH_X(event->x))) &&\
                               ((pos.y + size / 2 > CORRECT_TOUCH_Y(event->y)) && (pos.y - size / 2 < CORRECT_TOUCH_Y(event->y))))
@@ -186,11 +189,10 @@ void add_button_label(OverlayImageView *button, NSString *labelString, CGRect re
 }
 
 void render_touch_controls(void) {
-    if(get_current_input() != Touch) {
+    overlayView.hidden = NO;
+    if(get_current_input() != Touch || configTouchMode == 1) {
         overlayView.hidden = YES;
         return;
-    } else {
-        overlayView.hidden = NO;
     }
     
     struct Position pos;
@@ -249,6 +251,9 @@ void render_touch_controls(void) {
                             ControlElements[i].subImageView = add_image_subview(image_start, rect);
                             break;
                     }
+                    if(ControlElements[i].menuButton) {
+                        ControlElements[i].subImageView = add_image_subview(image_menu, rect);
+                    }
                 }
                 
                 if (ControlElements[i].touchID)
@@ -270,6 +275,7 @@ static void touchscreen_init(void) {
     image_z = create_imageref("res/icon_z.png");
     image_r = create_imageref("res/icon_r.png");
     image_start = create_imageref("res/icon_start.png");
+    image_menu = create_imageref("res/icon_menu.png");
 }
 
 static void touchscreen_read(OSContPad *pad) {
@@ -283,7 +289,11 @@ static void touchscreen_read(OSContPad *pad) {
                 break;
             case Button:
                 if (ControlElements[i].touchID) {
-                    pad->button |= ControlElements[i].buttonID;
+                    if(ControlElements[i].menuButton) {
+                        (*menu_button_pressed)();
+                    } else {
+                        pad->button |= ControlElements[i].buttonID;
+                    }
                 }
                 break;
         }

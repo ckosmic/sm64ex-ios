@@ -701,7 +701,7 @@ IBTOOL = ibtool
 
 all: $(EXE)
 ifeq ($(TARGET_IOS),1)
-	@for storyboard_path in ${STORYBOARD_FILES}; do ${IBTOOL} $${storyboard_path} --compilation-directory ${BUILD_DIR}/src/ios; done
+	@for storyboard_path in ${STORYBOARD_FILES}; do ${IBTOOL} $${storyboard_path} --compilation-directory ${BUILD_DIR}/Base.lproj; done
 endif
 
 # thank you apple very cool
