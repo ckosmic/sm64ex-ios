@@ -13,6 +13,8 @@
 
 @interface CheatsViewController : UITableViewController
 
+@property (weak, nonatomic) IBOutlet UISwitch* m_enable_cheats_switch;
+
 @property (weak, nonatomic) IBOutlet UISwitch* m_moon_jump_switch;
 @property (weak, nonatomic) IBOutlet UISwitch* m_god_mode_switch;
 @property (weak, nonatomic) IBOutlet UISwitch* m_infinite_lives_switch;

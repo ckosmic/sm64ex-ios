@@ -6,6 +6,7 @@
 //
 
 #import "MenuViewController.h"
+#import "native_ui_controller.h"
 
 
 @implementation MenuViewController
@@ -13,6 +14,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    paused_by_menu = true;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -26,7 +28,14 @@
     [self.tableView reloadData];
 }
 
-- (IBAction) dismissAboutViewController:(id)sender {
+- (IBAction)dismissAboutViewController:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)doneButtonPressed:(id)sender
+{
+    paused_by_menu = false;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

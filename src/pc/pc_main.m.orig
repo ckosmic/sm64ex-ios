@@ -40,8 +40,6 @@
 #include "controller/controller_touchscreen.h"
 #include "fs/fs.h"
 
-#include "src/ios/native_ui_controller.h"
-
 #include "game/game_init.h"
 #include "game/main.h"
 #include "game/thread6.h"
@@ -94,33 +92,57 @@ void send_display_list(struct SPTask *spTask) {
 #define SAMPLES_LOW 528
 #endif
 
+static inline void patch_interpolations(void) {
+    extern void mtx_patch_interpolated(void);
+    extern void patch_screen_transition_interpolated(void);
+    extern void patch_title_screen_scales(void);
+    extern void patch_interpolated_dialog(void);
+    extern void patch_interpolated_hud(void);
+    extern void patch_interpolated_paintings(void);
+    extern void patch_interpolated_bubble_particles(void);
+    extern void patch_interpolated_snow_particles(void);
+    mtx_patch_interpolated();
+    patch_screen_transition_interpolated();
+    patch_title_screen_scales();
+    patch_interpolated_dialog();
+    patch_interpolated_hud();
+    patch_interpolated_paintings();
+    patch_interpolated_bubble_particles();
+    patch_interpolated_snow_particles();
+}
+
 void produce_one_frame(void) {
     gfx_start_frame();
-    if(!paused_by_menu) {
-        const f32 master_mod = (f32)configMasterVolume / 127.0f;
-        set_sequence_player_volume(SEQ_PLAYER_LEVEL, (f32)configMusicVolume / 127.0f * master_mod);
-        set_sequence_player_volume(SEQ_PLAYER_SFX, (f32)configSfxVolume / 127.0f * master_mod);
-        set_sequence_player_volume(SEQ_PLAYER_ENV, (f32)configEnvVolume / 127.0f * master_mod);
 
-        
-        game_loop_one_iteration();
-        thread6_rumble_loop(NULL);
+    const f32 master_mod = (f32)configMasterVolume / 127.0f;
+    set_sequence_player_volume(SEQ_PLAYER_LEVEL, (f32)configMusicVolume / 127.0f * master_mod);
+    set_sequence_player_volume(SEQ_PLAYER_SFX, (f32)configSfxVolume / 127.0f * master_mod);
+    set_sequence_player_volume(SEQ_PLAYER_ENV, (f32)configEnvVolume / 127.0f * master_mod);
 
-        int samples_left = audio_api->buffered();
-        u32 num_audio_samples = samples_left < audio_api->get_desired_buffered() ? SAMPLES_HIGH : SAMPLES_LOW;
-        //printf("Audio samples: %d %u\n", samples_left, num_audio_samples);
-        s16 audio_buffer[SAMPLES_HIGH * 2 * 2];
-        for (int i = 0; i < 2; i++) {
-            /*if (audio_cnt-- == 0) {
-                audio_cnt = 2;
-            }
-            u32 num_audio_samples = audio_cnt < 2 ? 528 : 544;*/
-            create_next_audio_buffer(audio_buffer + i * (num_audio_samples * 2), num_audio_samples);
+    
+    game_loop_one_iteration();
+    thread6_rumble_loop(NULL);
+
+    int samples_left = audio_api->buffered();
+    u32 num_audio_samples = samples_left < audio_api->get_desired_buffered() ? SAMPLES_HIGH : SAMPLES_LOW;
+    //printf("Audio samples: %d %u\n", samples_left, num_audio_samples);
+    s16 audio_buffer[SAMPLES_HIGH * 2 * 2];
+    for (int i = 0; i < 2; i++) {
+        /*if (audio_cnt-- == 0) {
+            audio_cnt = 2;
         }
-        //printf("Audio samples before submitting: %d\n", audio_api->buffered());
-
-        audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
+        u32 num_audio_samples = audio_cnt < 2 ? 528 : 544;*/
+        create_next_audio_buffer(audio_buffer + i * (num_audio_samples * 2), num_audio_samples);
     }
+    //printf("Audio samples before submitting: %d\n", audio_api->buffered());
+
+    audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
+
+    gfx_end_frame();
+    
+    gfx_start_frame();
+    patch_interpolations();
+    send_display_list(gGfxSPTask);
     gfx_end_frame();
 }
 
@@ -246,6 +268,7 @@ void main_func(void) {
     configWindow.settings_changed = true;
     wm_api->reset_dimension_and_pos();
     
+    set_root_viewcontroller(gfxVc);
     menu_button_pressed = &present_first_screen;
 
     #if defined(AAPI_SDL1) || defined(AAPI_SDL2)
@@ -292,9 +315,10 @@ void main_func(void) {
 }
 
 int main(int argc, char *argv[]) {
-    @autoreleasepool {
-        parse_cli_opts(argc, argv);
-        main_func();
-    }
+    parse_cli_opts(argc, argv);
+    //pthread_t thread;
+    //pthread_create(&thread, NULL, main_func, NULL);
+    //pthread_join(thread, NULL);
+    main_func();
     return 0;
 }

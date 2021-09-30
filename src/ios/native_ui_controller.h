@@ -8,7 +8,11 @@
 #ifndef native_ui_controller_h
 #define native_ui_controller_h
 
-void set_root_viewcontroller(UIViewController *vc);
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 void present_viewcontroller(NSString *vcName);
+
+bool paused_by_menu;
 
 #endif /* native_ui_controller_h */

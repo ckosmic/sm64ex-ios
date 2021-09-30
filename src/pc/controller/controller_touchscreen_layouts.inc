@@ -8,12 +8,12 @@ struct Position GetDefaultJoystickPos() {
 }
 
 struct Position GetDefaultStartPos() {
-    struct Position ret = { .x = SCREEN_WIDTH_API / 2 - 68, .y = 880 };
+    struct Position ret = { .x = SCREEN_WIDTH_API / 2 + 68, .y = 880 };
     return ret;
 }
 
 struct Position GetDefaultMenuPos() {
-    struct Position ret = { .x = SCREEN_WIDTH_API / 2 + 68, .y = 880 };
+    struct Position ret = { .x = SCREEN_WIDTH_API / 2 - 68, .y = 880 };
     return ret;
 }
 

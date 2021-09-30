@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#import <Foundation/Foundation.h>
 
 #include "sm64.h"
 #include "gfx_dimensions.h"
@@ -596,6 +597,7 @@ void game_loop_one_iteration(void) {
     read_controller_inputs();
     levelCommandAddr = level_script_execute(levelCommandAddr);
     display_and_vsync();
+    
 
     // when debug info is enabled, print the "BUF %d" information.
     if (gShowDebugText) {

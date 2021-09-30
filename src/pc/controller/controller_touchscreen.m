@@ -9,6 +9,7 @@
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #include "config.h"
@@ -190,7 +191,7 @@ void add_button_label(OverlayImageView *button, NSString *labelString, CGRect re
 
 void render_touch_controls(void) {
     overlayView.hidden = NO;
-    if(get_current_input() != Touch || configTouchMode == 1) {
+    if((get_current_input() != Touch || configTouchMode == 1) && configTouchMode != 0) {
         overlayView.hidden = YES;
         return;
     }
