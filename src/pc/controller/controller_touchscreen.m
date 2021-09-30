@@ -24,6 +24,7 @@
 
 #include "controller_api.h"
 #include "controller_touchscreen.h"
+#import "../../ios/haptics_controller.h"
 
 #define SCREEN_WIDTH_API 1280
 #define SCREEN_HEIGHT_API 960
@@ -84,6 +85,8 @@ CGImageRef image_z;
 CGImageRef image_r;
 CGImageRef image_start;
 CGImageRef image_menu;
+
+HapticsController *haptics = nil;
 
 #define TRIGGER_DETECT(size) (((pos.x + size / 2 > CORRECT_TOUCH_X(event->x)) && (pos.x - size / 2 < CORRECT_TOUCH_X(event->x))) &&\
                               ((pos.y + size / 2 > CORRECT_TOUCH_Y(event->y)) && (pos.y - size / 2 < CORRECT_TOUCH_Y(event->y))))
@@ -277,6 +280,8 @@ static void touchscreen_init(void) {
     image_r = create_imageref("res/icon_r.png");
     image_start = create_imageref("res/icon_start.png");
     image_menu = create_imageref("res/icon_menu.png");
+    
+    haptics = [[HapticsController alloc] initialize];
 }
 
 static void touchscreen_read(OSContPad *pad) {
@@ -305,6 +310,18 @@ static u32 touchscreen_rawkey(void) { //dunno what this does but I'll skip it fo
     return VK_INVALID;
 }
 
+static void touchscreen_rumble_play(float strength, float time) {
+    if(configHaptics) {
+        [haptics rumble:strength duration:(time * 1000.0)];
+    }
+}
+
+static void touchscreen_rumble_stop() {
+    if(configHaptics) {
+        [haptics rumble:0.0 duration:0.0];
+    }
+}
+
 static void touchscreen_shutdown(void) {
     CGImageRelease(image_button);
     CGImageRelease(image_button_down);
@@ -312,6 +329,8 @@ static void touchscreen_shutdown(void) {
         [ControlElements[i].imageView release];
         [ControlElements[i].subImageView release];
     }
+    [haptics cleanup];
+    [haptics release];
 }
 
 struct ControllerAPI controller_touchscreen = {
@@ -319,8 +338,8 @@ struct ControllerAPI controller_touchscreen = {
     touchscreen_init,
     touchscreen_read,
     touchscreen_rawkey,
-    NULL,
-    NULL,
+    touchscreen_rumble_play,
+    touchscreen_rumble_stop,
     NULL,
     touchscreen_shutdown
 };

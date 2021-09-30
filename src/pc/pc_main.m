@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <pthread.h>
 
 #ifdef TARGET_WEB
 #include <emscripten.h>

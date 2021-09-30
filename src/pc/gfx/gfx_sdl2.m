@@ -38,7 +38,6 @@
 
 #include "src/pc/controller/controller_keyboard.h"
 #include "src/pc/controller/controller_touchscreen.h"
-#include "src/ios/native_ui_controller.h"
 
 #import <UIKit/UIKit.h>
 
@@ -443,10 +442,8 @@ static inline void sync_framerate_with_timer(void) {
 }
 
 static void gfx_sdl_swap_buffers_begin(void) {
-    //if(!paused_by_menu) {
-        if (use_timer) sync_framerate_with_timer();
-        SDL_GL_SwapWindow(wnd);
-    //}
+    if (use_timer) sync_framerate_with_timer();
+    SDL_GL_SwapWindow(wnd);
 }
 
 static void gfx_sdl_swap_buffers_end(void) {

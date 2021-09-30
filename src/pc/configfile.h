@@ -60,6 +60,7 @@ extern bool         configSkipIntro;
 extern bool         configDiscordRPC;
 #endif
 extern unsigned int configTouchMode;
+extern bool         configHaptics;
 
 void configfile_load(const char *filename);
 void configfile_save(const char *filename);
