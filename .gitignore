@@ -10,6 +10,7 @@
 # Patch and wiggle related residdue
 *.rej
 *.porig
+*.orig
 
 # Precompiled Headers
 *.gch
@@ -62,6 +63,7 @@ sm64config.txt
 *.entitlements
 *.mobileprovision
 .DS_Store
+enhancements/experimental/*
 
 # Assets. Generally ignored, but ones with "custom" in the name are fine.
 /levels/**/*.png
