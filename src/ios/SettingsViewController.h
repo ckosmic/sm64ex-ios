@@ -14,6 +14,7 @@
 @interface SettingsViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UISwitch* m_haptics_switch;
+@property (weak, nonatomic) IBOutlet UISwitch* m_hud_switch;
 
 @end
 

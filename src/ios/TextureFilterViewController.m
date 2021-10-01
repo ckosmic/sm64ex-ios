@@ -1,15 +1,15 @@
 //
-//  TouchControlsEnabledViewController.m
+//  TextureFilterViewController.m
 //  sm64ios
 //
-//  Created by Christian Kosman on 9/27/21.
+//  Created by Christian Kosman on 9/30/21.
 //
 
-#import "TouchControlsEnabledViewController.h"
+#import "TextureFilterViewController.h"
 #import "../pc/configfile.h"
 
 
-@implementation TouchControlsEnabledViewController
+@implementation TextureFilterViewController
 
 - (void)viewDidLoad
 {
@@ -20,9 +20,9 @@
 {
     [super viewWillAppear:animated];
 
-    for (size_t i = 0; i < 3; i++)
+    for (size_t i = 0; i < 2; i++)
     {
-        if (i == configTouchMode)
+        if (i == configFiltering)
         {
             self.m_last_selected = i;
         }
@@ -34,7 +34,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ((unsigned int)indexPath.row != configTouchMode)
+    if ((unsigned int)indexPath.row != configFiltering)
     {
         UITableViewCell* old_cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.m_last_selected inSection:0]];
         [old_cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -42,7 +42,7 @@
         UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
         [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         
-        configTouchMode = (unsigned int)indexPath.row;
+        configFiltering = (unsigned int)indexPath.row;
         configfile_save(configfile_name());
         
         self.m_last_selected = indexPath.row;

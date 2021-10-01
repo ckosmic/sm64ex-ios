@@ -2,7 +2,7 @@
 //  haptics_controller.m
 //  sm64ios
 //
-//  Created by Christian Kosman on 9/29/21.
+//  Nabbed from SDL_mfijoystick.m
 //
 
 #import "haptics_controller.h"
@@ -63,8 +63,31 @@
         self.engine = [[CHHapticEngine alloc] initAndReturnError:&error];
         [self.engine startAndReturnError:&error];
         
+        __weak __typeof__(self) weakSelf = self;
+        [self.engine setStoppedHandler:^(CHHapticEngineStoppedReason reason) {
+            HapticsController *_this = weakSelf;
+            if(_this == nil)
+                return;
+            
+            _this.player = nil;
+            _this.engine = nil;
+        }];
+        
+        [self.engine setResetHandler:^() {
+            HapticsController *_this = weakSelf;
+            if(_this == nil)
+                return;
+            
+            _this.player = nil;
+            [_this.engine startAndReturnError:nil];
+        }];
+        
         return self;
     }
 }
 
 @end
+
+bool hapticsSupported() {
+    return CHHapticEngine.capabilitiesForHardware.supportsHaptics;
+}

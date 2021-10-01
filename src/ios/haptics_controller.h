@@ -23,4 +23,6 @@
 
 @end
 
+bool hapticsSupported();
+
 #endif /* haptics_controller_h */

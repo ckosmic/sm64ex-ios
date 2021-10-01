@@ -19,6 +19,12 @@
 {
     [super viewWillAppear:animated];
     [self.m_haptics_switch setOn:configHaptics];
+    [self.m_hud_switch setOn:configHUD];
+}
+
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:true];
 }
 
 - (IBAction)HapticsChanged:(id)sender
@@ -27,9 +33,10 @@
     configfile_save(configfile_name());
 }
 
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+- (IBAction)HUDChanged:(id)sender
 {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:true];
+    configHUD = [self.m_hud_switch isOn];
+    configfile_save(configfile_name());
 }
 
 @end

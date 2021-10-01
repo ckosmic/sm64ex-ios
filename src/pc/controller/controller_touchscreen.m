@@ -281,7 +281,9 @@ static void touchscreen_init(void) {
     image_start = create_imageref("res/icon_start.png");
     image_menu = create_imageref("res/icon_menu.png");
     
-    haptics = [[HapticsController alloc] initialize];
+    if(hapticsSupported) {
+        haptics = [[HapticsController alloc] initialize];
+    }
 }
 
 static void touchscreen_read(OSContPad *pad) {
@@ -311,13 +313,13 @@ static u32 touchscreen_rawkey(void) { //dunno what this does but I'll skip it fo
 }
 
 static void touchscreen_rumble_play(float strength, float time) {
-    if(configHaptics) {
+    if(configHaptics && hapticsSupported) {
         [haptics rumble:strength duration:(time * 1000.0)];
     }
 }
 
 static void touchscreen_rumble_stop() {
-    if(configHaptics) {
+    if(configHaptics && hapticsSupported) {
         [haptics rumble:0.0 duration:0.0];
     }
 }
@@ -329,8 +331,10 @@ static void touchscreen_shutdown(void) {
         [ControlElements[i].imageView release];
         [ControlElements[i].subImageView release];
     }
-    [haptics cleanup];
-    [haptics release];
+    if(hapticsSupported) {
+        [haptics cleanup];
+        [haptics release];
+    }
 }
 
 struct ControllerAPI controller_touchscreen = {

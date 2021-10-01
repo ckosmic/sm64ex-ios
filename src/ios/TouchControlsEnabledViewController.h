@@ -12,9 +12,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TouchControlsEnabledViewController : UITableViewController
-{
-    NSMutableArray *m_touch_modes;
-}
 
 @property (nonatomic) NSInteger m_last_selected;
 
