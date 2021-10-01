@@ -38,7 +38,7 @@ struct Position GetDefaultLPos() {
 }
 
 struct Position GetDefaultRPos() {
-    struct Position ret = { .x = GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(176) << 2, .y = 170 };
+    struct Position ret = { .x = GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(75) << 2, .y = 170 };
     return ret;
 }
 

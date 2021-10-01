@@ -82,6 +82,7 @@ CGImageRef image_arrow;
 CGImageRef image_a;
 CGImageRef image_b;
 CGImageRef image_z;
+CGImageRef image_l;
 CGImageRef image_r;
 CGImageRef image_start;
 CGImageRef image_menu;
@@ -245,6 +246,9 @@ void render_touch_controls(void) {
                         case B_BUTTON:
                             ControlElements[i].subImageView = add_image_subview(image_b, rect);
                             break;
+                        case L_TRIG:
+                            ControlElements[i].subImageView = add_image_subview(image_l, rect);
+                            break;
                         case Z_TRIG:
                             ControlElements[i].subImageView = add_image_subview(image_z, rect);
                             break;
@@ -277,6 +281,7 @@ static void touchscreen_init(void) {
     image_a = create_imageref("res/icon_a.png");
     image_b = create_imageref("res/icon_b.png");
     image_z = create_imageref("res/icon_z.png");
+    image_l = create_imageref("res/icon_l.png");
     image_r = create_imageref("res/icon_r.png");
     image_start = create_imageref("res/icon_start.png");
     image_menu = create_imageref("res/icon_menu.png");

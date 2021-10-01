@@ -623,8 +623,48 @@
                     <view key="view" contentMode="scaleToFill" id="NxT-mn-05c">
                         <rect key="frame" x="0.0" y="0.0" width="844" height="390"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Super Mario 64 iOS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZI-w4-TZg">
+                                <rect key="frame" x="44" y="108" width="756" height="37"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5Z-0g-i1P">
+                                <rect key="frame" x="44" y="153" width="756" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="IqU-nq-6Oi"/>
+                                </constraints>
+                                <string key="text">Port by ckosmic
+Based on sm64ex (nightly)
+Touch controls based on VDavid003’s Android implementation
+Thanks to ecumber’s repo for getting the ball rolling</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aW9-Lm-lVX">
+                                <rect key="frame" x="387" y="251" width="70" height="30.999999999999972"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Source"/>
+                                <connections>
+                                    <action selector="SourcePressed:" destination="Kxj-CN-tQE" eventType="touchUpInside" id="s8S-Bb-J4Z"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="AdX-i1-D8e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zZI-w4-TZg" firstAttribute="leading" secondItem="AdX-i1-D8e" secondAttribute="leading" id="6Vh-Z9-did"/>
+                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="centerX" secondItem="aW9-Lm-lVX" secondAttribute="centerX" id="8lG-vy-eNI"/>
+                            <constraint firstItem="aW9-Lm-lVX" firstAttribute="top" secondItem="v5Z-0g-i1P" secondAttribute="bottom" constant="2" id="Nat-3m-GYE"/>
+                            <constraint firstItem="AdX-i1-D8e" firstAttribute="trailing" secondItem="v5Z-0g-i1P" secondAttribute="trailing" id="PXO-h4-Dqh"/>
+                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="leading" secondItem="AdX-i1-D8e" secondAttribute="leading" id="V9O-MU-7Ht"/>
+                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="centerX" secondItem="zZI-w4-TZg" secondAttribute="centerX" id="hIV-H7-F4c"/>
+                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="top" secondItem="zZI-w4-TZg" secondAttribute="bottom" constant="8" id="hxq-qM-I2Y"/>
+                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="centerY" secondItem="NxT-mn-05c" secondAttribute="centerY" id="k9S-nD-2Yw"/>
+                            <constraint firstItem="AdX-i1-D8e" firstAttribute="trailing" secondItem="zZI-w4-TZg" secondAttribute="trailing" id="uMW-6Y-1JG"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="KwO-7D-3Dh">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="esV-p3-kon">
@@ -637,7 +677,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGT-iY-xUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-176" y="141"/>
+            <point key="canvasLocation" x="-176.30331753554501" y="140"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KFy-sA-2ht">

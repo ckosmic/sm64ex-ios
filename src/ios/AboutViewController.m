@@ -16,8 +16,15 @@
     [super viewDidLoad];
 }
 
-- (IBAction) dismissAboutViewController:(id)sender {
+- (IBAction)dismissAboutViewController:(id)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)SourcePressed:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:@"https://github.com/ckosmic/sm64ex-ios"];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
 @end
