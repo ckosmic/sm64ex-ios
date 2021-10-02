@@ -13,6 +13,8 @@
 
 @interface MenuViewController : UITableViewController
 
+@property (weak, nonatomic) IBOutlet UILabel* m_version_label;
+
 - (IBAction) dismissAboutViewController:(id)sender;
 
 @end

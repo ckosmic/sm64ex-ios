@@ -97,6 +97,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="pOm-gn-QDE">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jQt-5P-5df">
+                                        <rect key="frame" x="64" y="185.00000381469729" width="716" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jQt-5P-5df" id="EEJ-eS-egu">
+                                            <rect key="frame" x="0.0" y="0.0" width="716" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzu-5q-lQS">
+                                                    <rect key="frame" x="20" y="10.999999999999972" width="57" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="x.x.x" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzI-i0-36f">
+                                                    <rect key="frame" x="661" y="10.999999999999972" width="35" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="KzG-Pd-498" id="3Uy-rj-AkP"/>
@@ -111,6 +139,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="m_version_label" destination="zzI-i0-36f" id="y5m-vD-lsq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3l3-UB-uin" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -624,46 +655,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="844" height="390"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Super Mario 64 iOS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZI-w4-TZg">
-                                <rect key="frame" x="44" y="108" width="756" height="37"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5Z-0g-i1P">
-                                <rect key="frame" x="44" y="153" width="756" height="90"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="IqU-nq-6Oi"/>
-                                </constraints>
-                                <string key="text">Port by ckosmic
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="r0O-1J-ABY">
+                                <rect key="frame" x="185" y="95.333333333333329" width="474" height="199.66666666666669"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Super Mario 64 iOS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZI-w4-TZg">
+                                        <rect key="frame" x="0.0" y="0.0" width="474" height="37"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDi-Ps-9mB">
+                                        <rect key="frame" x="0.0" y="47.000000000000014" width="474" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5Z-0g-i1P">
+                                        <rect key="frame" x="0.0" y="77.333333333333343" width="474" height="81.333333333333343"/>
+                                        <string key="text">Port by ckosmic
 Based on sm64ex (nightly)
 Touch controls based on VDavid003’s Android implementation
 Thanks to ecumber’s repo for getting the ball rolling</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aW9-Lm-lVX">
-                                <rect key="frame" x="387" y="251" width="70" height="30.999999999999972"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Source"/>
-                                <connections>
-                                    <action selector="SourcePressed:" destination="Kxj-CN-tQE" eventType="touchUpInside" id="s8S-Bb-J4Z"/>
-                                </connections>
-                            </button>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aW9-Lm-lVX">
+                                        <rect key="frame" x="0.0" y="168.66666666666669" width="474" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Source"/>
+                                        <connections>
+                                            <action selector="SourcePressed:" destination="Kxj-CN-tQE" eventType="touchUpInside" id="s8S-Bb-J4Z"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="AdX-i1-D8e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="zZI-w4-TZg" firstAttribute="leading" secondItem="AdX-i1-D8e" secondAttribute="leading" id="6Vh-Z9-did"/>
-                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="centerX" secondItem="aW9-Lm-lVX" secondAttribute="centerX" id="8lG-vy-eNI"/>
-                            <constraint firstItem="aW9-Lm-lVX" firstAttribute="top" secondItem="v5Z-0g-i1P" secondAttribute="bottom" constant="2" id="Nat-3m-GYE"/>
-                            <constraint firstItem="AdX-i1-D8e" firstAttribute="trailing" secondItem="v5Z-0g-i1P" secondAttribute="trailing" id="PXO-h4-Dqh"/>
-                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="leading" secondItem="AdX-i1-D8e" secondAttribute="leading" id="V9O-MU-7Ht"/>
-                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="centerX" secondItem="zZI-w4-TZg" secondAttribute="centerX" id="hIV-H7-F4c"/>
-                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="top" secondItem="zZI-w4-TZg" secondAttribute="bottom" constant="8" id="hxq-qM-I2Y"/>
-                            <constraint firstItem="v5Z-0g-i1P" firstAttribute="centerY" secondItem="NxT-mn-05c" secondAttribute="centerY" id="k9S-nD-2Yw"/>
-                            <constraint firstItem="AdX-i1-D8e" firstAttribute="trailing" secondItem="zZI-w4-TZg" secondAttribute="trailing" id="uMW-6Y-1JG"/>
+                            <constraint firstItem="r0O-1J-ABY" firstAttribute="centerY" secondItem="NxT-mn-05c" secondAttribute="centerY" id="1uk-OR-Ejr"/>
+                            <constraint firstItem="r0O-1J-ABY" firstAttribute="centerX" secondItem="NxT-mn-05c" secondAttribute="centerX" id="umn-fi-yKI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="KwO-7D-3Dh">
@@ -755,6 +787,9 @@ Thanks to ecumber’s repo for getting the ball rolling</string>
         </scene>
     </scenes>
     <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -15,6 +15,8 @@
 {
     [super viewDidLoad];
     paused_by_menu = true;
+    NSString *versionNumber = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [self.m_version_label setText:versionNumber];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

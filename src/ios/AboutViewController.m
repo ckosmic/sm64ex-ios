@@ -14,6 +14,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSString *versionNumber = [NSString stringWithFormat:@"Version %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [self.m_version_label setText:versionNumber];
 }
 
 - (IBAction)dismissAboutViewController:(id)sender
