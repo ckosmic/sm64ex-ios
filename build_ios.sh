@@ -9,7 +9,7 @@ if [ $? -eq 0 ]; then
     rm -rf build/sm64ios.app
     cp -a ios/. build/us_pc/
     cp -R build/us_pc build/sm64ios.app
-    codesign -f -s "Apple Development" --entitlements sm64ios.entitlements build/sm64ios.app
+    #codesign -f -s "Apple Development" --entitlements sm64ios.entitlements build/sm64ios.app
     rm -rf build/Payload
     rm -rf build/sm64ios.ipa
     mkdir build/Payload
