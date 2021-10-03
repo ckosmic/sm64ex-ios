@@ -207,6 +207,10 @@ ifeq ($(OSX_BUILD),1) # Modify GFX & SDL2 for OSX GL
      VERSION_CFLAGS += -DOSX_BUILD
 endif
 
+ifeq ($(TARGET_IOS),1)
+     VERSION_CFLAGS += -DIOS_BUILD
+endif
+
 VERSION_ASFLAGS := --defsym AVOID_UB=1
 COMPARE := 0
 
@@ -514,8 +518,10 @@ else ifeq ($(findstring SDL,$(WINDOW_API)),SDL)
     BACKEND_LDFLAGS += -lglew32 -lglu32 -lopengl32
   else ifeq ($(TARGET_RPI),1)
     BACKEND_LDFLAGS += -lGLESv2
-  else ifeq ($(OSX_BUILD),1)
+  else ifeq ($(TARGET_IOS),1)
     BACKEND_LDFLAGS += -framework OpenGLES -framework AVFoundation -framework AudioToolbox -framework CoreFoundation -framework CoreGraphics -framework CoreBluetooth -framework CoreAudio -framework IOKit -framework GameController -framework Foundation -framework UIKit -framework QuartzCore -framework CoreMotion -framework CoreHaptics -framework Metal -L. -lSDL2 -lc++ -lstdc++ -D.
+  else ifeq ($(OSX_BUILD),1)
+    BACKEND_LDFLAGS += -framework OpenGL `pkg-config --libs glew`
   else
     BACKEND_LDFLAGS += -lGL
   endif
@@ -761,7 +767,6 @@ $(BUILD_DIR)/$(RPC_LIBS):
 	@$(CP) -f $(RPC_LIBS) $(BUILD_DIR)
 
 libultra: $(BUILD_DIR)/libultra.a
-libsm64ios: $(BUILD_DIR)/libsm64ios.a
 
 $(BUILD_DIR)/asm/boot.o: $(IPL3_RAW_FILES)
 $(BUILD_DIR)/src/game/crash_screen.o: $(CRASH_TEXTURE_C_FILES)
@@ -1019,11 +1024,8 @@ $(BUILD_DIR)/%.o: %.s
 
 $(EXE): $(O_FILES) $(MIO0_FILES:.mio0=.o) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(BUILD_DIR)/$(RPC_LIBS)
 	$(LD) -L $(BUILD_DIR) -o $@ $(O_FILES) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(LDFLAGS)
-	
-$(BUILD_DIR)/libsm64ios.a: $(O_FILES) $(MIO0_FILES:.mio0=.o) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(BUILD_DIR)/$(RPC_LIBS)
-	$(LD) -L $(BUILD_DIR) -o $@ $(O_FILES) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(LDFLAGS)
 
-.PHONY: all clean distclean default diff test load libultra res libsm64ios
+.PHONY: all clean distclean default diff test load libultra res
 .PRECIOUS: $(BUILD_DIR)/bin/%.elf $(SOUND_BIN_DIR)/%.ctl $(SOUND_BIN_DIR)/%.tbl $(SOUND_SAMPLE_TABLES) $(SOUND_BIN_DIR)/%.s $(BUILD_DIR)/%
 .DELETE_ON_ERROR:
 
