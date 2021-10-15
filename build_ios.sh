@@ -6,5 +6,3 @@ export CODE_SIGN_IDENTITY="Apple Development"
 export CODE_SIGN_ENTITLEMENTS="sm64ios.entitlements"
 
 gmake ios -j4 TARGET_IOS=1
-
-cp -R "build/us_pc/." "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/"
