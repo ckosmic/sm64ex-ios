@@ -3,10 +3,4 @@ export CXX="clang++ -arch x86_64 -mios-version-min=13.2 -fobjc-weak -std=c++11 -
 export IOSINCLUDE="../simlib/include"
 export IOSLIBS="../simlib/lib"
 
-gmake -j4 TARGET_IOS=1
-
-if [ $? -eq 0 ]; then
-    rm -rf build/sm64ios.app
-    cp -a ios/. build/us_pc/
-    cp -R build/us_pc build/sm64ios.app
-fi
+gmake sim -j4 TARGET_IOS=1
