@@ -27,6 +27,7 @@ TARGET_RPI ?= 0
 # Build for Emscripten/WebGL
 TARGET_WEB ?= 0
 
+# Build for iOS devices
 TARGET_IOS ?= 1
 
 # Makeflag to enable OSX fixes
@@ -698,6 +699,7 @@ LOADER_FLAGS = -vwf
 SHA1SUM = sha1sum
 ZEROTERM = $(PYTHON) $(TOOLS_DIR)/zeroterm.py
 IBTOOL = ibtool
+CODESIGN = codesign
 
 ###################### Dependency Check #####################
 
@@ -745,6 +747,24 @@ $(BASEPACK_PATH): $(BASEPACK_LST)
 	@$(PYTHON) $(TOOLS_DIR)/mkzip.py $(BASEPACK_LST) $(BASEPACK_PATH)
 
 endif
+
+ios: default
+	$(RM) -rf $(BUILD_DIR_BASE)/$(TARGET).app
+	cp -a ios/. $(BUILD_DIR)
+	cp -R $(BUILD_DIR) build/$(TARGET).app
+	$(RM) -rf $(BUILD_DIR_BASE)/Payload
+	$(RM) -rf $(BUILD_DIR_BASE)/$(TARGET).ipa
+	mkdir $(BUILD_DIR_BASE)/Payload
+	cp -r $(BUILD_DIR_BASE)/$(TARGET).app $(BUILD_DIR_BASE)/Payload
+	$(CODESIGN) -f -s "$(CODE_SIGN_IDENTITY)" --entitlements "$(CODE_SIGN_ENTITLEMENTS)" $(BUILD_DIR_BASE)/Payload/$(TARGET).app
+	cd $(BUILD_DIR_BASE) && zip -r -q $(TARGET).ipa Payload && cd ..
+	$(RM) -rf $(BUILD_DIR_BASE)/Payload
+	$(RM) -rf $(BUILD_DIR_BASE)/$(TARGET).app
+
+sim: default
+	$(RM) -rf $(BUILD_DIR_BASE)/$(TARGET).app
+	cp -a ios/. $(BUILD_DIR)
+	cp -R $(BUILD_DIR) build/$(TARGET).app
 
 clean:
 	$(RM) -r $(BUILD_DIR_BASE)
@@ -1024,7 +1044,7 @@ $(BUILD_DIR)/%.o: %.s
 $(EXE): $(O_FILES) $(MIO0_FILES:.mio0=.o) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(BUILD_DIR)/$(RPC_LIBS)
 	$(LD) -L $(BUILD_DIR) -o $@ $(O_FILES) $(SOUND_OBJ_FILES) $(ULTRA_O_FILES) $(GODDARD_O_FILES) $(LDFLAGS)
 
-.PHONY: all clean distclean default diff test load libultra res
+.PHONY: all clean distclean default diff test load libultra res ios sim
 .PRECIOUS: $(BUILD_DIR)/bin/%.elf $(SOUND_BIN_DIR)/%.ctl $(SOUND_BIN_DIR)/%.tbl $(SOUND_SAMPLE_TABLES) $(SOUND_BIN_DIR)/%.s $(BUILD_DIR)/%
 .DELETE_ON_ERROR:
 

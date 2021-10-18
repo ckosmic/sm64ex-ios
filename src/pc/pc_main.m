@@ -21,11 +21,11 @@
 #include "gfx/gfx_direct3d11.h"
 #include "gfx/gfx_direct3d12.h"
 
+#include "ios/native_ui_controller.h"
+#include "gfx/gfx_uikit.h"
+
 #include "gfx/gfx_dxgi.h"
 #include "gfx/gfx_sdl.h"
-
-#include "gfx/gfx_uikit.h"
-#include "ios/native_ui_controller.h"
 
 #include "audio/audio_api.h"
 #include "audio/audio_sdl.h"
@@ -40,6 +40,7 @@
 #include "fs/fs.h"
 
 #include "src/ios/native_ui_controller.h"
+#include "src/ios/GameViewController.h"
 
 #include "game/game_init.h"
 #include "game/main.h"
@@ -183,7 +184,7 @@ static void on_anim_frame(double time) {
 #endif
 
 void present_first_screen(void) {
-    present_viewcontroller(@"FirstScreen");
+    present_viewcontroller(@"MenuNav", true);
 }
 
 void main_func(void) {
@@ -280,6 +281,12 @@ void main_func(void) {
     emscripten_set_main_loop(em_main_loop, 0, 0);
     request_anim_frame(on_anim_frame);
 #else
+    
+    //UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    //GameViewController *gameViewController = [storyboard //instantiateViewControllerWithIdentifier:@"GameViewController"];
+    //UINavigationController *navController = [[UINavigationController alloc] //initWithRootViewController:gameViewController];
+    //[UIApplication sharedApplication].keyWindow.rootViewController = navController;
+    //[[UIApplication sharedApplication].keyWindow makeKeyAndVisible];
     while (true) {
         wm_api->main_loop(produce_one_frame);
         
@@ -290,7 +297,7 @@ void main_func(void) {
 #endif
 }
 
-int main(int argc, char *argv[]) {
+int SDL_main(int argc, char *argv[]) {
     @autoreleasepool {
         parse_cli_opts(argc, argv);
         main_func();

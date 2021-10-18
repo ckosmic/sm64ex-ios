@@ -32,6 +32,7 @@
 
 #include "gfx_window_manager_api.h"
 #include "gfx_screen_config.h"
+#include "gfx_uikit.h"
 #include "../pc_main.h"
 #include "../configfile.h"
 #include "../cliopts.h"
@@ -119,15 +120,12 @@ const SDL_Scancode scancode_rmapping_nonextended[][2] = {
 
 #define IS_FULLSCREEN() ((SDL_GetWindowFlags(wnd) & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0)
 
+// Bad don't do this
 @interface SDL_uikitviewcontroller : UIViewController
--   (BOOL)prefersHomeIndicatorAutoHidden;
 -   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures;
 @end
 
 @implementation SDL_uikitviewcontroller (SDL_uikitviewcontroller_Extensions)
--   (BOOL)prefersHomeIndicatorAutoHidden {
-    return TRUE;
-}
 -   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
     return UIRectEdgeBottom;
 }
@@ -159,7 +157,7 @@ static int test_vsync(void) {
 
     for (int i = 0; i < 8; ++i)
         SDL_GL_SwapWindow(wnd);
-
+    
     Uint32 start = SDL_GetTicks();
     SDL_GL_SwapWindow(wnd);
     SDL_GL_SwapWindow(wnd);
@@ -181,7 +179,6 @@ static int test_vsync(void) {
 static inline void gfx_sdl_set_vsync(const bool enabled) {
     if (enabled) {
         // try to detect refresh rate
-        SDL_GL_SetSwapInterval(1);
         const int vblanks = gCLIOpts.SyncFrames ? (int)gCLIOpts.SyncFrames : test_vsync();
         if (vblanks) {
             printf("determined swap interval: %d\n", vblanks);
@@ -382,6 +379,11 @@ static void gfx_sdl_handle_events(void) {
                             }
                             break;
                         case SDL_WINDOWEVENT_RESTORED:
+                            SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
+                            SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
+                            break;
+                        case SDL_WINDOWEVENT_SHOWN:
+                            //setup_game_viewcontroller((UIViewController *)get_sdl_viewcontroller());
                             SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
                             SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
                             break;

@@ -8,10 +8,13 @@
 #include <math.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "../../ios/GameViewController.h"
+#import "../../ios/native_ui_controller.h"
 
 #include "gfx_uikit.h"
 
 OverlayView *overlayView;
+UIWindow *externalWindow;
 
 @implementation OverlayView
 
@@ -88,12 +91,24 @@ OverlayImageView *add_image_subview(CGImageRef imageRef, CGRect rect) {
 
 void gfx_uikit_init(long *viewControllerPointer) {
     // There's probably a better way to do this than pointer casting
-    UIViewController *viewController = (UIViewController *)viewControllerPointer;
+    UIViewController *sdlViewController = (UIViewController *)viewControllerPointer;
     
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
     overlayView = [[OverlayView alloc] initWithFrame:mainScreenBounds];
     
+    [sdlViewController.view addSubview:overlayView];
     
+    if([[UIScreen screens] count] > 1) {
+        UIScreen *screen = [UIScreen screens][1];
+        externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
+        externalWindow.rootViewController = sdlViewController;
+        externalWindow.screen = screen;
+        externalWindow.hidden = false;
+    }
+}
+
+void setup_game_viewcontroller(UIViewController *subvc) {
+    GameViewController *vc = (GameViewController *)present_viewcontroller(@"GameNav", false);
     
-    [viewController.view addSubview:overlayView];
+    [vc.view addSubview:subvc.view];
 }

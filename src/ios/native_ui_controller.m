@@ -9,9 +9,10 @@
 
 UIViewController *rootVc;
 
-void present_viewcontroller(NSString *vcName) {
+UIViewController *present_viewcontroller(NSString *vcName, bool animated) {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:vcName];
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     [rootViewController presentViewController:vc animated:YES completion:nil];
+    return vc;
 }
