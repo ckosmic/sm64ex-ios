@@ -5,4 +5,4 @@ Feel free to report bugs and contribute, but remember, there must be **no upload
 Run `./extract_assets.py --clean && make clean` or `make distclean` to remove ROM-originated content.
 
 ## Building
-For building instructions, please refer to the [wiki](https://github.com/ckosmic/sm64ex-ios/wiki/Building-for-iOS).
+For building instructions, please refer to the [wiki](https://github.com/ckosmic/sm64ex-ios/wiki).
