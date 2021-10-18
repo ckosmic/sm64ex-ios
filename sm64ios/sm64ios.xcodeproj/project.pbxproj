@@ -433,7 +433,6 @@
 		5918D615271C223F0085DDED /* CheatsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheatsViewController.h; sourceTree = "<group>"; };
 		5918D616271C223F0085DDED /* TouchControlsEnabledViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchControlsEnabledViewController.m; sourceTree = "<group>"; };
 		5918D617271C223F0085DDED /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
-		5918D618271C223F0085DDED /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		5918D619271C223F0085DDED /* TextureFilterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextureFilterViewController.m; sourceTree = "<group>"; };
 		5918D61A271C223F0085DDED /* haptics_controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = haptics_controller.h; sourceTree = "<group>"; };
 		5918D61B271C223F0085DDED /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -441,7 +440,6 @@
 		5918D61D271C223F0085DDED /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		5918D61E271C223F0085DDED /* native_ui_controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = native_ui_controller.m; sourceTree = "<group>"; };
 		5918D61F271C223F0085DDED /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		5918D620271C223F0085DDED /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		5918D621271C223F0085DDED /* MenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		5918D622271C223F0085DDED /* TouchControlsEnabledViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchControlsEnabledViewController.h; sourceTree = "<group>"; };
 		5918D623271C223F0085DDED /* haptics_controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = haptics_controller.m; sourceTree = "<group>"; };
@@ -1236,7 +1234,6 @@
 				5918D615271C223F0085DDED /* CheatsViewController.h */,
 				5918D616271C223F0085DDED /* TouchControlsEnabledViewController.m */,
 				5918D617271C223F0085DDED /* MenuViewController.h */,
-				5918D618271C223F0085DDED /* GameViewController.m */,
 				5918D619271C223F0085DDED /* TextureFilterViewController.m */,
 				5918D61A271C223F0085DDED /* haptics_controller.h */,
 				5918D61B271C223F0085DDED /* Main.storyboard */,
@@ -1244,7 +1241,6 @@
 				5918D61D271C223F0085DDED /* AboutViewController.h */,
 				5918D61E271C223F0085DDED /* native_ui_controller.m */,
 				5918D61F271C223F0085DDED /* SettingsViewController.h */,
-				5918D620271C223F0085DDED /* GameViewController.h */,
 				5918D621271C223F0085DDED /* MenuViewController.m */,
 				5918D622271C223F0085DDED /* TouchControlsEnabledViewController.h */,
 				5918D623271C223F0085DDED /* haptics_controller.m */,
