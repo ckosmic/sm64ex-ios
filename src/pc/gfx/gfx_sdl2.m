@@ -120,15 +120,12 @@ const SDL_Scancode scancode_rmapping_nonextended[][2] = {
 
 #define IS_FULLSCREEN() ((SDL_GetWindowFlags(wnd) & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0)
 
+// Bad don't do this
 @interface SDL_uikitviewcontroller : UIViewController
--   (BOOL)prefersHomeIndicatorAutoHidden;
 -   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures;
 @end
 
 @implementation SDL_uikitviewcontroller (SDL_uikitviewcontroller_Extensions)
--   (BOOL)prefersHomeIndicatorAutoHidden {
-    return TRUE;
-}
 -   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
     return UIRectEdgeBottom;
 }
