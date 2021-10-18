@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-void present_viewcontroller(NSString *vcName);
+UIViewController *present_viewcontroller(NSString *vcName, bool animated);
 
 bool paused_by_menu;
 
