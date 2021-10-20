@@ -22,6 +22,7 @@ struct GfxWindowManagerAPI {
     double (*get_time)(void); // For debug
     void (*shutdown)(void);
     void (*reset_dimension_and_pos)(void);
+    void (*set_screen_state)(long *screenData);
 };
 
 #endif

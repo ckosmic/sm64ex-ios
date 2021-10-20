@@ -16,12 +16,7 @@
 #include <SDL2/SDL.h>
 #define GL_GLEXT_PROTOTYPES 1
 
-#ifdef OSX_BUILD
 #include <SDL2/SDL_opengles2.h>
-#else
-#include <SDL2/SDL_opengles2.h>
-#endif
-
 #include <SDL2/SDL_syswm.h>
 
 #endif // End of OS-Specific GL defines
@@ -39,8 +34,6 @@
 
 #include "src/pc/controller/controller_keyboard.h"
 #include "src/pc/controller/controller_touchscreen.h"
-
-#import <UIKit/UIKit.h>
 
 // TODO: figure out if this shit even works
 #ifdef VERSION_EU
@@ -131,13 +124,13 @@ const SDL_Scancode scancode_rmapping_nonextended[][2] = {
 }
 @end
 
-long* get_sdl_viewcontroller() {
+UIViewController *get_sdl_viewcontroller() {
     SDL_SysWMinfo systemWindowInfo;
     SDL_VERSION(&systemWindowInfo.version);
     SDL_GetWindowWMInfo(wnd, &systemWindowInfo);
     
     UIWindow *uiWindow = systemWindowInfo.info.uikit.window;
-    return (int*)uiWindow.rootViewController;
+    return uiWindow.rootViewController;
 }
 
 static inline void sys_sleep(const uint64_t us) {
@@ -154,7 +147,7 @@ static int test_vsync(void) {
     // This method will fail if the refresh rate is changed, which, in
     // combination with that we can't control the queue size (i.e. lag)
     // is a reason this generic SDL2 backend should only be used as last resort.
-
+    
     for (int i = 0; i < 8; ++i)
         SDL_GL_SwapWindow(wnd);
     
@@ -179,6 +172,9 @@ static int test_vsync(void) {
 static inline void gfx_sdl_set_vsync(const bool enabled) {
     if (enabled) {
         // try to detect refresh rate
+        if(SDL_GL_SetSwapInterval(1) < 0) {
+            printf("Error with swap interval: %s\n", SDL_GetError());
+        }
         const int vblanks = gCLIOpts.SyncFrames ? (int)gCLIOpts.SyncFrames : test_vsync();
         if (vblanks) {
             printf("determined swap interval: %d\n", vblanks);
@@ -464,6 +460,20 @@ static void gfx_sdl_shutdown(void) {
     }
 }
 
+static void gfx_sdl_set_screen_state(long *screenDataPointer) {
+    struct ScreenData screenData = *((struct ScreenData *)screenDataPointer);
+    printf("rendering to screen: %d\n", screenData.index);
+    
+    SDL_Rect bounds;
+    SDL_GetDisplayBounds(screenData.index, &bounds);
+    configWindow.x = bounds.x;
+    configWindow.y = bounds.y;
+    configWindow.w = bounds.w;
+    configWindow.h = bounds.h;
+    SDL_SetWindowPosition(wnd, configWindow.x, configWindow.y);
+    SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
+}
+
 struct GfxWindowManagerAPI gfx_sdl = {
     gfx_sdl_init,
     gfx_sdl_set_keyboard_callbacks,
@@ -476,7 +486,8 @@ struct GfxWindowManagerAPI gfx_sdl = {
     gfx_sdl_swap_buffers_end,
     gfx_sdl_get_time,
     gfx_sdl_shutdown,
-    gfx_sdl_reset_dimension_and_pos
+    gfx_sdl_reset_dimension_and_pos,
+    gfx_sdl_set_screen_state
 };
 
 #endif // BACKEND_WM

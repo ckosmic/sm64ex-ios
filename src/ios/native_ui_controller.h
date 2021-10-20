@@ -11,6 +11,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+struct ScreenData {
+    int index;
+    UIWindow *uiwindow;
+};
+
 UIViewController *present_viewcontroller(NSString *vcName, bool animated);
 
 bool paused_by_menu;

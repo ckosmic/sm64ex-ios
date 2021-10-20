@@ -6,12 +6,8 @@
 //
 
 #include <math.h>
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "../../ios/GameViewController.h"
-#import "../../ios/native_ui_controller.h"
-
-#include "gfx_uikit.h"
+#import "gfx_uikit.h"
+#import "../../ios/ExternalGameViewController.h"
 
 OverlayView *overlayView;
 UIWindow *externalWindow;
@@ -89,26 +85,32 @@ OverlayImageView *add_image_subview(CGImageRef imageRef, CGRect rect) {
     return v;
 }
 
-void gfx_uikit_init(long *viewControllerPointer) {
-    // There's probably a better way to do this than pointer casting
-    UIViewController *sdlViewController = (UIViewController *)viewControllerPointer;
+void gfx_uikit_init(UIViewController *viewControllerPointer, struct ScreenData *screenData) {
+    UIViewController *sdlViewController = viewControllerPointer;
+    
+    UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
     
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
     overlayView = [[OverlayView alloc] initWithFrame:mainScreenBounds];
     
-    [sdlViewController.view addSubview:overlayView];
+    screenData->uiwindow = mainWindow;
+    screenData->index = 0;
     
     if([[UIScreen screens] count] > 1) {
+        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:overlayView];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ExternalGameViewController *externalVc = [storyboard instantiateViewControllerWithIdentifier:@"ExternalScreen"];
+        [externalVc.view addSubview:sdlViewController.view.superview];
         UIScreen *screen = [UIScreen screens][1];
         externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
-        externalWindow.rootViewController = sdlViewController;
+        externalWindow.rootViewController = externalVc;
         externalWindow.screen = screen;
+        externalWindow.screen.overscanCompensation = UIScreenOverscanCompensationScale;
         externalWindow.hidden = false;
+        screenData->index = 1;
+        screenData->uiwindow = externalWindow;
+    } else {
+        [sdlViewController.view addSubview:overlayView];
     }
-}
-
-void setup_game_viewcontroller(UIViewController *subvc) {
-    GameViewController *vc = (GameViewController *)present_viewcontroller(@"GameNav", false);
-    
-    [vc.view addSubview:subvc.view];
 }

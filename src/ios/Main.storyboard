@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="14B-gy-VWT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="landscape" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
@@ -25,37 +25,20 @@
             </objects>
             <point key="canvasLocation" x="-887" y="-663"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="VW5-K1-QVv">
+        <!--External Game View Controller-->
+        <scene sceneID="17T-7e-92n">
             <objects>
-                <navigationController storyboardIdentifier="GameNav" id="14B-gy-VWT" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qe4-Kg-Zu5">
-                        <rect key="frame" x="0.0" y="0.0" width="844" height="32"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="kZX-El-NPb" kind="relationship" relationship="rootViewController" id="Cpw-FX-79c"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rJH-ka-csd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-887" y="-1498"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="rRJ-Xf-8TV">
-            <objects>
-                <viewController id="kZX-El-NPb" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9EL-dv-u1b">
+                <viewController storyboardIdentifier="ExternalScreen" id="MJ1-u5-bGf" customClass="ExternalGameViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cAe-uc-z9k">
                         <rect key="frame" x="0.0" y="0.0" width="844" height="390"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="WvC-0D-hfe"/>
+                        <viewLayoutGuide key="safeArea" id="r1x-LD-FRT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="BN9-gR-nkd"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jSl-dW-Fk9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aXJ-90-WZf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-176" y="-1498"/>
+            <point key="canvasLocation" x="-176" y="-1531"/>
         </scene>
         <!--Main Menu-->
         <scene sceneID="1G3-Zx-8E0">

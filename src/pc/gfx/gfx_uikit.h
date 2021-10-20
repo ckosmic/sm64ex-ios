@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "../../ios/native_ui_controller.h"
+
 @interface OverlayView : UIView
 -   (id)initWithFrame:(CGRect)frame;
 -   (void)drawRect:(CGRect)rect;
@@ -30,9 +32,8 @@
 
 OverlayView *overlayView;
 
-void gfx_uikit_init(long *viewControllerPointer);
+void gfx_uikit_init(UIViewController *viewControllerPointer, struct ScreenData *screenData);
 OverlayImageView *add_image_subview(CGImageRef imageRef, CGRect rect);
 CGImageRef create_imageref(const char *path);
-void setup_game_viewcontroller(UIViewController *subvc);
 
 #endif /* gfx_uikit_h */

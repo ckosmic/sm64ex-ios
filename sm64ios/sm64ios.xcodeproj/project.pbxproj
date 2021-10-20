@@ -30,7 +30,6 @@
 		5918D479271C223E0085DDED /* ini.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ini.c; sourceTree = "<group>"; };
 		5918D47B271C223E0085DDED /* discordrpc.c.disabled */ = {isa = PBXFileReference; lastKnownFileType = text; path = discordrpc.c.disabled; sourceTree = "<group>"; };
 		5918D47C271C223E0085DDED /* discordrpc.h.disabled */ = {isa = PBXFileReference; lastKnownFileType = text; path = discordrpc.h.disabled; sourceTree = "<group>"; };
-		5918D47D271C223E0085DDED /* pc_main.m.orig */ = {isa = PBXFileReference; lastKnownFileType = text; path = pc_main.m.orig; sourceTree = "<group>"; };
 		5918D47E271C223E0085DDED /* ultra_reimplementation.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ultra_reimplementation.c; sourceTree = "<group>"; };
 		5918D47F271C223E0085DDED /* configfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configfile.h; sourceTree = "<group>"; };
 		5918D480271C223E0085DDED /* platform.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = platform.c; sourceTree = "<group>"; };
@@ -537,6 +536,8 @@
 		5918D684271C223F0085DDED /* level_script.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = level_script.c; sourceTree = "<group>"; };
 		5918D685271C223F0085DDED /* behavior_script.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = behavior_script.c; sourceTree = "<group>"; };
 		5918D686271C223F0085DDED /* geo_layout.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = geo_layout.c; sourceTree = "<group>"; };
+		59A67E08271EBCDC00FF5D6C /* ExternalGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExternalGameViewController.m; sourceTree = "<group>"; };
+		59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExternalGameViewController.h; sourceTree = "<group>"; };
 		59AA60412716655100B9AF30 /* libSDL2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDL2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AA60432716655100B9AF30 /* libSDLmain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDLmain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AA60472716655C00B9AF30 /* d3d12sdklayers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = d3d12sdklayers.h; sourceTree = "<group>"; };
@@ -761,7 +762,6 @@
 				5918D478271C223E0085DDED /* README-n64-fast32-engine.md */,
 				5918D479271C223E0085DDED /* ini.c */,
 				5918D47A271C223E0085DDED /* discord */,
-				5918D47D271C223E0085DDED /* pc_main.m.orig */,
 				5918D47E271C223E0085DDED /* ultra_reimplementation.c */,
 				5918D47F271C223E0085DDED /* configfile.h */,
 				5918D480271C223E0085DDED /* platform.c */,
@@ -1245,6 +1245,8 @@
 				5918D622271C223F0085DDED /* TouchControlsEnabledViewController.h */,
 				5918D623271C223F0085DDED /* haptics_controller.m */,
 				5918D624271C223F0085DDED /* TextureFilterViewController.h */,
+				59A67E08271EBCDC00FF5D6C /* ExternalGameViewController.m */,
+				59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */,
 			);
 			path = ios;
 			sourceTree = "<group>";

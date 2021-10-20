@@ -242,9 +242,11 @@ void main_func(void) {
     wm_api->set_touchscreen_callbacks((void*)touch_down, (void*)touch_motion, (void*)touch_up);
     
     UIViewController *gfxVc = get_sdl_viewcontroller();
-    gfx_uikit_init(gfxVc);
+    struct ScreenData screenData;
+    gfx_uikit_init(gfxVc, &screenData);
     configWindow.settings_changed = true;
     wm_api->reset_dimension_and_pos();
+    wm_api->set_screen_state((long *)(&screenData));
     
     menu_button_pressed = &present_first_screen;
 
