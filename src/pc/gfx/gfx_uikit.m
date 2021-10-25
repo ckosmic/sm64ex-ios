@@ -8,8 +8,10 @@
 #include <math.h>
 #import "gfx_uikit.h"
 #import "../../ios/ExternalGameViewController.h"
+#import <objc/runtime.h>
 
 OverlayView *overlayView;
+UIViewController *gameViewController;
 UIWindow *externalWindow;
 
 @implementation OverlayView
@@ -85,32 +87,35 @@ OverlayImageView *add_image_subview(CGImageRef imageRef, CGRect rect) {
     return v;
 }
 
-void gfx_uikit_init(UIViewController *viewControllerPointer, struct ScreenData *screenData) {
-    UIViewController *sdlViewController = viewControllerPointer;
+void gfx_uikit_init(UIViewController *viewControllerPointer) {
+    gameViewController = viewControllerPointer;
     
     UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
     
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
     overlayView = [[OverlayView alloc] initWithFrame:mainScreenBounds];
     
-    screenData->uiwindow = mainWindow;
-    screenData->index = 0;
-    
     if([[UIScreen screens] count] > 1) {
         [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:overlayView];
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ExternalGameViewController *externalVc = [storyboard instantiateViewControllerWithIdentifier:@"ExternalScreen"];
-        [externalVc.view addSubview:sdlViewController.view.superview];
-        UIScreen *screen = [UIScreen screens][1];
-        externalWindow = [[UIWindow alloc] initWithFrame:screen.bounds];
-        externalWindow.rootViewController = externalVc;
-        externalWindow.screen = screen;
-        externalWindow.screen.overscanCompensation = UIScreenOverscanCompensationScale;
-        externalWindow.hidden = false;
-        screenData->index = 1;
-        screenData->uiwindow = externalWindow;
+    
+        //setup_external_screen();
     } else {
-        [sdlViewController.view addSubview:overlayView];
+        [gameViewController.view addSubview:overlayView];
     }
+}
+
+void setup_external_screen() {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ExternalGameViewController *externalVc = [storyboard instantiateViewControllerWithIdentifier:@"ExternalScreen"];
+    UIScreen *screen = [UIScreen screens][1];
+    externalWindow = [[objc_getClass("SDL_uikitwindow") alloc] initWithFrame:screen.bounds];
+    externalWindow.rootViewController = nil;
+    externalWindow.rootViewController = externalVc;
+    externalWindow.screen = screen;
+    externalWindow.screen.overscanCompensation = UIScreenOverscanCompensationScale;
+    externalWindow.hidden = NO;
+    UIView *realView = gameViewController.view;
+    [externalVc.view addSubview:realView];
+    realView.frame = externalVc.view.bounds;
+    realView.contentScaleFactor = 1.0;
 }

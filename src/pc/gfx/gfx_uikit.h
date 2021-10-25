@@ -31,9 +31,11 @@
 @end
 
 OverlayView *overlayView;
+UIViewController *gameViewController;
 
-void gfx_uikit_init(UIViewController *viewControllerPointer, struct ScreenData *screenData);
+void gfx_uikit_init(UIViewController *viewControllerPointer);
 OverlayImageView *add_image_subview(CGImageRef imageRef, CGRect rect);
 CGImageRef create_imageref(const char *path);
+void setup_external_screen();
 
 #endif /* gfx_uikit_h */

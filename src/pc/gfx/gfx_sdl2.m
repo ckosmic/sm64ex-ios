@@ -18,6 +18,7 @@
 
 #include <SDL2/SDL_opengles2.h>
 #include <SDL2/SDL_syswm.h>
+#include <SDL2/SDL_video.h>
 
 #endif // End of OS-Specific GL defines
 
@@ -32,6 +33,7 @@
 #include "../configfile.h"
 #include "../cliopts.h"
 
+#include "src/pc/controller/controller_api.h"
 #include "src/pc/controller/controller_keyboard.h"
 #include "src/pc/controller/controller_touchscreen.h"
 
@@ -172,9 +174,7 @@ static int test_vsync(void) {
 static inline void gfx_sdl_set_vsync(const bool enabled) {
     if (enabled) {
         // try to detect refresh rate
-        if(SDL_GL_SetSwapInterval(1) < 0) {
-            printf("Error with swap interval: %s\n", SDL_GetError());
-        }
+        SDL_GL_SetSwapInterval(1);
         const int vblanks = gCLIOpts.SyncFrames ? (int)gCLIOpts.SyncFrames : test_vsync();
         if (vblanks) {
             printf("determined swap interval: %d\n", vblanks);
@@ -248,7 +248,7 @@ static void gfx_sdl_init(const char *window_title) {
     wnd = SDL_CreateWindow(
         window_title,
         xpos, ypos, configWindow.w, configWindow.h,
-        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE
+        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_FOCUS
     );
     
     ctx = SDL_GL_CreateContext(wnd);
@@ -259,6 +259,8 @@ static void gfx_sdl_init(const char *window_title) {
     gfx_sdl_set_vsync(configWindow.vsync);
 
     gfx_sdl_set_fullscreen();
+    
+    SDL_SetWindowInputFocus(wnd);
 
     perf_freq = SDL_GetPerformanceFrequency();
     frame_time = perf_freq / FRAMERATE;
@@ -379,11 +381,29 @@ static void gfx_sdl_handle_events(void) {
                             SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
                             break;
                         case SDL_WINDOWEVENT_SHOWN:
-                            //setup_game_viewcontroller((UIViewController *)get_sdl_viewcontroller());
                             SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
                             SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
                             break;
+                        case SDL_WINDOWEVENT_RESIZED:
+                            printf("Window resized!\n");
+                            SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
+                            SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
+                            //SDL_SetWindowFullscreen(wnd, SDL_WINDOW_FULLSCREEN_DESKTOP);
+                            break;
                     }
+                }
+                break;
+            case SDL_DISPLAYEVENT:
+                switch(event.display.event) {
+                    case SDL_DISPLAYEVENT_CONNECTED:
+                        //int displayIndex = event.display.display;
+                        if([[UIScreen screens] count] > 1) {
+                            setup_external_screen();
+                            //SDL_SetWindowFullscreen(wnd, SDL_WINDOW_FULLSCREEN_DESKTOP);
+                            //SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
+                            //SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
+                        }
+                        break;
                 }
                 break;
             case SDL_QUIT:
@@ -460,20 +480,6 @@ static void gfx_sdl_shutdown(void) {
     }
 }
 
-static void gfx_sdl_set_screen_state(long *screenDataPointer) {
-    struct ScreenData screenData = *((struct ScreenData *)screenDataPointer);
-    printf("rendering to screen: %d\n", screenData.index);
-    
-    SDL_Rect bounds;
-    SDL_GetDisplayBounds(screenData.index, &bounds);
-    configWindow.x = bounds.x;
-    configWindow.y = bounds.y;
-    configWindow.w = bounds.w;
-    configWindow.h = bounds.h;
-    SDL_SetWindowPosition(wnd, configWindow.x, configWindow.y);
-    SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
-}
-
 struct GfxWindowManagerAPI gfx_sdl = {
     gfx_sdl_init,
     gfx_sdl_set_keyboard_callbacks,
@@ -486,8 +492,7 @@ struct GfxWindowManagerAPI gfx_sdl = {
     gfx_sdl_swap_buffers_end,
     gfx_sdl_get_time,
     gfx_sdl_shutdown,
-    gfx_sdl_reset_dimension_and_pos,
-    gfx_sdl_set_screen_state
+    gfx_sdl_reset_dimension_and_pos
 };
 
 #endif // BACKEND_WM

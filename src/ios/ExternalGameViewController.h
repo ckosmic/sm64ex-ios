@@ -12,6 +12,10 @@
 
 @interface ExternalGameViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel* m_debug_label;
+
+- (void)setDebugText:(NSString *)msg;
+
 @end
 
 #endif /* ExternalGameViewController_h */

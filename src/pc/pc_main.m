@@ -236,19 +236,6 @@ void main_func(void) {
     " nightly " GIT_HASH
     #endif
     ;
-    
-    gfx_init(wm_api, rendering_api, window_title);
-    wm_api->set_keyboard_callbacks(keyboard_on_key_down, keyboard_on_key_up, keyboard_on_all_keys_up);
-    wm_api->set_touchscreen_callbacks((void*)touch_down, (void*)touch_motion, (void*)touch_up);
-    
-    UIViewController *gfxVc = get_sdl_viewcontroller();
-    struct ScreenData screenData;
-    gfx_uikit_init(gfxVc, &screenData);
-    configWindow.settings_changed = true;
-    wm_api->reset_dimension_and_pos();
-    wm_api->set_screen_state((long *)(&screenData));
-    
-    menu_button_pressed = &present_first_screen;
 
     #if defined(AAPI_SDL1) || defined(AAPI_SDL2)
     if (audio_api == NULL && audio_sdl.init()) 
@@ -264,6 +251,17 @@ void main_func(void) {
     
     thread5_game_loop(NULL);
 
+    gfx_init(wm_api, rendering_api, window_title);
+    wm_api->set_keyboard_callbacks(keyboard_on_key_down, keyboard_on_key_up, keyboard_on_all_keys_up);
+    wm_api->set_touchscreen_callbacks((void*)touch_down, (void*)touch_motion, (void*)touch_up);
+    
+    UIViewController *gfxVc = get_sdl_viewcontroller();
+    gfx_uikit_init(gfxVc);
+    configWindow.settings_changed = true;
+    wm_api->reset_dimension_and_pos();
+    
+    menu_button_pressed = &present_first_screen;
+    
     inited = true;
 
 #ifdef EXTERNAL_DATA
@@ -284,14 +282,9 @@ void main_func(void) {
     request_anim_frame(on_anim_frame);
 #else
     
-    //UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    //GameViewController *gameViewController = [storyboard //instantiateViewControllerWithIdentifier:@"GameViewController"];
-    //UINavigationController *navController = [[UINavigationController alloc] //initWithRootViewController:gameViewController];
-    //[UIApplication sharedApplication].keyWindow.rootViewController = navController;
-    //[[UIApplication sharedApplication].keyWindow makeKeyAndVisible];
+    
     while (true) {
         wm_api->main_loop(produce_one_frame);
-        
 #ifdef DISCORDRPC
         discord_update_rich_presence();
 #endif

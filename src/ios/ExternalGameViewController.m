@@ -12,6 +12,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.autoresizesSubviews = TRUE;
+}
+
+- (void)setDebugText:(NSString *)msg {
+    [self.m_debug_label setText:msg];
 }
 
 @end
