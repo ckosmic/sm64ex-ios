@@ -40,7 +40,6 @@
 #include "fs/fs.h"
 
 #include "src/ios/native_ui_controller.h"
-#include "src/ios/GameViewController.h"
 
 #include "game/game_init.h"
 #include "game/main.h"
@@ -253,10 +252,10 @@ void main_func(void) {
 
     gfx_init(wm_api, rendering_api, window_title);
     wm_api->set_keyboard_callbacks(keyboard_on_key_down, keyboard_on_key_up, keyboard_on_all_keys_up);
-    wm_api->set_touchscreen_callbacks((void*)touch_down, (void*)touch_motion, (void*)touch_up);
     
     UIViewController *gfxVc = get_sdl_viewcontroller();
     gfx_uikit_init(gfxVc);
+    gfx_uikit_set_touchscreen_callbacks((void*)touch_down, (void*)touch_motion, (void*)touch_up);
     configWindow.settings_changed = true;
     wm_api->reset_dimension_and_pos();
     

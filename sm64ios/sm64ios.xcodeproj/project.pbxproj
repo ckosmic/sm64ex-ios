@@ -10,6 +10,7 @@
 		5918D221271964510085DDED /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE0E9641BAF967F0098DFA4 /* GameController.framework */; };
 		5918D43E271C1EB80085DDED /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5918D43C271C1EB80085DDED /* libSDL2.a */; };
 		5918D43F271C1EB80085DDED /* libSDLmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5918D43D271C1EB80085DDED /* libSDLmain.a */; };
+		59A67E1D27275B5100FF5D6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59AA7BDC2716685000B9AF30 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +50,7 @@
 		5918D48F271C223E0085DDED /* controller_touchscreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = controller_touchscreen.m; sourceTree = "<group>"; };
 		5918D490271C223E0085DDED /* controller_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = controller_api.h; sourceTree = "<group>"; };
 		5918D491271C223E0085DDED /* controller_sdl1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = controller_sdl1.c; sourceTree = "<group>"; };
-		5918D492271C223E0085DDED /* controller_entry_point.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = controller_entry_point.c; sourceTree = "<group>"; };
+		5918D492271C223E0085DDED /* controller_entry_point.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = controller_entry_point.m; sourceTree = "<group>"; };
 		5918D493271C223E0085DDED /* cheats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cheats.h; sourceTree = "<group>"; };
 		5918D494271C223E0085DDED /* ini.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ini.h; sourceTree = "<group>"; };
 		5918D495271C223E0085DDED /* mixer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mixer.h; sourceTree = "<group>"; };
@@ -538,6 +539,8 @@
 		5918D686271C223F0085DDED /* geo_layout.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = geo_layout.c; sourceTree = "<group>"; };
 		59A67E08271EBCDC00FF5D6C /* ExternalGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExternalGameViewController.m; sourceTree = "<group>"; };
 		59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExternalGameViewController.h; sourceTree = "<group>"; };
+		59A67E0F272733BC00FF5D6C /* TouchControlsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchControlsViewController.m; sourceTree = "<group>"; };
+		59A67E10272733D300FF5D6C /* TouchControlsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchControlsViewController.h; sourceTree = "<group>"; };
 		59AA60412716655100B9AF30 /* libSDL2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDL2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AA60432716655100B9AF30 /* libSDLmain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDLmain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AA60472716655C00B9AF30 /* d3d12sdklayers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = d3d12sdklayers.h; sourceTree = "<group>"; };
@@ -624,17 +627,6 @@
 		59AA609C2716655C00B9AF30 /* seq_macros.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = seq_macros.inc; sourceTree = "<group>"; };
 		59AA609D2716655C00B9AF30 /* geo_commands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geo_commands.h; sourceTree = "<group>"; };
 		59AA7BCC2716674A00B9AF30 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		59AA7BD12716685000B9AF30 /* icon_l.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_l.png; sourceTree = "<group>"; };
-		59AA7BD22716685000B9AF30 /* icon_start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_start.png; sourceTree = "<group>"; };
-		59AA7BD32716685000B9AF30 /* icon_z.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_z.png; sourceTree = "<group>"; };
-		59AA7BD42716685000B9AF30 /* icon_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_menu.png; sourceTree = "<group>"; };
-		59AA7BD52716685000B9AF30 /* touch_button_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touch_button_dark.png; sourceTree = "<group>"; };
-		59AA7BD62716685000B9AF30 /* touch_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touch_button.png; sourceTree = "<group>"; };
-		59AA7BD72716685000B9AF30 /* icon_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow.png; sourceTree = "<group>"; };
-		59AA7BD82716685000B9AF30 /* touch_joystick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touch_joystick.png; sourceTree = "<group>"; };
-		59AA7BD92716685000B9AF30 /* icon_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_r.png; sourceTree = "<group>"; };
-		59AA7BDA2716685000B9AF30 /* icon_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_a.png; sourceTree = "<group>"; };
-		59AA7BDB2716685000B9AF30 /* icon_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_b.png; sourceTree = "<group>"; };
 		59AA7BDC2716685000B9AF30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59AA7BE02718F94400B9AF30 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = ../Makefile; sourceTree = "<group>"; };
 		59AA7BE22718FDB500B9AF30 /* build_ios.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = build_ios.sh; path = ../build_ios.sh; sourceTree = "<group>"; };
@@ -792,22 +784,22 @@
 		5918D482271C223E0085DDED /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				5918D483271C223E0085DDED /* controller_touchscreen_layouts.inc */,
 				5918D484271C223E0085DDED /* controller_keyboard.c */,
 				5918D485271C223E0085DDED /* controller_recorded_tas.c */,
 				5918D486271C223E0085DDED /* controller_emscripten_keyboard.c */,
-				5918D487271C223E0085DDED /* controller_touchscreen.h */,
 				5918D488271C223E0085DDED /* controller_api.c */,
-				5918D489271C223E0085DDED /* controller_sdl.h */,
-				5918D48A271C223E0085DDED /* controller_keyboard.h */,
-				5918D48B271C223E0085DDED /* controller_recorded_tas.h */,
 				5918D48C271C223E0085DDED /* controller_sdl2.c */,
+				5918D489271C223E0085DDED /* controller_sdl.h */,
+				5918D48B271C223E0085DDED /* controller_recorded_tas.h */,
 				5918D48D271C223E0085DDED /* controller_mouse.h */,
+				5918D48A271C223E0085DDED /* controller_keyboard.h */,
 				5918D48E271C223E0085DDED /* controller_emscripten_keyboard.h */,
+				5918D483271C223E0085DDED /* controller_touchscreen_layouts.inc */,
+				5918D487271C223E0085DDED /* controller_touchscreen.h */,
 				5918D48F271C223E0085DDED /* controller_touchscreen.m */,
 				5918D490271C223E0085DDED /* controller_api.h */,
 				5918D491271C223E0085DDED /* controller_sdl1.c */,
-				5918D492271C223E0085DDED /* controller_entry_point.c */,
+				5918D492271C223E0085DDED /* controller_entry_point.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1247,6 +1239,8 @@
 				5918D624271C223F0085DDED /* TextureFilterViewController.h */,
 				59A67E08271EBCDC00FF5D6C /* ExternalGameViewController.m */,
 				59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */,
+				59A67E0F272733BC00FF5D6C /* TouchControlsViewController.m */,
+				59A67E10272733D300FF5D6C /* TouchControlsViewController.h */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -1514,29 +1508,10 @@
 		59AA7BCF2716685000B9AF30 /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				59AA7BD02716685000B9AF30 /* res */,
 				59AA7BDC2716685000B9AF30 /* Assets.xcassets */,
 			);
 			name = ios;
 			path = ../ios;
-			sourceTree = "<group>";
-		};
-		59AA7BD02716685000B9AF30 /* res */ = {
-			isa = PBXGroup;
-			children = (
-				59AA7BD12716685000B9AF30 /* icon_l.png */,
-				59AA7BD22716685000B9AF30 /* icon_start.png */,
-				59AA7BD32716685000B9AF30 /* icon_z.png */,
-				59AA7BD42716685000B9AF30 /* icon_menu.png */,
-				59AA7BD52716685000B9AF30 /* touch_button_dark.png */,
-				59AA7BD62716685000B9AF30 /* touch_button.png */,
-				59AA7BD72716685000B9AF30 /* icon_arrow.png */,
-				59AA7BD82716685000B9AF30 /* touch_joystick.png */,
-				59AA7BD92716685000B9AF30 /* icon_r.png */,
-				59AA7BDA2716685000B9AF30 /* icon_a.png */,
-				59AA7BDB2716685000B9AF30 /* icon_b.png */,
-			);
-			path = res;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1547,6 +1522,7 @@
 			buildConfigurationList = 5918D21327192A4D0085DDED /* Build configuration list for PBXNativeTarget "sm64ios" */;
 			buildPhases = (
 				5918D21627192A6A0085DDED /* ShellScript */,
+				59A67E11272743BB00FF5D6C /* Resources */,
 				5918D222271964520085DDED /* Frameworks */,
 			);
 			buildRules = (
@@ -1592,6 +1568,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		59A67E11272743BB00FF5D6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59A67E1D27275B5100FF5D6C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		5918D21627192A6A0085DDED /* ShellScript */ = {

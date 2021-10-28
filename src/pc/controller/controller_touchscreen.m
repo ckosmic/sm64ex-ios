@@ -9,9 +9,6 @@
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 #include "config.h"
 #include "sm64.h"
 #include "game/game_init.h"
@@ -23,7 +20,7 @@
 #include "../configfile.h"
 
 #include "controller_api.h"
-#include "controller_touchscreen.h"
+#import "controller_touchscreen.h"
 #import "../../ios/haptics_controller.h"
 
 #define SCREEN_WIDTH_API 1280
@@ -44,8 +41,6 @@
 #define N64_DISTANCE_X(a, b) (N64_TO_IOS_X(a) - N64_TO_IOS_X(b))
 #define N64_DISTANCE_Y(a, b) (N64_TO_IOS_Y(a) - N64_TO_IOS_Y(b))
 
-#define JOYSTICK_SIZE 280
-
 enum ControlElementType {
     Joystick,
     Button
@@ -56,24 +51,24 @@ struct Position {
 };
 
 struct ControlElement {
+    char *name;
     enum ControlElementType type;
-    struct Position (*GetPos)();
     int touchID;
     //Joystick
     int joyX, joyY;
     //Button
     int buttonID;
-    NSString *label;
     bool menuButton;
     int slideTouch;
     OverlayImageView *imageView;
-    OverlayImageView *subImageView;
 };
 
 #include "controller_touchscreen_layouts.inc"
 
 static struct ControlElement *ControlElements = ControlElementsDefault;
 static int ControlElementsLength = sizeof(ControlElementsDefault)/sizeof(struct ControlElement);
+
+int joystick_size = 128;
 
 CGImageRef image_button;
 CGImageRef image_button_down;
@@ -89,27 +84,32 @@ CGImageRef image_menu;
 
 HapticsController *haptics = nil;
 
-#define TRIGGER_DETECT(size) (((pos.x + size / 2 > CORRECT_TOUCH_X(event->x)) && (pos.x - size / 2 < CORRECT_TOUCH_X(event->x))) &&\
-                              ((pos.y + size / 2 > CORRECT_TOUCH_Y(event->y)) && (pos.y - size / 2 < CORRECT_TOUCH_Y(event->y))))
+#define TRIGGER_DETECT(size) (((pos.x + size > event->x) && (pos.x < event->x)) && ((pos.y + size > event->y) && (pos.y < event->y)))
+
+#define BUTTON_IMAGE_LIGHT [UIImage imageNamed:@"touch_button"]
+#define BUTTON_IMAGE_DARK [UIImage imageNamed:@"touch_button_dark"]
 
 void touch_down(struct TouchEvent* event) {
-    struct Position pos;
+    CGRect frame;
     for(int i = 0; i < ControlElementsLength; i++) {
         if (ControlElements[i].touchID == 0) {
-            pos = ControlElements[i].GetPos();
-            switch (ControlElements[i].type) {
-                case Joystick:
-                    if (TRIGGER_DETECT(JOYSTICK_SIZE)) {
+            frame = ControlElements[i].imageView.frame;
+            CGPoint pos = [ControlElements[i].imageView convertPoint:frame.origin toView:tcvc.view];
+            if (TRIGGER_DETECT(frame.size.width)) {
+                switch (ControlElements[i].type) {
+                    case Joystick:
+                        joystick_size = frame.size.width;
+                        printf("Touch down: %s\n", ControlElements[i].name);
                         ControlElements[i].touchID = event->touchID;
-                        ControlElements[i].joyX = CORRECT_TOUCH_X(event->x) - pos.x;
-                        ControlElements[i].joyY = CORRECT_TOUCH_Y(event->y) - pos.y;
-                    }
-                    break;
-                case Button:
-                    if (TRIGGER_DETECT(120)) {
+                        ControlElements[i].joyX = event->x - pos.x + joystick_size/2 - 128;
+                        ControlElements[i].joyY = event->y - pos.y + joystick_size/2 - 128;
+                        break;
+                    case Button:
+                        printf("Touch down: %s\n", ControlElements[i].name);
                         ControlElements[i].touchID = event->touchID;
-                    }
-                    break;
+                        ControlElements[i].imageView.image = BUTTON_IMAGE_DARK;
+                        break;
+                }
             }
         }
     }
@@ -117,45 +117,46 @@ void touch_down(struct TouchEvent* event) {
 }
 
 void touch_motion(struct TouchEvent* event) {
-    struct Position pos;
+    CGRect frame;
     for(int i = 0; i < ControlElementsLength; i++) {
-        pos = ControlElements[i].GetPos();
+        frame = ControlElements[i].imageView.frame;
+        CGPoint pos = [ControlElements[i].imageView convertPoint:frame.origin toView:tcvc.view];
         if (ControlElements[i].touchID == event->touchID) {
-            pos = ControlElements[i].GetPos();
-                switch (ControlElements[i].type) {
-                    case Joystick:
-                        ; //workaround
-                        s32 x,y;
-                        x = CORRECT_TOUCH_X(event->x) - pos.x;
-                        y = CORRECT_TOUCH_Y(event->y) - pos.y;
-                        if (pos.x + JOYSTICK_SIZE/2 < CORRECT_TOUCH_X(event->x))
-                            x = JOYSTICK_SIZE/2;
-                        if (pos.x - JOYSTICK_SIZE/2 > CORRECT_TOUCH_X(event->x))
-                            x = -JOYSTICK_SIZE/2;
-                        if (pos.y + JOYSTICK_SIZE/2 < CORRECT_TOUCH_Y(event->y))
-                            y = JOYSTICK_SIZE/2;
-                        if (pos.y - JOYSTICK_SIZE/2 > CORRECT_TOUCH_Y(event->y))
-                            y = -JOYSTICK_SIZE/2;
+            switch (ControlElements[i].type) {
+                case Joystick:
+                    ; //workaround
+                    s32 x,y;
+                    x = event->x - pos.x + joystick_size/2 - 128;
+                    y = event->y - pos.y + joystick_size/2 - 128;
+                    if (event->x > pos.x + joystick_size)
+                        x = joystick_size/2;
+                    if (event->x < pos.x)
+                        x = -joystick_size/2;
+                    if (event->y > pos.y + joystick_size)
+                        y = joystick_size/2;
+                    if (event->y < pos.y)
+                        y = -joystick_size/2;
 
-                        ControlElements[i].joyX = x;
-                        ControlElements[i].joyY = y;
-                        break;
-                    case Button:
-                        if (ControlElements[i].slideTouch && !TRIGGER_DETECT(120)) {
-                            ControlElements[i].slideTouch = 0;
-                            ControlElements[i].touchID = 0;
-                        }
-                        break;
-                }
-        }
-        else {
+                    ControlElements[i].joyX = x;
+                    ControlElements[i].joyY = y;
+                    break;
+                case Button:
+                    if (ControlElements[i].slideTouch && !TRIGGER_DETECT(frame.size.width)) {
+                        ControlElements[i].slideTouch = 0;
+                        ControlElements[i].touchID = 0;
+                        ControlElements[i].imageView.image = BUTTON_IMAGE_LIGHT;
+                    }
+                    break;
+            }
+        } else {
             switch (ControlElements[i].type) {
                 case Joystick:
                     break;
                 case Button:
-                    if (TRIGGER_DETECT(120)) {
+                    if (TRIGGER_DETECT(frame.size.width)) {
                         ControlElements[i].slideTouch = 1;
                         ControlElements[i].touchID = event->touchID;
+                        ControlElements[i].imageView.image = BUTTON_IMAGE_DARK;
                     }
                     break;
             }
@@ -171,57 +172,51 @@ static void handle_touch_up(int i) {//seperated for when the layout changes
             ControlElements[i].joyY = 0;
             break;
         case Button:
+            ControlElements[i].imageView.image = BUTTON_IMAGE_LIGHT;
             break;
     }
 }
 
 void touch_up(struct TouchEvent* event) {
-    struct Position pos;
     for(int i = 0; i < ControlElementsLength; i++) {
         if (ControlElements[i].touchID == event->touchID)
             handle_touch_up(i);
     }
 }
 
-void add_button_label(OverlayImageView *button, NSString *labelString, CGRect rect) {
-    UILabel *label = [[UILabel alloc] initWithFrame:rect];
-    label.text = labelString;
-    
-    [label setTextColor:[UIColor whiteColor]];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [button addSubview:label];
-}
-
 void render_touch_controls(void) {
-    overlayView.hidden = NO;
+    [tcvc setTouchControlsHidden:NO];
     if((get_current_input() != Touch || configTouchMode == 1) && configTouchMode != 0) {
-        overlayView.hidden = YES;
+        [tcvc setTouchControlsHidden:YES];
         return;
     }
     
     struct Position pos;
     for (int i = 0; i < ControlElementsLength; i++) {
-        pos = ControlElements[i].GetPos();
-        CGRect rect = CGRectMake(N64_TO_IOS_X(pos.x - 64), N64_TO_IOS_Y(pos.y - 64), N64_DISTANCE_X(pos.x+64,pos.x-64), N64_DISTANCE_Y(pos.y+64,pos.y-64));
+       // pos = ControlElements[i].GetPos();
+        //CGRect rect = CGRectMake(N64_TO_IOS_X(pos.x - 64), N64_TO_IOS_Y(pos.y - 64), N64_DISTANCE_X(pos.x+64,pos.x-64), N64_DISTANCE_Y(pos.y+64,pos.y-64));
         switch (ControlElements[i].type) {
             case Joystick:
                 ;
-                CGRect bgRect = CGRectMake(N64_TO_IOS_X(pos.x - 128), N64_TO_IOS_Y(pos.y - 128), N64_DISTANCE_X(pos.x+128,pos.x-128), N64_DISTANCE_Y(pos.y+128,pos.y-128));
-                CGRect jsRect = CGRectMake(N64_TO_IOS_X(pos.x + ControlElements[i].joyX - 64), N64_TO_IOS_Y(pos.y + ControlElements[i].joyY - 64), N64_DISTANCE_X(pos.x+64,pos.x-64), N64_DISTANCE_Y(pos.y+64,pos.y-64));
+                //CGRect bgRect = CGRectMake(N64_TO_IOS_X(pos.x - 128), N64_TO_IOS_Y(pos.y - 128), N64_DISTANCE_X(pos.x+128,pos.x-128), N64_DISTANCE_Y(pos.y+128,pos.y-128));
+                //CGRect jsRect = CGRectMake(N64_TO_IOS_X(pos.x + ControlElements[i].joyX - 64), N64_TO_IOS_Y(pos.y + ControlElements[i].joyY - 64), N64_DISTANCE_X(pos.x+64,pos.x-64), N64_DISTANCE_Y(pos.y+64,pos.y-64));
                 // Draw joystick background
-                if(ControlElements[i].imageView == NULL)
-                    ControlElements[i].imageView = add_image_subview(image_joystick, bgRect);
+                //if(ControlElements[i].imageView == NULL)
+                    //ControlElements[i].imageView = add_image_subview(image_joystick, bgRect);
                 // Draw joystick nub
-                if(ControlElements[i].subImageView == NULL)
-                    ControlElements[i].subImageView = add_image_subview(image_button, jsRect);
+                //if(ControlElements[i].subImageView == NULL)
+                    //ControlElements[i].subImageView = add_image_subview(image_button, jsRect);
             
                 // Reposition joystick nub
-                ControlElements[i].subImageView.frame = jsRect;
+                //ControlElements[i].subImageView.frame = jsRect;
+                CGRect bounds = ControlElements[i].imageView.subimage.bounds;
+                bounds.origin.x = ControlElements[i].joyX + joystick_size/2 - bounds.size.width/2;
+                bounds.origin.y = ControlElements[i].joyY + joystick_size/2 - bounds.size.height/2;
+                ControlElements[i].imageView.subimage.frame = bounds;
                 break;
             case Button:
                 ;
-                if(ControlElements[i].imageView == NULL) {
+                /*if(ControlElements[i].imageView == NULL) {
                     ControlElements[i].imageView = add_image_subview(image_button, rect);
                     switch(ControlElements[i].buttonID) {
                         case U_CBUTTONS:
@@ -268,26 +263,36 @@ void render_touch_controls(void) {
                     [ControlElements[i].imageView setImageRef:image_button_down];
                 else
                     [ControlElements[i].imageView setImageRef:image_button];
-                break;
+                break;*/
         }
     }
 }
 
 static void touchscreen_init(void) {
-    image_button = create_imageref("res/touch_button.png");
-    image_button_down = create_imageref("res/touch_button_dark.png");
-    image_joystick = create_imageref("res/touch_joystick.png");
-    image_arrow = create_imageref("res/icon_arrow.png");
-    image_a = create_imageref("res/icon_a.png");
-    image_b = create_imageref("res/icon_b.png");
-    image_z = create_imageref("res/icon_z.png");
-    image_l = create_imageref("res/icon_l.png");
-    image_r = create_imageref("res/icon_r.png");
-    image_start = create_imageref("res/icon_start.png");
-    image_menu = create_imageref("res/icon_menu.png");
+    //image_button = create_imageref("res/touch_button.png");
+    //image_button_down = create_imageref("res/touch_button_dark.png");
+    //image_joystick = create_imageref("res/touch_joystick.png");
+    //image_arrow = create_imageref("res/icon_arrow.png");
+    //image_a = create_imageref("res/icon_a.png");
+    //image_b = create_imageref("res/icon_b.png");
+    //image_z = create_imageref("res/icon_z.png");
+    //image_l = create_imageref("res/icon_l.png");
+    //image_r = create_imageref("res/icon_r.png");
+    //image_start = create_imageref("res/icon_start.png");
+    //image_menu = create_imageref("res/icon_menu.png");
     
     if(hapticsSupported) {
         haptics = [[HapticsController alloc] initialize];
+    }
+}
+
+void touchscreen_set_imageviews(NSMutableArray *imageViews) {
+    for(int i = 0; i < imageViews.count; i++) {
+        for(int j = 0; j < ControlElementsLength; j++) {
+            if(((OverlayImageView *)imageViews[i]).buttonTag == ControlElements[j].buttonID) {
+                ControlElements[j].imageView = imageViews[i];
+            }
+        }
     }
 }
 
@@ -296,8 +301,8 @@ static void touchscreen_read(OSContPad *pad) {
         switch (ControlElements[i].type) {
             case Joystick:
                 if (ControlElements[i].joyX || ControlElements[i].joyY) {
-                    pad->stick_x = (ControlElements[i].joyX + JOYSTICK_SIZE/2) * 255 / JOYSTICK_SIZE - 128;
-                    pad->stick_y = (-ControlElements[i].joyY + JOYSTICK_SIZE/2) * 255 / JOYSTICK_SIZE - 128; //inverted for some reason
+                    pad->stick_x = (ControlElements[i].joyX + joystick_size/2) * 255 / joystick_size + 128;
+                    pad->stick_y = (-ControlElements[i].joyY + joystick_size/2) * 255 / joystick_size + 128; //inverted for some reason
                 }
                 break;
             case Button:
@@ -333,8 +338,8 @@ static void touchscreen_shutdown(void) {
     CGImageRelease(image_button);
     CGImageRelease(image_button_down);
     for(int i = 0; i < ControlElementsLength; i++) {
-        [ControlElements[i].imageView release];
-        [ControlElements[i].subImageView release];
+        //[ControlElements[i].imageView release];
+        //[ControlElements[i].subImageView release];
     }
     if(hapticsSupported) {
         [haptics cleanup];

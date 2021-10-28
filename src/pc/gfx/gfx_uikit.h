@@ -12,6 +12,8 @@
 #import <UIKit/UIKit.h>
 
 #import "../../ios/native_ui_controller.h"
+#import "../../ios/ExternalGameViewController.h"
+#import "../../ios/TouchControlsViewController.h"
 
 @interface OverlayView : UIView
 -   (id)initWithFrame:(CGRect)frame;
@@ -20,22 +22,11 @@
 -   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures;
 @end
 
-@interface OverlayImageView : UIView
-{
-    CGImageRef imageRef;
-}
-@property(nonatomic) CGImageRef imageRef;
--   (void)setImageRef:(CGImageRef)newImageRef;
--   (id)initWithFrame:(CGRect)frame;
--   (void)drawRect:(CGRect)rect;
-@end
-
-OverlayView *overlayView;
+TouchControlsViewController *tcvc;
 UIViewController *gameViewController;
 
 void gfx_uikit_init(UIViewController *viewControllerPointer);
-OverlayImageView *add_image_subview(CGImageRef imageRef, CGRect rect);
-CGImageRef create_imageref(const char *path);
 void setup_external_screen();
+void gfx_uikit_set_touchscreen_callbacks(void (*down)(void* event), void (*motion)(void* event), void (*up)(void* event));
 
 #endif /* gfx_uikit_h */

@@ -63,16 +63,16 @@ struct Position GetDefaultRightPos() {
 }
 
 static struct ControlElement ControlElementsDefault[] = {
-{.type = Joystick, .GetPos = GetDefaultJoystickPos},
-{.type = Button, .GetPos = GetDefaultStartPos, .label = @"S", .buttonID = START_BUTTON},
-{.type = Button, .GetPos = GetDefaultMenuPos, .label = @"M", .menuButton = 1},
-{.type = Button, .GetPos = GetDefaultAPos, .label = @"A", .buttonID = A_BUTTON},
-{.type = Button, .GetPos = GetDefaultBPos, .label = @"B", .buttonID = B_BUTTON},
-{.type = Button, .GetPos = GetDefaultZPos, .label = @"Z", .buttonID = Z_TRIG}, //There's no z character, so let's just call it t for trigger
-{.type = Button, .GetPos = GetDefaultLPos, .label = @"L", .buttonID = L_TRIG},
-{.type = Button, .GetPos = GetDefaultRPos, .label = @"R", .buttonID = R_TRIG},
-{.type = Button, .GetPos = GetDefaultUpPos, .label = @"U", .buttonID = U_CBUTTONS},
-{.type = Button, .GetPos = GetDefaultDownPos, .label = @"D", .buttonID = D_CBUTTONS},
-{.type = Button, .GetPos = GetDefaultLeftPos, .label = @"L", .buttonID = L_CBUTTONS},
-{.type = Button, .GetPos = GetDefaultRightPos, .label = @"R", .buttonID = R_CBUTTONS}
+{.type = Joystick, .name = "Joystick", .buttonID = 69420},
+{.type = Button, .name = "Start", .buttonID = START_BUTTON},
+{.type = Button, .name = "Menu", .menuButton = 1, .buttonID = 69},
+{.type = Button, .name = "A", .buttonID = A_BUTTON},
+{.type = Button, .name = "B", .buttonID = B_BUTTON},
+{.type = Button, .name = "Z", .buttonID = Z_TRIG},
+{.type = Button, .name = "L", .buttonID = L_TRIG},
+{.type = Button, .name = "R", .buttonID = R_TRIG},
+{.type = Button, .name = "Up", .buttonID = U_CBUTTONS},
+{.type = Button, .name = "Down", .buttonID = D_CBUTTONS},
+{.type = Button, .name = "Left", .buttonID = L_CBUTTONS},
+{.type = Button, .name = "Right", .buttonID = R_CBUTTONS}
 };
