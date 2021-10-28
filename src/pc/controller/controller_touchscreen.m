@@ -70,18 +70,6 @@ static int ControlElementsLength = sizeof(ControlElementsDefault)/sizeof(struct 
 
 int joystick_size = 128;
 
-CGImageRef image_button;
-CGImageRef image_button_down;
-CGImageRef image_joystick;
-CGImageRef image_arrow;
-CGImageRef image_a;
-CGImageRef image_b;
-CGImageRef image_z;
-CGImageRef image_l;
-CGImageRef image_r;
-CGImageRef image_start;
-CGImageRef image_menu;
-
 HapticsController *haptics = nil;
 
 #define TRIGGER_DETECT(size) (((pos.x + size > event->x) && (pos.x < event->x)) && ((pos.y + size > event->y) && (pos.y < event->y)))
@@ -193,22 +181,9 @@ void render_touch_controls(void) {
     
     struct Position pos;
     for (int i = 0; i < ControlElementsLength; i++) {
-       // pos = ControlElements[i].GetPos();
-        //CGRect rect = CGRectMake(N64_TO_IOS_X(pos.x - 64), N64_TO_IOS_Y(pos.y - 64), N64_DISTANCE_X(pos.x+64,pos.x-64), N64_DISTANCE_Y(pos.y+64,pos.y-64));
         switch (ControlElements[i].type) {
             case Joystick:
                 ;
-                //CGRect bgRect = CGRectMake(N64_TO_IOS_X(pos.x - 128), N64_TO_IOS_Y(pos.y - 128), N64_DISTANCE_X(pos.x+128,pos.x-128), N64_DISTANCE_Y(pos.y+128,pos.y-128));
-                //CGRect jsRect = CGRectMake(N64_TO_IOS_X(pos.x + ControlElements[i].joyX - 64), N64_TO_IOS_Y(pos.y + ControlElements[i].joyY - 64), N64_DISTANCE_X(pos.x+64,pos.x-64), N64_DISTANCE_Y(pos.y+64,pos.y-64));
-                // Draw joystick background
-                //if(ControlElements[i].imageView == NULL)
-                    //ControlElements[i].imageView = add_image_subview(image_joystick, bgRect);
-                // Draw joystick nub
-                //if(ControlElements[i].subImageView == NULL)
-                    //ControlElements[i].subImageView = add_image_subview(image_button, jsRect);
-            
-                // Reposition joystick nub
-                //ControlElements[i].subImageView.frame = jsRect;
                 CGRect bounds = ControlElements[i].imageView.subimage.bounds;
                 bounds.origin.x = ControlElements[i].joyX + joystick_size/2 - bounds.size.width/2;
                 bounds.origin.y = ControlElements[i].joyY + joystick_size/2 - bounds.size.height/2;
@@ -216,71 +191,12 @@ void render_touch_controls(void) {
                 break;
             case Button:
                 ;
-                /*if(ControlElements[i].imageView == NULL) {
-                    ControlElements[i].imageView = add_image_subview(image_button, rect);
-                    switch(ControlElements[i].buttonID) {
-                        case U_CBUTTONS:
-                            ControlElements[i].subImageView = add_image_subview(image_arrow, rect);
-                            [ControlElements[i].subImageView setRotation:180.0];
-                            break;
-                        case D_CBUTTONS:
-                            ControlElements[i].subImageView = add_image_subview(image_arrow, rect);
-                            [ControlElements[i].subImageView setRotation:0.0];
-                            break;
-                        case L_CBUTTONS:
-                            ControlElements[i].subImageView = add_image_subview(image_arrow, rect);
-                            [ControlElements[i].subImageView setRotation:90.0];
-                            break;
-                        case R_CBUTTONS:
-                            ControlElements[i].subImageView = add_image_subview(image_arrow, rect);
-                            [ControlElements[i].subImageView setRotation:270.0];
-                            break;
-                        case A_BUTTON:
-                            ControlElements[i].subImageView = add_image_subview(image_a, rect);
-                            break;
-                        case B_BUTTON:
-                            ControlElements[i].subImageView = add_image_subview(image_b, rect);
-                            break;
-                        case L_TRIG:
-                            ControlElements[i].subImageView = add_image_subview(image_l, rect);
-                            break;
-                        case Z_TRIG:
-                            ControlElements[i].subImageView = add_image_subview(image_z, rect);
-                            break;
-                        case R_TRIG:
-                            ControlElements[i].subImageView = add_image_subview(image_r, rect);
-                            break;
-                        case START_BUTTON:
-                            ControlElements[i].subImageView = add_image_subview(image_start, rect);
-                            break;
-                    }
-                    if(ControlElements[i].menuButton) {
-                        ControlElements[i].subImageView = add_image_subview(image_menu, rect);
-                    }
-                }
-                
-                if (ControlElements[i].touchID)
-                    [ControlElements[i].imageView setImageRef:image_button_down];
-                else
-                    [ControlElements[i].imageView setImageRef:image_button];
-                break;*/
+                break;
         }
     }
 }
 
 static void touchscreen_init(void) {
-    //image_button = create_imageref("res/touch_button.png");
-    //image_button_down = create_imageref("res/touch_button_dark.png");
-    //image_joystick = create_imageref("res/touch_joystick.png");
-    //image_arrow = create_imageref("res/icon_arrow.png");
-    //image_a = create_imageref("res/icon_a.png");
-    //image_b = create_imageref("res/icon_b.png");
-    //image_z = create_imageref("res/icon_z.png");
-    //image_l = create_imageref("res/icon_l.png");
-    //image_r = create_imageref("res/icon_r.png");
-    //image_start = create_imageref("res/icon_start.png");
-    //image_menu = create_imageref("res/icon_menu.png");
-    
     if(hapticsSupported) {
         haptics = [[HapticsController alloc] initialize];
     }
@@ -335,12 +251,6 @@ static void touchscreen_rumble_stop() {
 }
 
 static void touchscreen_shutdown(void) {
-    CGImageRelease(image_button);
-    CGImageRelease(image_button_down);
-    for(int i = 0; i < ControlElementsLength; i++) {
-        //[ControlElements[i].imageView release];
-        //[ControlElements[i].subImageView release];
-    }
     if(hapticsSupported) {
         [haptics cleanup];
         [haptics release];

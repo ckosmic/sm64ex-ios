@@ -541,6 +541,8 @@
 		59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExternalGameViewController.h; sourceTree = "<group>"; };
 		59A67E0F272733BC00FF5D6C /* TouchControlsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchControlsViewController.m; sourceTree = "<group>"; };
 		59A67E10272733D300FF5D6C /* TouchControlsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchControlsViewController.h; sourceTree = "<group>"; };
+		59A67E1E272A94C400FF5D6C /* appicon.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = appicon.sh; path = ../appicon.sh; sourceTree = "<group>"; };
+		59A67E1F272AA49100FF5D6C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 		59AA60412716655100B9AF30 /* libSDL2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDL2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AA60432716655100B9AF30 /* libSDLmain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDLmain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AA60472716655C00B9AF30 /* d3d12sdklayers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = d3d12sdklayers.h; sourceTree = "<group>"; };
@@ -678,8 +680,10 @@
 		29B97315FDCFA39411CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				59A67E1F272AA49100FF5D6C /* .gitignore */,
 				5918D472271C223E0085DDED /* src */,
 				5918D217271956920085DDED /* build.sh */,
+				59A67E1E272A94C400FF5D6C /* appicon.sh */,
 				59AA7BE22718FDB500B9AF30 /* build_ios.sh */,
 				59AA7BE32718FDB500B9AF30 /* build_sim.sh */,
 				59AA7BE02718F94400B9AF30 /* Makefile */,
@@ -1607,6 +1611,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1688,6 +1693,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

@@ -64,6 +64,7 @@ sm64config.txt
 *.mobileprovision
 .DS_Store
 enhancements/experimental/*
+ios/Assets.xcassets/AppIcon.appiconset/*.png
 
 # Assets. Generally ignored, but ones with "custom" in the name are fine.
 /levels/**/*.png
