@@ -260,7 +260,7 @@ static void gfx_sdl_init(const char *window_title) {
 
     gfx_sdl_set_fullscreen();
     
-    SDL_SetWindowInputFocus(wnd);
+    SDL_RaiseWindow(wnd);
 
     perf_freq = SDL_GetPerformanceFrequency();
     frame_time = perf_freq / FRAMERATE;
@@ -396,13 +396,12 @@ static void gfx_sdl_handle_events(void) {
             case SDL_DISPLAYEVENT:
                 switch(event.display.event) {
                     case SDL_DISPLAYEVENT_CONNECTED:
-                        //int displayIndex = event.display.display;
                         if([[UIScreen screens] count] > 1) {
                             setup_external_screen();
-                            //SDL_SetWindowFullscreen(wnd, SDL_WINDOW_FULLSCREEN_DESKTOP);
-                            //SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
-                            //SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
                         }
+                        break;
+                    case SDL_DISPLAYEVENT_DISCONNECTED:
+                        teardown_external_screen();
                         break;
                 }
                 break;
