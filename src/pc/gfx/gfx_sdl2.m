@@ -175,7 +175,11 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
     if (enabled) {
         // try to detect refresh rate
         SDL_GL_SetSwapInterval(1);
-        const int vblanks = gCLIOpts.SyncFrames ? (int)gCLIOpts.SyncFrames : test_vsync();
+        int vblanks = test_vsync();
+        if(vblanks & 1)
+            vblanks = 0;
+        else
+            vblanks /= 2;
         if (vblanks) {
             printf("determined swap interval: %d\n", vblanks);
             SDL_GL_SetSwapInterval(vblanks);
@@ -260,10 +264,10 @@ static void gfx_sdl_init(const char *window_title) {
 
     gfx_sdl_set_fullscreen();
     
-    SDL_SetWindowInputFocus(wnd);
+    SDL_RaiseWindow(wnd);
 
     perf_freq = SDL_GetPerformanceFrequency();
-    frame_time = perf_freq / FRAMERATE;
+    frame_time = perf_freq / (2 * FRAMERATE);
 
     for (size_t i = 0; i < sizeof(windows_scancode_table) / sizeof(SDL_Scancode); i++) {
         inverted_scancode_table[windows_scancode_table[i]] = i;
@@ -396,13 +400,12 @@ static void gfx_sdl_handle_events(void) {
             case SDL_DISPLAYEVENT:
                 switch(event.display.event) {
                     case SDL_DISPLAYEVENT_CONNECTED:
-                        //int displayIndex = event.display.display;
                         if([[UIScreen screens] count] > 1) {
                             setup_external_screen();
-                            //SDL_SetWindowFullscreen(wnd, SDL_WINDOW_FULLSCREEN_DESKTOP);
-                            //SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
-                            //SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
                         }
+                        break;
+                    case SDL_DISPLAYEVENT_DISCONNECTED:
+                        teardown_external_screen();
                         break;
                 }
                 break;
