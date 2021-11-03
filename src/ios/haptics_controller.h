@@ -14,10 +14,10 @@
 @interface HapticsController : NSObject
 
 @property(nonatomic,strong) CHHapticEngine *engine;
-@property(nonatomic,strong) id<CHHapticPatternPlayer> player;
-@property bool active;
+@property(nonatomic,strong) id<CHHapticAdvancedPatternPlayer> player;
+@property(nonatomic) bool active;
 
-- (id)initialize;
+- (id)init;
 - (void)rumble:(float)intensity duration:(double)duration;
 - (void)cleanup;
 

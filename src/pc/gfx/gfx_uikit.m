@@ -37,6 +37,7 @@ void gfx_uikit_init(UIViewController *viewControllerPointer) {
     gameViewController = viewControllerPointer;
     
     mainWindow = [[[UIApplication sharedApplication] delegate] window];
+    mainWindow.rootViewController = gameViewController;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     tcvc = [storyboard instantiateViewControllerWithIdentifier:@"TouchControlsViewController"];

@@ -26,6 +26,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#import <objc/runtime.h>
+
 #include "gfx_window_manager_api.h"
 #include "gfx_screen_config.h"
 #include "gfx_uikit.h"
@@ -36,6 +38,8 @@
 #include "src/pc/controller/controller_api.h"
 #include "src/pc/controller/controller_keyboard.h"
 #include "src/pc/controller/controller_touchscreen.h"
+
+#import "src/ios/FrameController.h"
 
 // TODO: figure out if this shit even works
 #ifdef VERSION_EU
@@ -55,6 +59,8 @@ static void (*kb_all_keys_up)(void) = NULL;
 static void (*touch_down_callback)(void* event);
 static void (*touch_motion_callback)(void* event);
 static void (*touch_up_callback)(void* event);
+
+static void gfx_sdl_swap_buffers_begin(void);
 
 // whether to use timer for frame control
 static bool use_timer = true;
@@ -115,13 +121,18 @@ const SDL_Scancode scancode_rmapping_nonextended[][2] = {
 
 #define IS_FULLSCREEN() ((SDL_GetWindowFlags(wnd) & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0)
 
+static inline void sys_sleep(const uint64_t us) {
+    // TODO: not everything has usleep()
+    usleep(us);
+}
+
 // Bad don't do this
 @interface SDL_uikitviewcontroller : UIViewController
--   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures;
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures;
 @end
 
 @implementation SDL_uikitviewcontroller (SDL_uikitviewcontroller_Extensions)
--   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
     return UIRectEdgeBottom;
 }
 @end
@@ -133,11 +144,6 @@ UIViewController *get_sdl_viewcontroller() {
     
     UIWindow *uiWindow = systemWindowInfo.info.uikit.window;
     return uiWindow.rootViewController;
-}
-
-static inline void sys_sleep(const uint64_t us) {
-    // TODO: not everything has usleep()
-    usleep(us);
 }
 
 static int test_vsync(void) {
@@ -174,7 +180,7 @@ static int test_vsync(void) {
 static inline void gfx_sdl_set_vsync(const bool enabled) {
     if (enabled) {
         // try to detect refresh rate
-        SDL_GL_SetSwapInterval(1);
+        /*SDL_GL_SetSwapInterval(1);
         const int vblanks = gCLIOpts.SyncFrames ? (int)gCLIOpts.SyncFrames : test_vsync();
         if (vblanks) {
             printf("determined swap interval: %d\n", vblanks);
@@ -183,7 +189,10 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
             return;
         } else {
             printf("could not determine swap interval, falling back to timer sync\n");
-        }
+        }*/
+        use_timer = false;
+        SDL_GL_SetSwapInterval(0);
+        return;
     }
 
     use_timer = true;
@@ -259,11 +268,11 @@ static void gfx_sdl_init(const char *window_title) {
     gfx_sdl_set_vsync(configWindow.vsync);
 
     gfx_sdl_set_fullscreen();
-    
-    SDL_RaiseWindow(wnd);
 
     perf_freq = SDL_GetPerformanceFrequency();
     frame_time = perf_freq / FRAMERATE;
+    
+    [frameController.onScreenRefreshForGame addObject:[NSValue valueWithPointer:gfx_sdl_swap_buffers_begin]];
 
     for (size_t i = 0; i < sizeof(windows_scancode_table) / sizeof(SDL_Scancode); i++) {
         inverted_scancode_table[windows_scancode_table[i]] = i;
@@ -277,6 +286,8 @@ static void gfx_sdl_init(const char *window_title) {
         inverted_scancode_table[scancode_rmapping_nonextended[i][0]] = inverted_scancode_table[scancode_rmapping_nonextended[i][1]];
         inverted_scancode_table[scancode_rmapping_nonextended[i][1]] += 0x100;
     }
+    
+    SDL_RaiseWindow(wnd);
 }
 
 static void gfx_sdl_main_loop(void (*run_one_game_iter)(void)) {
@@ -459,7 +470,9 @@ static inline void sync_framerate_with_timer(void) {
 }
 
 static void gfx_sdl_swap_buffers_begin(void) {
-    if (use_timer) sync_framerate_with_timer();
+    if (use_timer) {
+        sync_framerate_with_timer();
+    }
     SDL_GL_SwapWindow(wnd);
 }
 
@@ -487,7 +500,7 @@ struct GfxWindowManagerAPI gfx_sdl = {
     gfx_sdl_get_dimensions,
     gfx_sdl_handle_events,
     gfx_sdl_start_frame,
-    gfx_sdl_swap_buffers_begin,
+    NULL,
     gfx_sdl_swap_buffers_end,
     gfx_sdl_get_time,
     gfx_sdl_shutdown,

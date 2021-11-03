@@ -16,12 +16,13 @@
 #include "game/segment2.h"
 #include "gfx_dimensions.h"
 #include "pc/gfx/gfx_pc.h"
-#include "pc/gfx/gfx_uikit.h"
+#import "pc/gfx/gfx_uikit.h"
 #include "../configfile.h"
 
 #include "controller_api.h"
 #import "controller_touchscreen.h"
-#import "../../ios/haptics_controller.h"
+#import "src/ios/haptics_controller.h"
+#import "src/ios/FrameController.h"
 
 #define SCREEN_WIDTH_API 1280
 #define SCREEN_HEIGHT_API 960
@@ -87,13 +88,11 @@ void touch_down(struct TouchEvent* event) {
                 switch (ControlElements[i].type) {
                     case Joystick:
                         joystick_size = frame.size.width;
-                        printf("Touch down: %s\n", ControlElements[i].name);
                         ControlElements[i].touchID = event->touchID;
                         ControlElements[i].joyX = event->x - pos.x + joystick_size/2 - 128;
                         ControlElements[i].joyY = event->y - pos.y + joystick_size/2 - 128;
                         break;
                     case Button:
-                        printf("Touch down: %s\n", ControlElements[i].name);
                         ControlElements[i].touchID = event->touchID;
                         ControlElements[i].imageView.image = BUTTON_IMAGE_DARK;
                         break;
@@ -173,12 +172,6 @@ void touch_up(struct TouchEvent* event) {
 }
 
 void render_touch_controls(void) {
-    [tcvc setTouchControlsHidden:NO];
-    if((get_current_input() != Touch || configTouchMode == 1) && configTouchMode != 0) {
-        [tcvc setTouchControlsHidden:YES];
-        return;
-    }
-    
     struct Position pos;
     for (int i = 0; i < ControlElementsLength; i++) {
         switch (ControlElements[i].type) {
@@ -196,9 +189,21 @@ void render_touch_controls(void) {
     }
 }
 
+void update_touch_controls(void) {
+    [tcvc setTouchControlsHidden:NO];
+    if((get_current_input() != Touch || configTouchMode == 1) && configTouchMode != 0) {
+        [tcvc setTouchControlsHidden:YES];
+        return;
+    }
+    
+    render_touch_controls();
+}
+
 static void touchscreen_init(void) {
     if(hapticsSupported) {
-        haptics = [[HapticsController alloc] initialize];
+        haptics = [[HapticsController alloc] init];
+    } else {
+        printf("Haptics not supported\n");
     }
 }
 

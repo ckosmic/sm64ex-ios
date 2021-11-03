@@ -1798,7 +1798,9 @@ void gfx_run(Gfx *commands) {
     double t1 = gfx_wapi->get_time();
     //printf("Process %f %f\n", t1, t1 - t0);
     gfx_rapi->end_frame();
-    gfx_wapi->swap_buffers_begin();
+    if(gfx_wapi->swap_buffers_begin != NULL) {
+        gfx_wapi->swap_buffers_begin();
+    }
 }
 
 void gfx_end_frame(void) {

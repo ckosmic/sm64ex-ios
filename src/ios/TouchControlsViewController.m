@@ -112,7 +112,6 @@
 }
 
 - (void)set_touchscreen_callbacks:(void (*)(void* event))down motion:(void (*)(void* event))motion up:(void (*)(void* event))up {
-    printf("gesture set touch stuff\n");
     touch_down_callback = down;
     touch_motion_callback = motion;
     touch_up_callback = up;
@@ -187,7 +186,6 @@
 }
 
 - (void)set_touchscreen_callbacks:(void (*)(void* event))down motion:(void (*)(void* event))motion up:(void (*)(void* event))up {
-    printf("touchvc set touch stuff\n");
     touch_down_callback = down;
     touch_motion_callback = motion;
     touch_up_callback = up;

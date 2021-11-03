@@ -23,48 +23,48 @@
 
 - (void)rumble:(float)intensity duration:(double)duration
 {
-    @autoreleasepool {
-        NSError *error = nil;
-        
-        if(intensity == 0.0f) {
-            if(self.player && self.active) {
-                [self.player stopAtTime:0 error:&error];
-            }
-            self.active = false;
-            return;
+    NSError *error = nil;
+    
+    if(intensity == 0.0f) {
+        if(self.player && self.active) {
+            [self.player stopAtTime:0 error:&error];
         }
+        self.active = false;
+        return;
+    }
+    
+    if(self.player == nil) {
+        CHHapticEventParameter *param = [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticIntensity value:intensity];
+        CHHapticEventParameter *param2 = [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticSharpness value:1.0f];
+        CHHapticEvent *event = [[CHHapticEvent alloc] initWithEventType:CHHapticEventTypeHapticContinuous parameters:@[param, param2] relativeTime:0 duration:duration];
         
-        if(self.player == nil) {
-            CHHapticEventParameter *param = [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticIntensity value:intensity];
-            CHHapticEventParameter *param2 = [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticSharpness value:1.0f];
-            CHHapticEvent *event = [[CHHapticEvent alloc] initWithEventType:CHHapticEventTypeHapticContinuous parameters:[NSArray arrayWithObjects:param, param2, nil] relativeTime:0 duration:duration];
-            
-            CHHapticPattern *pattern = [[CHHapticPattern alloc] initWithEvents:[NSArray arrayWithObject:event] parameters:[[NSArray alloc] init] error:&error];
-            
-            self.player = [self.engine createPlayerWithPattern:pattern error:&error];
-            [self.engine createAdvancedPlayerWithPattern:pattern error:&error];
-            self.active = false;
-        }
+        CHHapticPattern *pattern = [[CHHapticPattern alloc] initWithEvents:@[event] parameters:@[] error:&error];
         
-        CHHapticDynamicParameter *param = [[CHHapticDynamicParameter alloc] initWithParameterID:CHHapticDynamicParameterIDHapticIntensityControl value:intensity relativeTime:0];
-        [self.player sendParameters:[NSArray arrayWithObject:param] atTime:0 error:&error];
-        
-        if(!self.active) {
-            [self.player startAtTime:0 error:&error];
-            self.active = true;
-        }
+        self.player = [self.engine createAdvancedPlayerWithPattern:pattern error:&error];
+        self.player.isMuted = NO;
+        self.active = false;
+    }
+    
+    CHHapticDynamicParameter *param = [[CHHapticDynamicParameter alloc] initWithParameterID:CHHapticDynamicParameterIDHapticIntensityControl value:intensity relativeTime:0];
+    [self.player sendParameters:@[param] atTime:0 error:&error];
+    
+    if(!self.active) {
+        [self.player startAtTime:0 error:&error];
+        self.active = true;
     }
 }
 
-- (id)initialize
+- (id)init
 {
-    @autoreleasepool {
+    if(self == [super init]) {
         NSError *error = nil;
         self.engine = [[CHHapticEngine alloc] initAndReturnError:&error];
+        self.engine.isMutedForHaptics = NO;
         [self.engine startAndReturnError:&error];
         
         __weak __typeof__(self) weakSelf = self;
         [self.engine setStoppedHandler:^(CHHapticEngineStoppedReason reason) {
+            printf("[sm64ios] Haptic engine stopped\n");
             HapticsController *_this = weakSelf;
             if(_this == nil)
                 return;
@@ -74,6 +74,7 @@
         }];
         
         [self.engine setResetHandler:^() {
+            printf("[sm64ios] Haptic engine reset\n");
             HapticsController *_this = weakSelf;
             if(_this == nil)
                 return;
@@ -81,9 +82,8 @@
             _this.player = nil;
             [_this.engine startAndReturnError:nil];
         }];
-        
-        return self;
     }
+    return self;
 }
 
 @end

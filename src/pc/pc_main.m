@@ -40,6 +40,7 @@
 #include "fs/fs.h"
 
 #include "src/ios/native_ui_controller.h"
+#import "src/ios/FrameController.h"
 
 #include "game/game_init.h"
 #include "game/main.h"
@@ -94,17 +95,17 @@ void send_display_list(struct SPTask *spTask) {
 #endif
 
 void produce_one_frame(void) {
-    gfx_start_frame();
+    
     if(!paused_by_menu) {
         const f32 master_mod = (f32)configMasterVolume / 127.0f;
         set_sequence_player_volume(SEQ_PLAYER_LEVEL, (f32)configMusicVolume / 127.0f * master_mod);
         set_sequence_player_volume(SEQ_PLAYER_SFX, (f32)configSfxVolume / 127.0f * master_mod);
         set_sequence_player_volume(SEQ_PLAYER_ENV, (f32)configEnvVolume / 127.0f * master_mod);
-
         
         game_loop_one_iteration();
+        
         thread6_rumble_loop(NULL);
-
+        
         int samples_left = audio_api->buffered();
         u32 num_audio_samples = samples_left < audio_api->get_desired_buffered() ? SAMPLES_HIGH : SAMPLES_LOW;
         //printf("Audio samples: %d %u\n", samples_left, num_audio_samples);
@@ -123,6 +124,10 @@ void produce_one_frame(void) {
     gfx_end_frame();
 }
 
+void produce_one_vsync_frame(void) {
+    wm_api->main_loop(produce_one_frame);
+}
+
 void audio_shutdown(void) {
     if (audio_api) {
         if (audio_api->shutdown) audio_api->shutdown();
@@ -138,6 +143,7 @@ void game_deinit(void) {
     controller_shutdown();
     audio_shutdown();
     gfx_shutdown();
+    [frameController shutdown];
     inited = false;
 }
 
@@ -245,6 +251,9 @@ void main_func(void) {
         audio_api = &audio_null;
     }
     
+    frameController = [[FrameController alloc] init];
+    [frameController.onScreenRefreshForGame addObject:[NSValue valueWithPointer:produce_one_vsync_frame]];
+    
     audio_init();
     sound_init();
     
@@ -282,8 +291,9 @@ void main_func(void) {
 #else
     
     
+    [frameController startMainLoop:1];
     while (true) {
-        wm_api->main_loop(produce_one_frame);
+        gfx_start_frame();
 #ifdef DISCORDRPC
         discord_update_rich_presence();
 #endif
