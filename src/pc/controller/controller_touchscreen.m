@@ -196,7 +196,7 @@ void update_touch_controls(void) {
         return;
     }
     
-    render_touch_controls();
+    //render_touch_controls();
 }
 
 static void touchscreen_init(void) {
@@ -205,6 +205,7 @@ static void touchscreen_init(void) {
     } else {
         printf("Haptics not supported\n");
     }
+    [frameController.onScreenRefresh addObject:[NSValue valueWithPointer:render_touch_controls]];
 }
 
 void touchscreen_set_imageviews(NSMutableArray *imageViews) {

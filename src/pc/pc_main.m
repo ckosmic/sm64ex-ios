@@ -291,12 +291,14 @@ void main_func(void) {
 #else
     
     
-    [frameController startMainLoop:1];
+    [frameController startMainLoop:2];
     while (true) {
-        gfx_start_frame();
+        if(frameController.fRunMain) {
+            gfx_start_frame();
 #ifdef DISCORDRPC
-        discord_update_rich_presence();
+            discord_update_rich_presence();
 #endif
+        }
     }
 #endif
 }

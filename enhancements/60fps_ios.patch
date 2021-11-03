@@ -47,9 +47,6 @@ index b3dc27e..c46bdf0 100644
  };
  
  struct MarioBodyState
-diff --git a/src/.DS_Store b/src/.DS_Store
-index ff9d808..1edc3ce 100644
-Binary files a/src/.DS_Store and b/src/.DS_Store differ
 diff --git a/src/engine/graph_node.h b/src/engine/graph_node.h
 index 802d97a..1b0d677 100644
 --- a/src/engine/graph_node.h
@@ -1833,6 +1830,19 @@ index b49ddaf..d6656af 100644
  int render_screen_transition(s8 fadeTimer, s8 transType, u8 transTime, struct WarpTransitionData *transData) {
      switch (transType) {
          case WARP_TRANSITION_FADE_FROM_COLOR:
+diff --git a/src/ios/FrameController.m b/src/ios/FrameController.m
+index 6a946ec..532ffb1 100644
+--- a/src/ios/FrameController.m
++++ b/src/ios/FrameController.m
+@@ -23,7 +23,7 @@ - (id)init {
+ - (void)startMainLoop:(NSInteger)gameSwapInterval {
+     swapInterval = gameSwapInterval;
+     self.gfxDisplayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(tick:)];
+-    self.gfxDisplayLink.preferredFramesPerSecond = 30;
++    self.gfxDisplayLink.preferredFramesPerSecond = 60;
+     [self.gfxDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+ }
+ 
 diff --git a/src/menu/intro_geo.c b/src/menu/intro_geo.c
 index 37c6752..10ca977 100644
 --- a/src/menu/intro_geo.c
@@ -1905,23 +1915,23 @@ index 0467495..fa4eb33 100644
  
  using namespace Microsoft::WRL; // For ComPtr
 diff --git a/src/pc/gfx/gfx_sdl2.m b/src/pc/gfx/gfx_sdl2.m
-index 882ae69..fe9ea9f 100644
+index 2f63896..7097cf2 100644
 --- a/src/pc/gfx/gfx_sdl2.m
 +++ b/src/pc/gfx/gfx_sdl2.m
-@@ -273,7 +273,7 @@ static void gfx_sdl_init(const char *window_title) {
+@@ -270,7 +270,7 @@ static void gfx_sdl_init(const char *window_title) {
      gfx_sdl_set_fullscreen();
  
      perf_freq = SDL_GetPerformanceFrequency();
 -    frame_time = perf_freq / FRAMERATE;
-+    frame_time = perf_freq / (2 * FRAMERATE);
- 
++    frame_time = perf_freq / (FRAMERATE * 2);
+     
      [frameController.onScreenRefreshForGame addObject:[NSValue valueWithPointer:gfx_sdl_swap_buffers_begin]];
-
+ 
 diff --git a/src/pc/pc_main.m b/src/pc/pc_main.m
-index 6020050..2373d65 100644
+index a4dc05c..1fd4385 100644
 --- a/src/pc/pc_main.m
 +++ b/src/pc/pc_main.m
-@@ -88,6 +88,25 @@ void send_display_list(struct SPTask *spTask) {
+@@ -94,6 +94,25 @@ void send_display_list(struct SPTask *spTask) {
  #define SAMPLES_LOW 528
  #endif
  
@@ -1945,11 +1955,11 @@ index 6020050..2373d65 100644
 +}
 +
  void produce_one_frame(void) {
-     gfx_start_frame();
- 
-@@ -115,6 +134,11 @@ void produce_one_frame(void) {
-     audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
- 
+     
+     if(!paused_by_menu) {
+@@ -122,6 +141,11 @@ void produce_one_frame(void) {
+         audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
+     }
      gfx_end_frame();
 +    
 +    gfx_start_frame();
@@ -1958,4 +1968,4 @@ index 6020050..2373d65 100644
 +    gfx_end_frame();
  }
  
- void audio_shutdown(void) {
+ void produce_one_vsync_frame(void) {

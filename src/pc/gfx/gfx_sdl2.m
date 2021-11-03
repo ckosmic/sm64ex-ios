@@ -191,7 +191,7 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
             printf("could not determine swap interval, falling back to timer sync\n");
         }*/
         use_timer = false;
-        SDL_GL_SetSwapInterval(0);
+        SDL_GL_SetSwapInterval(1);
         return;
     }
 
@@ -272,7 +272,7 @@ static void gfx_sdl_init(const char *window_title) {
     perf_freq = SDL_GetPerformanceFrequency();
     frame_time = perf_freq / FRAMERATE;
     
-    [frameController.onScreenRefreshForGame addObject:[NSValue valueWithPointer:gfx_sdl_swap_buffers_begin]];
+    [frameController.onScreenRefresh addObject:[NSValue valueWithPointer:gfx_sdl_swap_buffers_begin]];
 
     for (size_t i = 0; i < sizeof(windows_scancode_table) / sizeof(SDL_Scancode); i++) {
         inverted_scancode_table[windows_scancode_table[i]] = i;
