@@ -6,5 +6,6 @@
 
 extern struct GfxWindowManagerAPI gfx_sdl;
 UIViewController *get_sdl_viewcontroller();
+static SDL_Window *wnd;
 
 #endif

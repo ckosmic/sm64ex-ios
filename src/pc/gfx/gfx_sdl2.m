@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "gfx_sdl.h"
 #include "gfx_window_manager_api.h"
 #include "gfx_screen_config.h"
 #include "gfx_uikit.h"
@@ -44,7 +45,6 @@
 # define FRAMERATE 30
 #endif
 
-static SDL_Window *wnd;
 static SDL_GLContext ctx = NULL;
 static int inverted_scancode_table[512];
 

@@ -186,6 +186,10 @@ void present_first_screen(void) {
     present_viewcontroller(@"MenuNav", true);
 }
 
+void ios_produce_one_frame(void) {
+    wm_api->main_loop(produce_one_frame);
+}
+
 void main_func(void) {
     const char *gamedir = gCLIOpts.GameDir[0] ? gCLIOpts.GameDir : FS_BASEDIR;
     const char *userpath = gCLIOpts.SavePath[0] ? gCLIOpts.SavePath : sys_user_path();
@@ -281,7 +285,7 @@ void main_func(void) {
     request_anim_frame(on_anim_frame);
 #else
     
-    
+    //SDL_iPhoneSetAnimationCallback(wnd, 1, &ios_produce_one_frame, NULL);
     while (true) {
         wm_api->main_loop(produce_one_frame);
 #ifdef DISCORDRPC
