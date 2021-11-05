@@ -47,9 +47,6 @@ index b3dc27e..c46bdf0 100644
  };
  
  struct MarioBodyState
-diff --git a/src/.DS_Store b/src/.DS_Store
-index ff9d808..1edc3ce 100644
-Binary files a/src/.DS_Store and b/src/.DS_Store differ
 diff --git a/src/engine/graph_node.h b/src/engine/graph_node.h
 index 802d97a..1b0d677 100644
 --- a/src/engine/graph_node.h
@@ -1905,10 +1902,10 @@ index 0467495..fa4eb33 100644
  
  using namespace Microsoft::WRL; // For ComPtr
 diff --git a/src/pc/gfx/gfx_sdl2.m b/src/pc/gfx/gfx_sdl2.m
-index 882ae69..fe9ea9f 100644
+index 66b719f..d602533 100644
 --- a/src/pc/gfx/gfx_sdl2.m
 +++ b/src/pc/gfx/gfx_sdl2.m
-@@ -182,7 +182,11 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
+@@ -177,7 +177,11 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
      if (enabled) {
          // try to detect refresh rate
          SDL_GL_SetSwapInterval(1);
@@ -1930,11 +1927,28 @@ index 882ae69..fe9ea9f 100644
  
      for (size_t i = 0; i < sizeof(windows_scancode_table) / sizeof(SDL_Scancode); i++) {
          inverted_scancode_table[windows_scancode_table[i]] = i;
+@@ -283,7 +287,7 @@ static void gfx_sdl_init(const char *window_title) {
+         inverted_scancode_table[scancode_rmapping_nonextended[i][1]] += 0x100;
+     }
+     
+-    [frameController.onScreenRefresh addObject:[NSValue valueWithPointer:gfx_sdl_swap_buffer]];
++    //[frameController.onScreenRefresh addObject:[NSValue valueWithPointer:gfx_sdl_swap_buffer]];
+     SDL_RaiseWindow(wnd);
+ }
+ 
+@@ -468,6 +472,7 @@ static inline void sync_framerate_with_timer(void) {
+ 
+ static void gfx_sdl_swap_buffers_begin(void) {
+     if (use_timer) sync_framerate_with_timer();
++    gfx_sdl_swap_buffer();
+ }
+ 
+ static void gfx_sdl_swap_buffers_end(void) {
 diff --git a/src/pc/pc_main.m b/src/pc/pc_main.m
-index 6020050..2373d65 100644
+index 1a531ee..107cf8e 100644
 --- a/src/pc/pc_main.m
 +++ b/src/pc/pc_main.m
-@@ -88,6 +88,25 @@ void send_display_list(struct SPTask *spTask) {
+@@ -95,6 +95,25 @@ void send_display_list(struct SPTask *spTask) {
  #define SAMPLES_LOW 528
  #endif
  
@@ -1959,10 +1973,10 @@ index 6020050..2373d65 100644
 +
  void produce_one_frame(void) {
      gfx_start_frame();
- 
-@@ -115,6 +134,11 @@ void produce_one_frame(void) {
-     audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
- 
+     if(!paused_by_menu) {
+@@ -123,6 +142,11 @@ void produce_one_frame(void) {
+         audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
+     }
      gfx_end_frame();
 +    
 +    gfx_start_frame();
@@ -1972,3 +1986,16 @@ index 6020050..2373d65 100644
  }
  
  void audio_shutdown(void) {
+@@ -289,9 +313,10 @@ void main_func(void) {
+     emscripten_set_main_loop(em_main_loop, 0, 0);
+     request_anim_frame(on_anim_frame);
+ #else
+-    [gameTimer.onGameTick addObject:[NSValue valueWithPointer:ios_produce_one_frame]];
+-    [gameTimer startMainLoop:1.0 / 30.0];
+     [frameController startMainLoop];
++    while(true) {
++        ios_produce_one_frame();
++    }
+ #endif
+ }
+ 

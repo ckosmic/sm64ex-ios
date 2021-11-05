@@ -65,7 +65,8 @@ sm64config.txt
 .DS_Store
 enhancements/experimental/*
 /ios/Assets.xcassets/AppIcon.appiconset/*.png
-sm64ios/sm64ios.xcodeproj/xcuserdata
+sm64ios/sm64ios.xcodeproj/xcuserdata/*
+sm64ios.xcworkspace/xcuserdata/*
 
 # Assets. Generally ignored, but ones with "custom" in the name are fine.
 /levels/**/*.png
