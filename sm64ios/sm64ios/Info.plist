@@ -4,23 +4,6 @@
 <dict>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
-	<key>GCSupportedGameControllers</key>
-	<array>
-		<dict>
-			<key>ProfileName</key>
-			<string>DirectionalGamepad</string>
-		</dict>
-		<dict>
-			<key>ProfileName</key>
-			<string>ExtendedGamepad</string>
-		</dict>
-		<dict>
-			<key>ProfileName</key>
-			<string>MicroGamepad</string>
-		</dict>
-	</array>
-	<key>GCSupportsControllerUserInteraction</key>
-	<true/>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 </dict>

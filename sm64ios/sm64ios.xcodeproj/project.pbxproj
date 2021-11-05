@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5918D221271964510085DDED /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE0E9641BAF967F0098DFA4 /* GameController.framework */; };
 		5918D43E271C1EB80085DDED /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5918D43C271C1EB80085DDED /* libSDL2.a */; };
 		5918D43F271C1EB80085DDED /* libSDLmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5918D43D271C1EB80085DDED /* libSDLmain.a */; };
 		59A67E1D27275B5100FF5D6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59AA7BDC2716685000B9AF30 /* Assets.xcassets */; };
@@ -434,7 +433,7 @@
 		5918D616271C223F0085DDED /* TouchControlsEnabledViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchControlsEnabledViewController.m; sourceTree = "<group>"; };
 		5918D617271C223F0085DDED /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		5918D619271C223F0085DDED /* TextureFilterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextureFilterViewController.m; sourceTree = "<group>"; };
-		5918D61A271C223F0085DDED /* haptics_controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = haptics_controller.h; sourceTree = "<group>"; };
+		5918D61A271C223F0085DDED /* HapticsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HapticsController.h; sourceTree = "<group>"; };
 		5918D61B271C223F0085DDED /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5918D61C271C223F0085DDED /* CheatsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheatsViewController.m; sourceTree = "<group>"; };
 		5918D61D271C223F0085DDED /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -442,7 +441,7 @@
 		5918D61F271C223F0085DDED /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		5918D621271C223F0085DDED /* MenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		5918D622271C223F0085DDED /* TouchControlsEnabledViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchControlsEnabledViewController.h; sourceTree = "<group>"; };
-		5918D623271C223F0085DDED /* haptics_controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = haptics_controller.m; sourceTree = "<group>"; };
+		5918D623271C223F0085DDED /* HapticsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HapticsController.m; sourceTree = "<group>"; };
 		5918D624271C223F0085DDED /* TextureFilterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureFilterViewController.h; sourceTree = "<group>"; };
 		5918D626271C223F0085DDED /* playback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = playback.h; sourceTree = "<group>"; };
 		5918D627271C223F0085DDED /* internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
@@ -633,6 +632,10 @@
 		59AA7BE02718F94400B9AF30 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; name = Makefile; path = ../Makefile; sourceTree = "<group>"; };
 		59AA7BE22718FDB500B9AF30 /* build_ios.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = build_ios.sh; path = ../build_ios.sh; sourceTree = "<group>"; };
 		59AA7BE32718FDB500B9AF30 /* build_sim.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = build_sim.sh; path = ../build_sim.sh; sourceTree = "<group>"; };
+		59AFF806273490ED0016E8F3 /* FrameController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FrameController.m; sourceTree = "<group>"; };
+		59AFF807273491100016E8F3 /* FrameController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameController.h; sourceTree = "<group>"; };
+		59AFF808273498250016E8F3 /* GameTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameTimer.m; sourceTree = "<group>"; };
+		59AFF809273498300016E8F3 /* GameTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameTimer.h; sourceTree = "<group>"; };
 		F3A497AB2555F0BD00E92A8B /* CoreHaptics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreHaptics.framework; path = System/Library/Frameworks/CoreHaptics.framework; sourceTree = SDKROOT; };
 		F3A497AF2555F0FF00E92A8B /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		F3A497B22555F11600E92A8B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -650,7 +653,6 @@
 			files = (
 				5918D43E271C1EB80085DDED /* libSDL2.a in Frameworks */,
 				5918D43F271C1EB80085DDED /* libSDLmain.a in Frameworks */,
-				5918D221271964510085DDED /* GameController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1231,7 +1233,6 @@
 				5918D616271C223F0085DDED /* TouchControlsEnabledViewController.m */,
 				5918D617271C223F0085DDED /* MenuViewController.h */,
 				5918D619271C223F0085DDED /* TextureFilterViewController.m */,
-				5918D61A271C223F0085DDED /* haptics_controller.h */,
 				5918D61B271C223F0085DDED /* Main.storyboard */,
 				5918D61C271C223F0085DDED /* CheatsViewController.m */,
 				5918D61D271C223F0085DDED /* AboutViewController.h */,
@@ -1239,12 +1240,17 @@
 				5918D61F271C223F0085DDED /* SettingsViewController.h */,
 				5918D621271C223F0085DDED /* MenuViewController.m */,
 				5918D622271C223F0085DDED /* TouchControlsEnabledViewController.h */,
-				5918D623271C223F0085DDED /* haptics_controller.m */,
+				5918D623271C223F0085DDED /* HapticsController.m */,
+				5918D61A271C223F0085DDED /* HapticsController.h */,
 				5918D624271C223F0085DDED /* TextureFilterViewController.h */,
 				59A67E08271EBCDC00FF5D6C /* ExternalGameViewController.m */,
 				59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */,
 				59A67E0F272733BC00FF5D6C /* TouchControlsViewController.m */,
 				59A67E10272733D300FF5D6C /* TouchControlsViewController.h */,
+				59AFF806273490ED0016E8F3 /* FrameController.m */,
+				59AFF807273491100016E8F3 /* FrameController.h */,
+				59AFF808273498250016E8F3 /* GameTimer.m */,
+				59AFF809273498300016E8F3 /* GameTimer.h */,
 			);
 			path = ios;
 			sourceTree = "<group>";

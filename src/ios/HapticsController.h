@@ -1,5 +1,5 @@
 //
-//  haptics_controller.h
+//  HapticsController.h
 //  sm64ios
 //
 //  Created by Christian Kosman on 9/29/21.
@@ -17,7 +17,7 @@
 @property(nonatomic,strong) id<CHHapticPatternPlayer> player;
 @property bool active;
 
-- (id)initialize;
+- (id)init;
 - (void)rumble:(float)intensity duration:(double)duration;
 - (void)cleanup;
 

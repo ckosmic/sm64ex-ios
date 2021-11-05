@@ -52,6 +52,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView* m_gl_left;
 @property (weak, nonatomic) IBOutlet UIImageView* m_gl_right;
 
+- (UIRectEdge) preferredScreenEdgesDeferringSystemGestures;
+
 @end
 
 #endif /* TouchControlsViewController_h */

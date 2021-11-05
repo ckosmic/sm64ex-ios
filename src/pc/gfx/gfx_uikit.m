@@ -39,13 +39,15 @@ void gfx_uikit_init(UIViewController *viewControllerPointer) {
     mainWindow = [[[UIApplication sharedApplication] delegate] window];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    tcvc = [storyboard instantiateViewControllerWithIdentifier:@"TouchControlsViewController"];
+    tcvc = [[storyboard instantiateViewControllerWithIdentifier:@"TouchControlsViewController"] retain];
     
     if([[UIScreen screens] count] > 1) {
         setup_external_screen();
     } else {
         [gameViewController.view addSubview:tcvc.view];
     }
+    
+    [gameViewController setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
 }
 
 void setup_external_screen() {

@@ -1,3 +1,5 @@
+codesign --remove-signature "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}"
+
 case ${PLATFORM_NAME} in
     iphoneos)
         export CC="clang -arch arm64 --target=arm64-apple-ios -mios-version-min=13.2 -fobjc-weak -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk -DUSE_GLES -DAAPI_SDL2 -DWAPI_SDL2"

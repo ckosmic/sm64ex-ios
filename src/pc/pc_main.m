@@ -40,6 +40,8 @@
 #include "fs/fs.h"
 
 #include "src/ios/native_ui_controller.h"
+#import "src/ios/FrameController.h"
+#import "src/ios/GameTimer.h"
 
 #include "game/game_init.h"
 #include "game/main.h"
@@ -249,6 +251,9 @@ void main_func(void) {
         audio_api = &audio_null;
     }
     
+    frameController = [[FrameController alloc] init];
+    gameTimer = [[GameTimer alloc] init];
+    
     audio_init();
     sound_init();
     
@@ -284,21 +289,14 @@ void main_func(void) {
     emscripten_set_main_loop(em_main_loop, 0, 0);
     request_anim_frame(on_anim_frame);
 #else
-    
-    //SDL_iPhoneSetAnimationCallback(wnd, 1, &ios_produce_one_frame, NULL);
-    while (true) {
-        wm_api->main_loop(produce_one_frame);
-#ifdef DISCORDRPC
-        discord_update_rich_presence();
-#endif
-    }
+    [gameTimer.onGameTick addObject:[NSValue valueWithPointer:ios_produce_one_frame]];
+    [gameTimer startMainLoop:1.0 / 30.0];
+    [frameController startMainLoop];
 #endif
 }
 
 int SDL_main(int argc, char *argv[]) {
-    @autoreleasepool {
-        parse_cli_opts(argc, argv);
-        main_func();
-    }
+    parse_cli_opts(argc, argv);
+    main_func();
     return 0;
 }

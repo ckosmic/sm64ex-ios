@@ -38,6 +38,8 @@
 #include "src/pc/controller/controller_keyboard.h"
 #include "src/pc/controller/controller_touchscreen.h"
 
+#import "src/ios/FrameController.h"
+
 // TODO: figure out if this shit even works
 #ifdef VERSION_EU
 # define FRAMERATE 25
@@ -58,10 +60,10 @@ static void (*touch_up_callback)(void* event);
 
 // whether to use timer for frame control
 static bool use_timer = true;
-// time between consequtive game frames, in perf counter ticks
-static double frame_time = 0.0; // set in init()
 // GetPerformanceFrequency
 static double perf_freq = 0.0;
+// time between consequtive game frames, in perf counter ticks
+static double frame_time = 0.0; // set in init()
 
 const SDL_Scancode windows_scancode_table[] = {
   /*  0                        1                            2                         3                            4                     5                            6                            7  */
@@ -117,11 +119,11 @@ const SDL_Scancode scancode_rmapping_nonextended[][2] = {
 
 // Bad don't do this
 @interface SDL_uikitviewcontroller : UIViewController
--   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures;
+- (UIRectEdge) preferredScreenEdgesDeferringSystemGestures;
 @end
 
 @implementation SDL_uikitviewcontroller (SDL_uikitviewcontroller_Extensions)
--   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
     return UIRectEdgeBottom;
 }
 @end
@@ -187,6 +189,7 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
     }
 
     use_timer = true;
+    //use_timer = false;
     SDL_GL_SetSwapInterval(0);
 }
 
@@ -227,6 +230,10 @@ static void gfx_sdl_reset_dimension_and_pos(void) {
     gfx_sdl_set_vsync(configWindow.vsync);
 }
 
+void gfx_sdl_swap_buffer(void) {
+    SDL_GL_SwapWindow(wnd);
+}
+
 static void gfx_sdl_init(const char *window_title) {
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -248,7 +255,7 @@ static void gfx_sdl_init(const char *window_title) {
     wnd = SDL_CreateWindow(
         window_title,
         xpos, ypos, configWindow.w, configWindow.h,
-        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_FOCUS
+        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_FULLSCREEN
     );
     
     ctx = SDL_GL_CreateContext(wnd);
@@ -259,8 +266,6 @@ static void gfx_sdl_init(const char *window_title) {
     gfx_sdl_set_vsync(configWindow.vsync);
 
     gfx_sdl_set_fullscreen();
-    
-    SDL_RaiseWindow(wnd);
 
     perf_freq = SDL_GetPerformanceFrequency();
     frame_time = perf_freq / FRAMERATE;
@@ -277,6 +282,9 @@ static void gfx_sdl_init(const char *window_title) {
         inverted_scancode_table[scancode_rmapping_nonextended[i][0]] = inverted_scancode_table[scancode_rmapping_nonextended[i][1]];
         inverted_scancode_table[scancode_rmapping_nonextended[i][1]] += 0x100;
     }
+    
+    [frameController.onScreenRefresh addObject:[NSValue valueWithPointer:gfx_sdl_swap_buffer]];
+    SDL_RaiseWindow(wnd);
 }
 
 static void gfx_sdl_main_loop(void (*run_one_game_iter)(void)) {
@@ -460,7 +468,6 @@ static inline void sync_framerate_with_timer(void) {
 
 static void gfx_sdl_swap_buffers_begin(void) {
     if (use_timer) sync_framerate_with_timer();
-    SDL_GL_SwapWindow(wnd);
 }
 
 static void gfx_sdl_swap_buffers_end(void) {
