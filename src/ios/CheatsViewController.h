@@ -10,19 +10,35 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#if TARGET_OS_TV
+#import "src/ios/tvos/TVOSSwitch.h"
+#endif
 
 @interface CheatsViewController : UITableViewController
 
-@property (weak, nonatomic) IBOutlet UISwitch* m_enable_cheats_switch;
+#if TARGET_OS_IOS
+@property (weak, nonatomic) IBOutlet UISwitch* enableCheatsSwitch;
 
-@property (weak, nonatomic) IBOutlet UISwitch* m_moon_jump_switch;
-@property (weak, nonatomic) IBOutlet UISwitch* m_god_mode_switch;
-@property (weak, nonatomic) IBOutlet UISwitch* m_infinite_lives_switch;
-@property (weak, nonatomic) IBOutlet UISwitch* m_super_speed_switch;
-@property (weak, nonatomic) IBOutlet UISwitch* m_responsive_switch;
-@property (weak, nonatomic) IBOutlet UISwitch* m_exit_anywhere_switch;
-@property (weak, nonatomic) IBOutlet UISwitch* m_huge_mario_switch;
-@property (weak, nonatomic) IBOutlet UISwitch* m_tiny_mario_switch;
+@property (weak, nonatomic) IBOutlet UISwitch* moonJumpSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch* godModeSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch* infiniteLivesSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch* superSpeedSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch* responsiveSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch* exitAnywhereSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch* hugeMarioSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch* tinyMarioSwitch;
+#elif TARGET_OS_TV
+@property (weak, nonatomic) IBOutlet TVOSSwitch* enableCheatsSwitch;
+
+@property (weak, nonatomic) IBOutlet TVOSSwitch* moonJumpSwitch;
+@property (weak, nonatomic) IBOutlet TVOSSwitch* godModeSwitch;
+@property (weak, nonatomic) IBOutlet TVOSSwitch* infiniteLivesSwitch;
+@property (weak, nonatomic) IBOutlet TVOSSwitch* superSpeedSwitch;
+@property (weak, nonatomic) IBOutlet TVOSSwitch* responsiveSwitch;
+@property (weak, nonatomic) IBOutlet TVOSSwitch* exitAnywhereSwitch;
+@property (weak, nonatomic) IBOutlet TVOSSwitch* hugeMarioSwitch;
+@property (weak, nonatomic) IBOutlet TVOSSwitch* tinyMarioSwitch;
+#endif
 
 @end
 

@@ -12,11 +12,14 @@
 #import <UIKit/UIKit.h>
 
 @interface GameTimer : NSObject
+
 @property(nonatomic, retain) NSTimer *timer;
 @property(nonatomic, retain) NSMutableArray *onGameTick;
+
 - (id)init;
 - (void)startMainLoop:(double)interval;
 - (void)tick:(NSTimer *)sender;
+
 @end
 
 GameTimer *gameTimer;

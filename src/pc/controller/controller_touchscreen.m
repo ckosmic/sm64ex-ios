@@ -9,6 +9,10 @@
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
 
+#include "controller_api.h"
+#import "controller_touchscreen.h"
+
+#if TARGET_OS_IOS
 #include "config.h"
 #include "sm64.h"
 #include "game/game_init.h"
@@ -19,9 +23,7 @@
 #include "pc/gfx/gfx_uikit.h"
 #include "../configfile.h"
 
-#include "controller_api.h"
-#import "controller_touchscreen.h"
-#import "src/ios/HapticsController.h"
+#import "src/ios/ios/HapticsController.h"
 #import "src/ios/FrameController.h"
 
 #define SCREEN_WIDTH_API 1280
@@ -83,14 +85,15 @@ void touch_down(struct TouchEvent* event) {
     for(int i = 0; i < ControlElementsLength; i++) {
         if (ControlElements[i].touchID == 0) {
             frame = ControlElements[i].imageView.frame;
+            CGFloat scale = ((float)configTouchUiScale/100.0);
             CGPoint pos = [ControlElements[i].imageView convertPoint:frame.origin toView:tcvc.view];
-            if (TRIGGER_DETECT(frame.size.width)) {
+            if (TRIGGER_DETECT(frame.size.width * scale)) {
                 switch (ControlElements[i].type) {
                     case Joystick:
-                        joystick_size = frame.size.width;
+                        joystick_size = frame.size.width*scale;
                         ControlElements[i].touchID = event->touchID;
-                        ControlElements[i].joyX = event->x - pos.x + joystick_size/2 - 128;
-                        ControlElements[i].joyY = event->y - pos.y + joystick_size/2 - 128;
+                        ControlElements[i].joyX = event->x - pos.x + joystick_size/2 - joystick_size;
+                        ControlElements[i].joyY = event->y - pos.y + joystick_size/2 - joystick_size;
                         break;
                     case Button:
                         ControlElements[i].touchID = event->touchID;
@@ -107,14 +110,15 @@ void touch_motion(struct TouchEvent* event) {
     CGRect frame;
     for(int i = 0; i < ControlElementsLength; i++) {
         frame = ControlElements[i].imageView.frame;
+        CGFloat scale = ((float)configTouchUiScale/100.0);
         CGPoint pos = [ControlElements[i].imageView convertPoint:frame.origin toView:tcvc.view];
         if (ControlElements[i].touchID == event->touchID) {
             switch (ControlElements[i].type) {
                 case Joystick:
                     ; //workaround
                     s32 x,y;
-                    x = event->x - pos.x + joystick_size/2 - 128;
-                    y = event->y - pos.y + joystick_size/2 - 128;
+                    x = event->x - pos.x + joystick_size/2 - joystick_size;
+                    y = event->y - pos.y + joystick_size/2 - joystick_size;
                     if (event->x > pos.x + joystick_size)
                         x = joystick_size/2;
                     if (event->x < pos.x)
@@ -128,7 +132,7 @@ void touch_motion(struct TouchEvent* event) {
                     ControlElements[i].joyY = y;
                     break;
                 case Button:
-                    if (ControlElements[i].slideTouch && !TRIGGER_DETECT(frame.size.width)) {
+                    if (ControlElements[i].slideTouch && !TRIGGER_DETECT(frame.size.width * scale)) {
                         ControlElements[i].slideTouch = 0;
                         ControlElements[i].touchID = 0;
                         ControlElements[i].imageView.image = BUTTON_IMAGE_LIGHT;
@@ -140,7 +144,7 @@ void touch_motion(struct TouchEvent* event) {
                 case Joystick:
                     break;
                 case Button:
-                    if (TRIGGER_DETECT(frame.size.width)) {
+                    if (TRIGGER_DETECT(frame.size.width * scale)) {
                         ControlElements[i].slideTouch = 1;
                         ControlElements[i].touchID = event->touchID;
                         ControlElements[i].imageView.image = BUTTON_IMAGE_DARK;
@@ -178,6 +182,7 @@ void update_touch_controls(void) {
             case Joystick:
                 ;
                 CGRect bounds = ControlElements[i].imageView.subimage.bounds;
+                CGFloat scale = ((float)configTouchUiScale/100.0);
                 bounds.origin.x = ControlElements[i].joyX + joystick_size/2 - bounds.size.width/2;
                 bounds.origin.y = ControlElements[i].joyY + joystick_size/2 - bounds.size.height/2;
                 ControlElements[i].imageView.subimage.frame = bounds;
@@ -271,3 +276,4 @@ struct ControllerAPI controller_touchscreen = {
     NULL,
     touchscreen_shutdown
 };
+#endif

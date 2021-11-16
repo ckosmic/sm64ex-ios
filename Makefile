@@ -191,7 +191,11 @@ endif
 endif
 
 ifeq ($(TARGET_IOS),1)
-  TARGET := sm64ios
+  ifdef TARGET_OS_IOS
+    TARGET := sm64ios
+  else
+	TARGET := sm64tvos
+  endif
 endif
 
 GRUCODE_CFLAGS := -D$(GRUCODE_DEF)
@@ -306,6 +310,13 @@ ASM_DIRS :=
 
 ifeq ($(DISCORDRPC),1)
   SRC_DIRS += src/pc/discord
+endif
+
+ifdef TARGET_OS_IOS
+  SRC_DIRS += src/ios/ios
+endif
+ifdef TARGET_OS_TV
+  SRC_DIRS += src/ios/tvos
 endif
 
 BIN_DIRS := bin bin/$(VERSION)
@@ -520,7 +531,13 @@ else ifeq ($(findstring SDL,$(WINDOW_API)),SDL)
   else ifeq ($(TARGET_RPI),1)
     BACKEND_LDFLAGS += -lGLESv2
   else ifeq ($(TARGET_IOS),1)
-    BACKEND_LDFLAGS += -framework OpenGLES -framework AVFoundation -framework AudioToolbox -framework CoreFoundation -framework CoreGraphics -framework CoreBluetooth -framework CoreAudio -framework IOKit -framework GameController -framework Foundation -framework UIKit -framework QuartzCore -framework CoreMotion -framework CoreHaptics -framework Metal -L. -lSDL2 -lc++ -lstdc++ -D.
+	ifeq ($(TARGET_OS_IOS),1)
+      BACKEND_LDFLAGS += -framework OpenGLES -framework AVFoundation -framework AudioToolbox -framework CoreFoundation -framework CoreGraphics -framework CoreBluetooth -framework CoreAudio -framework IOKit -framework GameController -framework Foundation -framework UIKit -framework QuartzCore -framework CoreMotion -framework CoreHaptics -framework Metal -L. -lSDL2 -lc++ -lstdc++ -D.
+      BACKEND_CFLAGS += -DTARGET_OS_IOS
+    else
+	  BACKEND_LDFLAGS += -framework OpenGLES -framework AVFoundation -framework AudioToolbox -framework CoreFoundation -framework CoreGraphics -framework CoreBluetooth -framework CoreAudio -framework GameController -framework Foundation -framework UIKit -framework QuartzCore -framework CoreHaptics -framework Metal -L. -lSDL2 -lc++ -lstdc++ -D.
+	  BACKEND_CFLAGS += -DTARGET_OS_TV
+    endif
   else ifeq ($(OSX_BUILD),1)
     BACKEND_LDFLAGS += -framework OpenGL `pkg-config --libs glew`
   else
@@ -751,6 +768,7 @@ endif
 ios: default
 	$(RM) -rf $(BUILD_DIR_BASE)/$(TARGET).app
 	cp -a ios/. $(BUILD_DIR)
+	cp -a sm64ios/sm64ios/Assets.xcassets $(BUILD_DIR)/Assets.xcassets
 	cp -R $(BUILD_DIR) build/$(TARGET).app
 	$(RM) -rf $(BUILD_DIR_BASE)/Payload
 	$(RM) -rf $(BUILD_DIR_BASE)/$(TARGET).ipa

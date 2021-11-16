@@ -26,6 +26,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include <Foundation/Foundation.h>
+
 #include "gfx_sdl.h"
 #include "gfx_window_manager_api.h"
 #include "gfx_screen_config.h"
@@ -36,7 +38,9 @@
 
 #include "src/pc/controller/controller_api.h"
 #include "src/pc/controller/controller_keyboard.h"
+#if TARGET_OS_IOS
 #include "src/pc/controller/controller_touchscreen.h"
+#endif
 
 #import "src/ios/FrameController.h"
 
@@ -119,7 +123,7 @@ const SDL_Scancode scancode_rmapping_nonextended[][2] = {
 
 // Bad don't do this
 @interface SDL_uikitviewcontroller : UIViewController
-- (UIRectEdge) preferredScreenEdgesDeferringSystemGestures;
+
 @end
 
 @implementation SDL_uikitviewcontroller (SDL_uikitviewcontroller_Extensions)
@@ -323,6 +327,7 @@ static void gfx_sdl_onkeyup(int scancode) {
         kb_key_up(translate_scancode(scancode));
 }
 
+#if TARGET_OS_IOS
 static void gfx_sdl_fingerdown(SDL_TouchFingerEvent sdl_event) {
     struct TouchEvent event;
     event.x = sdl_event.x;
@@ -352,6 +357,7 @@ static void gfx_sdl_fingerup(SDL_TouchFingerEvent sdl_event) {
         touch_up_callback((void*)&event);
     }
 }
+#endif
 
 static void gfx_sdl_handle_events(void) {
     SDL_Event event;
@@ -366,6 +372,15 @@ static void gfx_sdl_handle_events(void) {
                 gfx_sdl_onkeyup(event.key.keysym.scancode);
                 break;
 #endif
+            case SDL_APP_WILLENTERBACKGROUND:
+                paused_by_menu = true;
+                frameController.gfxDisplayLink.paused = true;
+                break;
+            case SDL_APP_DIDENTERFOREGROUND:
+                paused_by_menu = false;
+                frameController.gfxDisplayLink.paused = false;
+                break;
+#if TARGET_OS_IOS
             case SDL_FINGERDOWN:
                 gfx_sdl_fingerdown(event.tfinger);
                 break;
@@ -393,7 +408,6 @@ static void gfx_sdl_handle_events(void) {
                             SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
                             break;
                         case SDL_WINDOWEVENT_RESIZED:
-                            printf("Window resized!\n");
                             SDL_GL_GetDrawableSize(wnd, &configWindow.w, &configWindow.h);
                             SDL_SetWindowSize(wnd, configWindow.w, configWindow.h);
                             //SDL_SetWindowFullscreen(wnd, SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -413,6 +427,7 @@ static void gfx_sdl_handle_events(void) {
                         break;
                 }
                 break;
+#endif
             case SDL_QUIT:
                 game_exit();
                 break;
@@ -432,11 +447,13 @@ static void gfx_sdl_set_keyboard_callbacks(kb_callback_t on_key_down, kb_callbac
     kb_all_keys_up = on_all_keys_up;
 }
 
+#if TARGET_OS_IOS
 static void gfx_sdl_set_touchscreen_callbacks(void (*down)(void* event), void (*motion)(void* event), void (*up)(void* event)) {
     touch_down_callback = down;
     touch_motion_callback = motion;
     touch_up_callback = up;
 }
+#endif
 
 static bool gfx_sdl_start_frame(void) {
     return true;
@@ -489,7 +506,11 @@ static void gfx_sdl_shutdown(void) {
 struct GfxWindowManagerAPI gfx_sdl = {
     gfx_sdl_init,
     gfx_sdl_set_keyboard_callbacks,
+#if TARGET_OS_IOS
     gfx_sdl_set_touchscreen_callbacks,
+#else
+    NULL,
+#endif
     gfx_sdl_main_loop,
     gfx_sdl_get_dimensions,
     gfx_sdl_handle_events,

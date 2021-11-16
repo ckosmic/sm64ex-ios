@@ -9,7 +9,10 @@
 /* Begin PBXBuildFile section */
 		5918D43E271C1EB80085DDED /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5918D43C271C1EB80085DDED /* libSDL2.a */; };
 		5918D43F271C1EB80085DDED /* libSDLmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5918D43D271C1EB80085DDED /* libSDLmain.a */; };
+		591E1CF6274048E9004DA542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59B7C215273CBC89002CDC11 /* Assets.xcassets */; };
 		59A67E1D27275B5100FF5D6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59AA7BDC2716685000B9AF30 /* Assets.xcassets */; };
+		59B7C220273CBCC2002CDC11 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7C21F273CBCC2002CDC11 /* libSDL2.a */; };
+		59B7C222273CBCCA002CDC11 /* libSDLmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7C221273CBCCA002CDC11 /* libSDLmain.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +33,7 @@
 		5918D479271C223E0085DDED /* ini.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ini.c; sourceTree = "<group>"; };
 		5918D47B271C223E0085DDED /* discordrpc.c.disabled */ = {isa = PBXFileReference; lastKnownFileType = text; path = discordrpc.c.disabled; sourceTree = "<group>"; };
 		5918D47C271C223E0085DDED /* discordrpc.h.disabled */ = {isa = PBXFileReference; lastKnownFileType = text; path = discordrpc.h.disabled; sourceTree = "<group>"; };
-		5918D47E271C223E0085DDED /* ultra_reimplementation.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ultra_reimplementation.c; sourceTree = "<group>"; };
+		5918D47E271C223E0085DDED /* ultra_reimplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ultra_reimplementation.m; sourceTree = "<group>"; };
 		5918D47F271C223E0085DDED /* configfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configfile.h; sourceTree = "<group>"; };
 		5918D480271C223E0085DDED /* platform.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = platform.c; sourceTree = "<group>"; };
 		5918D481271C223E0085DDED /* pc_main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pc_main.m; sourceTree = "<group>"; };
@@ -60,7 +63,7 @@
 		5918D49B271C223E0085DDED /* audio_sdl1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio_sdl1.c; sourceTree = "<group>"; };
 		5918D49C271C223E0085DDED /* audio_null.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = audio_null.c; sourceTree = "<group>"; };
 		5918D49D271C223E0085DDED /* cliopts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cliopts.h; sourceTree = "<group>"; };
-		5918D49E271C223E0085DDED /* configfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = configfile.c; sourceTree = "<group>"; };
+		5918D49E271C223E0085DDED /* configfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = configfile.m; sourceTree = "<group>"; };
 		5918D4A0271C223E0085DDED /* fs_packtype_dir.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fs_packtype_dir.c; sourceTree = "<group>"; };
 		5918D4A1271C223E0085DDED /* dirtree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dirtree.c; sourceTree = "<group>"; };
 		5918D4A2271C223E0085DDED /* fs_packtype_zip.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fs_packtype_zip.c; sourceTree = "<group>"; };
@@ -536,6 +539,15 @@
 		5918D684271C223F0085DDED /* level_script.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = level_script.c; sourceTree = "<group>"; };
 		5918D685271C223F0085DDED /* behavior_script.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = behavior_script.c; sourceTree = "<group>"; };
 		5918D686271C223F0085DDED /* geo_layout.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = geo_layout.c; sourceTree = "<group>"; };
+		591E1CF427403832004DA542 /* TVOSTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVOSTableViewCell.m; sourceTree = "<group>"; };
+		591E1CF52740383F004DA542 /* TVOSTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVOSTableViewCell.h; sourceTree = "<group>"; };
+		59793DBF273CD99E00F6F356 /* build_tvos.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = build_tvos.sh; path = ../build_tvos.sh; sourceTree = "<group>"; };
+		59793DC5273CFC0300F6F356 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		59793DC6273CFC0300F6F356 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		59793DC9273E4FCD00F6F356 /* RemoteInputController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemoteInputController.m; sourceTree = "<group>"; };
+		59793DCA273E4FDD00F6F356 /* RemoteInputController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoteInputController.h; sourceTree = "<group>"; };
+		59793DCB273E626600F6F356 /* TVOSSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVOSSettingsViewController.h; sourceTree = "<group>"; };
+		59793DCC273E626600F6F356 /* TVOSSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVOSSettingsViewController.m; sourceTree = "<group>"; };
 		59A67E08271EBCDC00FF5D6C /* ExternalGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExternalGameViewController.m; sourceTree = "<group>"; };
 		59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExternalGameViewController.h; sourceTree = "<group>"; };
 		59A67E0F272733BC00FF5D6C /* TouchControlsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchControlsViewController.m; sourceTree = "<group>"; };
@@ -636,6 +648,12 @@
 		59AFF807273491100016E8F3 /* FrameController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameController.h; sourceTree = "<group>"; };
 		59AFF808273498250016E8F3 /* GameTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameTimer.m; sourceTree = "<group>"; };
 		59AFF809273498300016E8F3 /* GameTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameTimer.h; sourceTree = "<group>"; };
+		59B7A8E4273F766500346E7F /* TVOSSwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVOSSwitch.m; sourceTree = "<group>"; };
+		59B7A8E5273F766F00346E7F /* TVOSSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVOSSwitch.h; sourceTree = "<group>"; };
+		59B7C20A273CBC6B002CDC11 /* sm64tvos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sm64tvos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		59B7C215273CBC89002CDC11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		59B7C21F273CBCC2002CDC11 /* libSDL2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDL2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		59B7C221273CBCCA002CDC11 /* libSDLmain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDLmain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3A497AB2555F0BD00E92A8B /* CoreHaptics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreHaptics.framework; path = System/Library/Frameworks/CoreHaptics.framework; sourceTree = SDKROOT; };
 		F3A497AF2555F0FF00E92A8B /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		F3A497B22555F11600E92A8B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -656,6 +674,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		59B7C207273CBC6B002CDC11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59B7C220273CBCC2002CDC11 /* libSDL2.a in Frameworks */,
+				59B7C222273CBCCA002CDC11 /* libSDLmain.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -663,6 +690,7 @@
 			isa = PBXGroup;
 			children = (
 				5918D1FD27192A420085DDED /* sm64ios.app */,
+				59B7C20A273CBC6B002CDC11 /* sm64tvos.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -673,6 +701,7 @@
 				29B97315FDCFA39411CA2CEA /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				5918D1FE27192A420085DDED /* sm64ios */,
+				59B7C20B273CBC6B002CDC11 /* sm64tvos */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -688,8 +717,8 @@
 				59A67E1E272A94C400FF5D6C /* appicon.sh */,
 				59AA7BE22718FDB500B9AF30 /* build_ios.sh */,
 				59AA7BE32718FDB500B9AF30 /* build_sim.sh */,
+				59793DBF273CD99E00F6F356 /* build_tvos.sh */,
 				59AA7BE02718F94400B9AF30 /* Makefile */,
-				59AA7BCF2716685000B9AF30 /* ios */,
 				59AA60452716655C00B9AF30 /* include */,
 			);
 			name = Sources;
@@ -705,6 +734,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				59B7C221273CBCCA002CDC11 /* libSDLmain.a */,
+				59B7C21F273CBCC2002CDC11 /* libSDL2.a */,
 				5918D43C271C1EB80085DDED /* libSDL2.a */,
 				5918D43D271C1EB80085DDED /* libSDLmain.a */,
 				59AA7BCC2716674A00B9AF30 /* CoreBluetooth.framework */,
@@ -730,6 +761,7 @@
 			isa = PBXGroup;
 			children = (
 				5918D21027192A4C0085DDED /* Info.plist */,
+				59AA7BDC2716685000B9AF30 /* Assets.xcassets */,
 			);
 			path = sm64ios;
 			sourceTree = "<group>";
@@ -737,6 +769,7 @@
 		5918D472271C223E0085DDED /* src */ = {
 			isa = PBXGroup;
 			children = (
+				59793DC2273CF35600F6F356 /* common */,
 				5918D473271C223E0085DDED /* pc */,
 				5918D4C0271C223E0085DDED /* buffers */,
 				5918D4C9271C223E0085DDED /* game */,
@@ -753,27 +786,27 @@
 		5918D473271C223E0085DDED /* pc */ = {
 			isa = PBXGroup;
 			children = (
-				5918D474271C223E0085DDED /* cliopts.c */,
-				5918D475271C223E0085DDED /* cheats.c */,
-				5918D476271C223E0085DDED /* mixer.c */,
-				5918D477271C223E0085DDED /* pc_main.h */,
 				5918D478271C223E0085DDED /* README-n64-fast32-engine.md */,
-				5918D479271C223E0085DDED /* ini.c */,
-				5918D47A271C223E0085DDED /* discord */,
-				5918D47E271C223E0085DDED /* ultra_reimplementation.c */,
-				5918D47F271C223E0085DDED /* configfile.h */,
-				5918D480271C223E0085DDED /* platform.c */,
-				5918D481271C223E0085DDED /* pc_main.m */,
-				5918D482271C223E0085DDED /* controller */,
-				5918D493271C223E0085DDED /* cheats.h */,
-				5918D494271C223E0085DDED /* ini.h */,
-				5918D495271C223E0085DDED /* mixer.h */,
-				5918D496271C223E0085DDED /* audio */,
 				5918D49D271C223E0085DDED /* cliopts.h */,
-				5918D49E271C223E0085DDED /* configfile.c */,
+				5918D474271C223E0085DDED /* cliopts.c */,
+				5918D493271C223E0085DDED /* cheats.h */,
+				5918D475271C223E0085DDED /* cheats.c */,
+				5918D495271C223E0085DDED /* mixer.h */,
+				5918D476271C223E0085DDED /* mixer.c */,
+				5918D494271C223E0085DDED /* ini.h */,
+				5918D479271C223E0085DDED /* ini.c */,
+				5918D47E271C223E0085DDED /* ultra_reimplementation.m */,
+				5918D47F271C223E0085DDED /* configfile.h */,
+				5918D49E271C223E0085DDED /* configfile.m */,
+				5918D4BF271C223E0085DDED /* platform.h */,
+				5918D480271C223E0085DDED /* platform.c */,
+				5918D477271C223E0085DDED /* pc_main.h */,
+				5918D481271C223E0085DDED /* pc_main.m */,
+				5918D47A271C223E0085DDED /* discord */,
+				5918D482271C223E0085DDED /* controller */,
+				5918D496271C223E0085DDED /* audio */,
 				5918D49F271C223E0085DDED /* fs */,
 				5918D4A6271C223E0085DDED /* gfx */,
-				5918D4BF271C223E0085DDED /* platform.h */,
 			);
 			path = pc;
 			sourceTree = "<group>";
@@ -800,11 +833,11 @@
 				5918D48D271C223E0085DDED /* controller_mouse.h */,
 				5918D48A271C223E0085DDED /* controller_keyboard.h */,
 				5918D48E271C223E0085DDED /* controller_emscripten_keyboard.h */,
-				5918D483271C223E0085DDED /* controller_touchscreen_layouts.inc */,
 				5918D487271C223E0085DDED /* controller_touchscreen.h */,
 				5918D48F271C223E0085DDED /* controller_touchscreen.m */,
 				5918D490271C223E0085DDED /* controller_api.h */,
 				5918D491271C223E0085DDED /* controller_sdl1.c */,
+				5918D483271C223E0085DDED /* controller_touchscreen_layouts.inc */,
 				5918D492271C223E0085DDED /* controller_entry_point.m */,
 			);
 			path = controller;
@@ -844,6 +877,8 @@
 				5918D4A9271C223E0085DDED /* gfx_direct3d_common.h */,
 				5918D4AA271C223E0085DDED /* gfx_opengl.c */,
 				5918D4AB271C223E0085DDED /* gfx_uikit.h */,
+				5918D4BB271C223E0085DDED /* gfx_uikit.m */,
+				5918D4BA271C223E0085DDED /* gfx_pc.h */,
 				5918D4AC271C223E0085DDED /* gfx_pc.c */,
 				5918D4AD271C223E0085DDED /* gfx_rendering_api.h */,
 				5918D4AE271C223E0085DDED /* gfx_cc.c */,
@@ -858,8 +893,6 @@
 				5918D4B7271C223E0085DDED /* gfx_direct3d11.h */,
 				5918D4B8271C223E0085DDED /* gfx_direct3d12_guids.h */,
 				5918D4B9271C223E0085DDED /* gfx_opengl_legacy.c */,
-				5918D4BA271C223E0085DDED /* gfx_pc.h */,
-				5918D4BB271C223E0085DDED /* gfx_uikit.m */,
 				5918D4BC271C223E0085DDED /* gfx_opengl.h */,
 				5918D4BD271C223E0085DDED /* gfx_direct3d12.h */,
 				5918D4BE271C223E0085DDED /* gfx_cc.h */,
@@ -1225,32 +1258,22 @@
 		5918D610271C223F0085DDED /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				5918D611271C223F0085DDED /* LaunchScreen.storyboard */,
-				5918D612271C223F0085DDED /* SettingsViewController.m */,
-				5918D613271C223F0085DDED /* native_ui_controller.h */,
-				5918D614271C223F0085DDED /* AboutViewController.m */,
-				5918D615271C223F0085DDED /* CheatsViewController.h */,
-				5918D616271C223F0085DDED /* TouchControlsEnabledViewController.m */,
-				5918D617271C223F0085DDED /* MenuViewController.h */,
-				5918D619271C223F0085DDED /* TextureFilterViewController.m */,
-				5918D61B271C223F0085DDED /* Main.storyboard */,
-				5918D61C271C223F0085DDED /* CheatsViewController.m */,
-				5918D61D271C223F0085DDED /* AboutViewController.h */,
-				5918D61E271C223F0085DDED /* native_ui_controller.m */,
-				5918D61F271C223F0085DDED /* SettingsViewController.h */,
-				5918D621271C223F0085DDED /* MenuViewController.m */,
-				5918D622271C223F0085DDED /* TouchControlsEnabledViewController.h */,
-				5918D623271C223F0085DDED /* HapticsController.m */,
-				5918D61A271C223F0085DDED /* HapticsController.h */,
-				5918D624271C223F0085DDED /* TextureFilterViewController.h */,
-				59A67E08271EBCDC00FF5D6C /* ExternalGameViewController.m */,
-				59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */,
-				59A67E0F272733BC00FF5D6C /* TouchControlsViewController.m */,
-				59A67E10272733D300FF5D6C /* TouchControlsViewController.h */,
-				59AFF806273490ED0016E8F3 /* FrameController.m */,
+				59793DC3273CF39300F6F356 /* ios */,
+				59793DC0273CF2D500F6F356 /* tvos */,
 				59AFF807273491100016E8F3 /* FrameController.h */,
-				59AFF808273498250016E8F3 /* GameTimer.m */,
+				59AFF806273490ED0016E8F3 /* FrameController.m */,
 				59AFF809273498300016E8F3 /* GameTimer.h */,
+				59AFF808273498250016E8F3 /* GameTimer.m */,
+				5918D617271C223F0085DDED /* MenuViewController.h */,
+				5918D621271C223F0085DDED /* MenuViewController.m */,
+				5918D615271C223F0085DDED /* CheatsViewController.h */,
+				5918D61C271C223F0085DDED /* CheatsViewController.m */,
+				5918D624271C223F0085DDED /* TextureFilterViewController.h */,
+				5918D619271C223F0085DDED /* TextureFilterViewController.m */,
+				5918D61D271C223F0085DDED /* AboutViewController.h */,
+				5918D614271C223F0085DDED /* AboutViewController.m */,
+				5918D613271C223F0085DDED /* native_ui_controller.h */,
+				5918D61E271C223F0085DDED /* native_ui_controller.m */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -1384,6 +1407,49 @@
 			path = engine;
 			sourceTree = "<group>";
 		};
+		59793DC0273CF2D500F6F356 /* tvos */ = {
+			isa = PBXGroup;
+			children = (
+				59793DC6273CFC0300F6F356 /* Main.storyboard */,
+				59793DC5273CFC0300F6F356 /* LaunchScreen.storyboard */,
+				59793DCA273E4FDD00F6F356 /* RemoteInputController.h */,
+				59793DC9273E4FCD00F6F356 /* RemoteInputController.m */,
+				59793DCB273E626600F6F356 /* TVOSSettingsViewController.h */,
+				59793DCC273E626600F6F356 /* TVOSSettingsViewController.m */,
+				59B7A8E5273F766F00346E7F /* TVOSSwitch.h */,
+				59B7A8E4273F766500346E7F /* TVOSSwitch.m */,
+				591E1CF427403832004DA542 /* TVOSTableViewCell.m */,
+				591E1CF52740383F004DA542 /* TVOSTableViewCell.h */,
+			);
+			path = tvos;
+			sourceTree = "<group>";
+		};
+		59793DC2273CF35600F6F356 /* common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		59793DC3273CF39300F6F356 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				5918D61B271C223F0085DDED /* Main.storyboard */,
+				5918D611271C223F0085DDED /* LaunchScreen.storyboard */,
+				5918D61F271C223F0085DDED /* SettingsViewController.h */,
+				5918D612271C223F0085DDED /* SettingsViewController.m */,
+				5918D622271C223F0085DDED /* TouchControlsEnabledViewController.h */,
+				5918D616271C223F0085DDED /* TouchControlsEnabledViewController.m */,
+				5918D61A271C223F0085DDED /* HapticsController.h */,
+				5918D623271C223F0085DDED /* HapticsController.m */,
+				59A67E09271EBCEE00FF5D6C /* ExternalGameViewController.h */,
+				59A67E08271EBCDC00FF5D6C /* ExternalGameViewController.m */,
+				59A67E10272733D300FF5D6C /* TouchControlsViewController.h */,
+				59A67E0F272733BC00FF5D6C /* TouchControlsViewController.m */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
 		59AA60452716655C00B9AF30 /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -1515,13 +1581,12 @@
 			path = GL;
 			sourceTree = "<group>";
 		};
-		59AA7BCF2716685000B9AF30 /* ios */ = {
+		59B7C20B273CBC6B002CDC11 /* sm64tvos */ = {
 			isa = PBXGroup;
 			children = (
-				59AA7BDC2716685000B9AF30 /* Assets.xcassets */,
+				59B7C215273CBC89002CDC11 /* Assets.xcassets */,
 			);
-			name = ios;
-			path = ../ios;
+			path = sm64tvos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1531,7 +1596,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5918D21327192A4D0085DDED /* Build configuration list for PBXNativeTarget "sm64ios" */;
 			buildPhases = (
-				5918D21627192A6A0085DDED /* ShellScript */,
+				5918D21627192A6A0085DDED /* Build sm64ios for iOS */,
 				59A67E11272743BB00FF5D6C /* Resources */,
 				5918D222271964520085DDED /* Frameworks */,
 			);
@@ -1544,6 +1609,23 @@
 			productReference = 5918D1FD27192A420085DDED /* sm64ios.app */;
 			productType = "com.apple.product-type.application";
 		};
+		59B7C209273CBC6B002CDC11 /* sm64tvos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59B7C21C273CBC8A002CDC11 /* Build configuration list for PBXNativeTarget "sm64tvos" */;
+			buildPhases = (
+				59793DC4273CF92900F6F356 /* Build sm64ios for tvOS */,
+				59B7C208273CBC6B002CDC11 /* Resources */,
+				59B7C207273CBC6B002CDC11 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sm64tvos;
+			productName = sm64tvos;
+			productReference = 59B7C20A273CBC6B002CDC11 /* sm64tvos.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1554,6 +1636,11 @@
 				TargetAttributes = {
 					5918D1FC27192A420085DDED = {
 						CreatedOnToolsVersion = 13.0;
+						DevelopmentTeam = MQD5EFD75S;
+						ProvisioningStyle = Automatic;
+					};
+					59B7C209273CBC6B002CDC11 = {
+						CreatedOnToolsVersion = 13.1;
 						DevelopmentTeam = MQD5EFD75S;
 						ProvisioningStyle = Automatic;
 					};
@@ -1575,6 +1662,7 @@
 			projectRoot = "";
 			targets = (
 				5918D1FC27192A420085DDED /* sm64ios */,
+				59B7C209273CBC6B002CDC11 /* sm64tvos */,
 			);
 		};
 /* End PBXProject section */
@@ -1588,10 +1676,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		59B7C208273CBC6B002CDC11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				591E1CF6274048E9004DA542 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5918D21627192A6A0085DDED /* ShellScript */ = {
+		5918D21627192A6A0085DDED /* Build sm64ios for iOS */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1600,6 +1696,25 @@
 			);
 			inputPaths = (
 			);
+			name = "Build sm64ios for iOS";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$PROJECT_DIR/..\" && \"./build.sh\"\n";
+		};
+		59793DC4273CF92900F6F356 /* Build sm64ios for tvOS */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build sm64ios for tvOS";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1681,7 +1796,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64ios;
@@ -1758,7 +1873,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64ios;
@@ -1768,6 +1883,104 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../SDL2/include\"";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		59B7C21D273CBC8A002CDC11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MQD5EFD75S;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Super Mario 64";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.2.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64tvos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SDL2_INCLUDE_DIR = "$(PROJECT_DIR)/../../include";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = Debug;
+		};
+		59B7C21E273CBC8A002CDC11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MQD5EFD75S;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Super Mario 64";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.2.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64tvos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SDL2_INCLUDE_DIR = "$(PROJECT_DIR)/../../include";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1858,6 +2071,15 @@
 			buildConfigurations = (
 				5918D21427192A4D0085DDED /* Debug */,
 				5918D21527192A4D0085DDED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		59B7C21C273CBC8A002CDC11 /* Build configuration list for PBXNativeTarget "sm64tvos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59B7C21D273CBC8A002CDC11 /* Debug */,
+				59B7C21E273CBC8A002CDC11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

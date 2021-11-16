@@ -11,22 +11,21 @@
 
 @implementation AboutViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     NSString *versionNumber = [NSString stringWithFormat:@"Version %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [self.m_version_label setText:versionNumber];
+    [self.versionLabel setText:versionNumber];
 }
 
-- (IBAction)dismissAboutViewController:(id)sender
-{
+- (IBAction)dismissAboutViewController:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)SourcePressed:(id)sender
-{
+#if TARGET_OS_IOS
+- (IBAction)SourcePressed:(id)sender {
     NSURL *url = [NSURL URLWithString:@"https://github.com/ckosmic/sm64ex-ios"];
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
+#endif
 
 @end

@@ -8,6 +8,7 @@
 
 #include <SDL2/SDL.h>
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #include "sm64.h"
@@ -21,7 +22,6 @@
 #include "gfx/gfx_direct3d11.h"
 #include "gfx/gfx_direct3d12.h"
 
-#include "ios/native_ui_controller.h"
 #include "gfx/gfx_uikit.h"
 
 #include "gfx/gfx_dxgi.h"
@@ -36,10 +36,12 @@
 #include "configfile.h"
 #include "controller/controller_api.h"
 #include "controller/controller_keyboard.h"
+#if TARGET_OS_IOS
 #include "controller/controller_touchscreen.h"
+#include "src/ios/native_ui_controller.h"
+#endif
 #include "fs/fs.h"
 
-#include "src/ios/native_ui_controller.h"
 #import "src/ios/FrameController.h"
 #import "src/ios/GameTimer.h"
 
@@ -96,8 +98,9 @@ void send_display_list(struct SPTask *spTask) {
 #endif
 
 void produce_one_frame(void) {
-    gfx_start_frame();
+    wm_api->handle_events();
     if(!paused_by_menu) {
+        gfx_start_frame();
         const f32 master_mod = (f32)configMasterVolume / 127.0f;
         set_sequence_player_volume(SEQ_PLAYER_LEVEL, (f32)configMusicVolume / 127.0f * master_mod);
         set_sequence_player_volume(SEQ_PLAYER_SFX, (f32)configSfxVolume / 127.0f * master_mod);
@@ -121,8 +124,8 @@ void produce_one_frame(void) {
         //printf("Audio samples before submitting: %d\n", audio_api->buffered());
 
         audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
+        gfx_end_frame();
     }
-    gfx_end_frame();
 }
 
 void audio_shutdown(void) {
@@ -184,9 +187,11 @@ static void on_anim_frame(double time) {
 }
 #endif
 
+#if TARGET_OS_IOS
 void present_first_screen(void) {
     present_viewcontroller(@"MenuNav", true);
 }
+#endif
 
 void ios_produce_one_frame(void) {
     wm_api->main_loop(produce_one_frame);
@@ -259,16 +264,20 @@ void main_func(void) {
     
     thread5_game_loop(NULL);
 
+    gfx_current_dimensions.width = 0;
+    gfx_current_dimensions.height = 0;
+    
     gfx_init(wm_api, rendering_api, window_title);
     wm_api->set_keyboard_callbacks(keyboard_on_key_down, keyboard_on_key_up, keyboard_on_all_keys_up);
     
     UIViewController *gfxVc = get_sdl_viewcontroller();
     gfx_uikit_init(gfxVc);
+#if TARGET_OS_IOS
     gfx_uikit_set_touchscreen_callbacks((void*)touch_down, (void*)touch_motion, (void*)touch_up);
+    menu_button_pressed = &present_first_screen;
+#endif
     configWindow.settings_changed = true;
     wm_api->reset_dimension_and_pos();
-    
-    menu_button_pressed = &present_first_screen;
     
     inited = true;
 

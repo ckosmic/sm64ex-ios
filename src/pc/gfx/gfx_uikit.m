@@ -10,25 +10,23 @@
 #import "gfx_uikit.h"
 
 UIViewController *gameViewController;
-UIWindow *externalWindow;
 UIWindow *mainWindow;
+#if TARGET_OS_IOS
+UIWindow *externalWindow;
+#endif
 
 @implementation OverlayView
 
--   (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
 }
 
--   (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextClearRect(context, rect);
-}
-
--   (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
-    return UIRectEdgeBottom;
 }
 
 @end
@@ -38,6 +36,7 @@ void gfx_uikit_init(UIViewController *viewControllerPointer) {
     
     mainWindow = [[[UIApplication sharedApplication] delegate] window];
     
+#if TARGET_OS_IOS
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     tcvc = [[storyboard instantiateViewControllerWithIdentifier:@"TouchControlsViewController"] retain];
     
@@ -48,8 +47,13 @@ void gfx_uikit_init(UIViewController *viewControllerPointer) {
     }
     
     [gameViewController setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
+#elif TARGET_OS_TV
+    RemoteInputController *remoteInput = [[RemoteInputController alloc] initWithTarget:gameViewController];
+    [remoteInput.onMenuButtonPressed addObject:[NSValue valueWithPointer:tvos_present_main_menu]];
+#endif
 }
 
+#if TARGET_OS_IOS
 void setup_external_screen() {
     [tcvc.view removeFromSuperview];
     mainWindow.rootViewController = tcvc;
@@ -84,3 +88,10 @@ void teardown_external_screen() {
 void gfx_uikit_set_touchscreen_callbacks(void (*down)(void* event), void (*motion)(void* event), void (*up)(void* event)) {
     [tcvc set_touchscreen_callbacks:down motion:motion up:up];
 }
+#endif
+
+#if TARGET_OS_TV
+void tvos_present_main_menu() {
+    present_viewcontroller(@"MenuNav", true);
+}
+#endif

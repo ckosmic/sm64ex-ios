@@ -12,11 +12,14 @@
 #import <UIKit/UIKit.h>
 
 @interface FrameController : NSObject
+
 @property(nonatomic, retain) CADisplayLink *gfxDisplayLink;
 @property(nonatomic, retain) NSMutableArray *onScreenRefresh;
+
 - (id)init;
 - (void)startMainLoop;
 - (void)tick:(CADisplayLink *)sender;
+
 @end
 
 FrameController *frameController;

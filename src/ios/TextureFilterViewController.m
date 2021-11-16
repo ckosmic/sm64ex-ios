@@ -6,37 +6,34 @@
 //
 
 #import "TextureFilterViewController.h"
-#import "../pc/configfile.h"
+#import "src/pc/configfile.h"
 
 
 @implementation TextureFilterViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     for (size_t i = 0; i < 2; i++)
     {
         if (i == configFiltering)
         {
-            self.m_last_selected = i;
+            self.lastSelected = i;
         }
     }
 
-    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.m_last_selected inSection:0]];
+    UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.lastSelected inSection:0]];
     [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ((unsigned int)indexPath.row != configFiltering)
     {
-        UITableViewCell* old_cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.m_last_selected inSection:0]];
+        UITableViewCell* old_cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.lastSelected inSection:0]];
         [old_cell setAccessoryType:UITableViewCellAccessoryNone];
         
         UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
@@ -45,7 +42,7 @@
         configFiltering = (unsigned int)indexPath.row;
         configfile_save(configfile_name());
         
-        self.m_last_selected = indexPath.row;
+        self.lastSelected = indexPath.row;
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:true];

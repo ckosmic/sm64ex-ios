@@ -2,6 +2,7 @@
 #define GFX_SDL_H
 
 #include "gfx_window_manager_api.h"
+#include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
 
 extern struct GfxWindowManagerAPI gfx_sdl;

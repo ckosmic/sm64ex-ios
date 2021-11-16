@@ -13,7 +13,7 @@
 
 @interface TextureFilterViewController : UITableViewController
 
-@property (nonatomic) NSInteger m_last_selected;
+@property (nonatomic) NSInteger lastSelected;
 
 @end
 
