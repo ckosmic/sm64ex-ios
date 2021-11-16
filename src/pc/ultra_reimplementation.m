@@ -156,10 +156,13 @@ s32 osEepromLongRead(UNUSED OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes)
 #else
 #if TARGET_OS_TV
     if(defaults == nil) {
-        defaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.sm64tvos"];
+        defaults = [[NSUserDefaults alloc] initWithSuiteName:SUITE_NAME];
     }
     
     NSData *data = [defaults valueForKey:[NSString stringWithUTF8String:SAVE_FILENAME]];
+    if(data == nil) {
+        return -1;
+    }
     u8 *dataBytes = (u8*)[data bytes];
     memcpy(buffer, dataBytes + address * 8, nbytes);
     ret = 0;
@@ -197,7 +200,7 @@ s32 osEepromLongWrite(UNUSED OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes
 #else
 #if TARGET_OS_TV
     if(defaults == nil) {
-        defaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.sm64tvos"];
+        defaults = [[NSUserDefaults alloc] initWithSuiteName:SUITE_NAME];
     }
     
     NSData *data = [NSData dataWithBytes:content length:512];

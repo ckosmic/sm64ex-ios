@@ -22,6 +22,8 @@
 
 #define SAVE_FILENAME "sm64_save_file.bin"
 
+#define SUITE_NAME @"com.sm64tvos"
+
 extern char fs_gamedir[];
 extern char fs_writepath[];
 

@@ -242,7 +242,7 @@ void configfile_load(const char *filename) {
     printf("Loading configuration from NSUserDefaults.\n");
         
     if(defaults == nil) {
-        defaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.sm64tvos"];
+        defaults = [[NSUserDefaults alloc] initWithSuiteName:SUITE_NAME];
     }
     
     NSString *fileText = [defaults stringForKey:[NSString stringWithUTF8String:filename]];
@@ -367,7 +367,7 @@ void configfile_save(const char *filename) {
     }
     
     if(defaults == nil) {
-        defaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.sm64tvos"];
+        defaults = [[NSUserDefaults alloc] initWithSuiteName:SUITE_NAME];
     }
     
     NSString *fileText = [NSString stringWithUTF8String:file];
