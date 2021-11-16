@@ -33,4 +33,4 @@ export IOSLIBS="${BUILT_PRODUCTS_DIR}/"
 gmake -j4 TARGET_IOS=1
 
 cp -R "build/us_pc/." "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/"
-rsync -aP --exclude="Info.plist" "ios/" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}"
+rsync -aP --exclude="README.md" "ios/" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}"

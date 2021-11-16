@@ -1,0 +1,1 @@
+Any files placed in this directory will get copied directly to the app bundle.  This is where you can place custom textures or anything else you need in the binary.
