@@ -1972,12 +1972,12 @@ index 1a531ee..107cf8e 100644
 +}
 +
  void produce_one_frame(void) {
-     gfx_start_frame();
+     wm_api->handle_events();
      if(!paused_by_menu) {
 @@ -123,6 +142,11 @@ void produce_one_frame(void) {
          audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
+         gfx_end_frame();
      }
-     gfx_end_frame();
 +    
 +    gfx_start_frame();
 +    patch_interpolations();
