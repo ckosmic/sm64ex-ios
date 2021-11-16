@@ -64,8 +64,8 @@ sm64config.txt
 *.mobileprovision
 .DS_Store
 enhancements/experimental/*
-/sm64ios/sm64ios/Assets.xcassets/AppIcon.appiconset/*.png
-/sm64ios/sm64ios/Assets.xcassets/AppIcon.brandassets/App Icon.imagestack/*/Content.imageset/*.png
+sm64ios/sm64ios/Assets.xcassets/AppIcon.appiconset/*.png
+sm64ios/sm64tvos/Assets.xcassets/AppIcon.brandassets/App Icon.imagestack/*/Content.imageset/*.png
 sm64ios/sm64ios.xcodeproj/xcuserdata/*
 sm64ios.xcworkspace/xcuserdata/*
 

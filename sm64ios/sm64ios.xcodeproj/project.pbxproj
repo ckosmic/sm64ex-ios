@@ -654,6 +654,7 @@
 		59B7C215273CBC89002CDC11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59B7C21F273CBCC2002CDC11 /* libSDL2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDL2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B7C221273CBCCA002CDC11 /* libSDLmain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDLmain.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		59EFE97027444086007AB508 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3A497AB2555F0BD00E92A8B /* CoreHaptics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreHaptics.framework; path = System/Library/Frameworks/CoreHaptics.framework; sourceTree = SDKROOT; };
 		F3A497AF2555F0FF00E92A8B /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		F3A497B22555F11600E92A8B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1584,6 +1585,7 @@
 		59B7C20B273CBC6B002CDC11 /* sm64tvos */ = {
 			isa = PBXGroup;
 			children = (
+				59EFE97027444086007AB508 /* Info.plist */,
 				59B7C215273CBC89002CDC11 /* Assets.xcassets */,
 			);
 			path = sm64tvos;
@@ -1920,6 +1922,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = sm64tvos/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Super Mario 64";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1966,6 +1969,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = sm64tvos/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Super Mario 64";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
