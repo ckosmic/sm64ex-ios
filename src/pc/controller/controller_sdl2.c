@@ -182,6 +182,11 @@ static void controller_sdl_read(OSContPad *pad) {
             if (SDL_IsGameController(i)) {
                 sdl_cntrl = SDL_GameControllerOpen(i);
                 if (sdl_cntrl != NULL) {
+                    if(strcmp(SDL_GameControllerName(sdl_cntrl), "Remote") == 0) {
+                        // Ignore Apple TV remote as a game controller
+                        sdl_cntrl = NULL;
+                        continue;
+                    }
                     sdl_haptic = controller_sdl_init_haptics(i);
                     break;
                 }

@@ -390,6 +390,7 @@ static void gfx_sdl_handle_events(void) {
             case SDL_FINGERUP:
                 gfx_sdl_fingerup(event.tfinger);
                 break;
+#endif
             case SDL_WINDOWEVENT: // TODO: Check if this makes sense to be included in the Web build
                 if (!IS_FULLSCREEN()) {
                     switch (event.window.event) {
@@ -415,6 +416,7 @@ static void gfx_sdl_handle_events(void) {
                     }
                 }
                 break;
+#if TARGET_OS_IOS
             case SDL_DISPLAYEVENT:
                 switch(event.display.event) {
                     case SDL_DISPLAYEVENT_CONNECTED:
