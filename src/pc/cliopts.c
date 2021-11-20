@@ -84,5 +84,4 @@ void parse_cli_opts(int argc, char* argv[]) {
             game_exit();
         }
     }
-    gCLIOpts.SkipIntro = 1;
 }

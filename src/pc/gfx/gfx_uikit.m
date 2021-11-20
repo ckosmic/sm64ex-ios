@@ -50,6 +50,7 @@ void gfx_uikit_init(UIViewController *viewControllerPointer) {
 #elif TARGET_OS_TV
     RemoteInputController *remoteInput = [[RemoteInputController alloc] initWithTarget:gameViewController];
     [remoteInput.onMenuButtonPressed addObject:[NSValue valueWithPointer:tvos_present_main_menu]];
+    [remoteInput.onPlayPauseButtonPressed addObject:[NSValue valueWithPointer:simulate_start_button_press]];
 #endif
 }
 

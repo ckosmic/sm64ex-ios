@@ -14,6 +14,7 @@
 @interface RemoteInputController : NSObject
 
 @property(nonatomic, retain) NSMutableArray *onMenuButtonPressed;
+@property(nonatomic, retain) NSMutableArray *onPlayPauseButtonPressed;
 
 - (id)initWithTarget:(UIViewController *)viewController;
 

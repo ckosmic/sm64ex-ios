@@ -17,6 +17,7 @@
 #import "../../ios/ios/TouchControlsViewController.h"
 #elif TARGET_OS_TV
 #import "../../ios/tvos/RemoteInputController.h"
+#import "src/game/game_init.h"
 #endif
 
 @interface OverlayView : UIView

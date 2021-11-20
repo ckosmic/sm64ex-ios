@@ -70,5 +70,6 @@ void end_master_display_list(void);
 void rendering_init(void);
 void config_gfx_pool(void);
 void display_and_vsync(void);
+void simulate_start_button_press(void);
 
 #endif // GAME_INIT_H

@@ -919,6 +919,8 @@
 		5918D4C9271C223E0085DDED /* game */ = {
 			isa = PBXGroup;
 			children = (
+				5918D604271C223F0085DDED /* game_init.h */,
+				5918D4FA271C223E0085DDED /* game_init.m */,
 				5918D4CA271C223E0085DDED /* main.h */,
 				5918D4CB271C223E0085DDED /* obj_behaviors_2.h */,
 				5918D4CC271C223E0085DDED /* level_update.c */,
@@ -967,7 +969,6 @@
 				5918D4F7271C223E0085DDED /* object_collision.h */,
 				5918D4F8271C223E0085DDED /* platform_displacement.h */,
 				5918D4F9271C223E0085DDED /* object_list_processor.c */,
-				5918D4FA271C223E0085DDED /* game_init.m */,
 				5918D4FB271C223E0085DDED /* mario_actions_moving.c */,
 				5918D4FC271C223E0085DDED /* debug.c */,
 				5918D4FD271C223E0085DDED /* display.h */,
@@ -1009,7 +1010,6 @@
 				5918D601271C223F0085DDED /* mario_actions_cutscene.h */,
 				5918D602271C223F0085DDED /* profiler.h */,
 				5918D603271C223F0085DDED /* envfx_snow.h */,
-				5918D604271C223F0085DDED /* game_init.h */,
 				5918D605271C223F0085DDED /* platform_displacement.c */,
 				5918D606271C223F0085DDED /* object_list_processor.h */,
 				5918D607271C223F0085DDED /* object_collision.c */,
@@ -1907,6 +1907,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1931,8 +1932,9 @@
 				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64tvos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64tvo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				SDL2_INCLUDE_DIR = "$(PROJECT_DIR)/../../include";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1959,6 +1961,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1978,8 +1981,9 @@
 				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64tvos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64tvo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				SDL2_INCLUDE_DIR = "$(PROJECT_DIR)/../../include";
 				SWIFT_EMIT_LOC_STRINGS = YES;
