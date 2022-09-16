@@ -727,8 +727,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="x.x.x" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzI-i0-36f">
-                                                    <rect key="frame" x="661" y="10.999999999999972" width="35" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <rect key="frame" x="648" y="11" width="48" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -758,7 +758,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3l3-UB-uin" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-176" y="-663"/>
+            <point key="canvasLocation" x="-176.24190064794817" y="-663.08411214953264"/>
         </scene>
         <!--Settings-->
         <scene sceneID="YQg-oZ-FUP">
@@ -804,7 +804,7 @@
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Haptics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipq-dw-0B9">
-                                                    <rect key="frame" x="20.000000000000004" y="11.333333333333336" width="58.333333333333343" height="21"/>
+                                                    <rect key="frame" x="19.999999999999996" y="11.333333333333336" width="58.666666666666657" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -913,7 +913,7 @@
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Cheats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDg-WU-94k">
-                                                    <rect key="frame" x="19.999999999999993" y="11.333333333333336" width="109.33333333333331" height="21"/>
+                                                    <rect key="frame" x="20.000000000000007" y="11.333333333333336" width="109.66666666666669" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -973,7 +973,7 @@
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="God Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fV2-MZ-Bgb">
-                                                    <rect key="frame" x="20" y="11.333333333333336" width="79.666666666666671" height="21"/>
+                                                    <rect key="frame" x="20" y="11.333333333333336" width="80" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1085,7 +1085,7 @@
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exit Level Anywhere" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRW-tm-Ffu">
-                                                    <rect key="frame" x="20" y="11.333333333333336" width="151.66666666666666" height="21"/>
+                                                    <rect key="frame" x="20" y="11.333333333333336" width="152" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1100,10 +1100,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="F8d-H2-qZZ">
-                                        <rect key="frame" x="64" y="359.66667556762695" width="716" height="43.666667938232422"/>
+                                        <rect key="frame" x="64" y="359.66667556762695" width="716" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F8d-H2-qZZ" id="qQ8-TD-Fch">
-                                            <rect key="frame" x="0.0" y="0.0" width="716" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="716" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Huge Mario" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5S5-BD-Nb5">
@@ -1114,7 +1114,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bvi-wt-zWe">
-                                                    <rect key="frame" x="645" y="6.3333333333333321" width="51" height="30.999999999999996"/>
+                                                    <rect key="frame" x="1022" y="6.5" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="HugeMarioChanged:" destination="aDE-az-bqd" eventType="valueChanged" id="zOu-7k-mzr"/>
                                                     </connections>
@@ -1129,14 +1129,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="YvZ-BU-sce">
-                                        <rect key="frame" x="64" y="403.33334350585938" width="716" height="43.666667938232422"/>
+                                        <rect key="frame" x="64" y="403.16667556762695" width="716" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YvZ-BU-sce" id="TWS-5n-8O7">
-                                            <rect key="frame" x="0.0" y="0.0" width="716" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="716" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HlF-dy-Pai">
-                                                    <rect key="frame" x="645" y="6.3333333333333321" width="51" height="30.999999999999996"/>
+                                                    <rect key="frame" x="1022" y="6.5" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="TinyMarioChanged:" destination="aDE-az-bqd" eventType="valueChanged" id="bek-a9-qug"/>
                                                     </connections>
