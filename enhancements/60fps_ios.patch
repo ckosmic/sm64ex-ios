@@ -1884,30 +1884,6 @@ index 37c6752..10ca977 100644
          gSPMatrix(displayListIter++, scaleMat, G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
          gSPDisplayList(displayListIter++, &intro_seg7_dl_0700B3A0);
          gSPPopMatrix(displayListIter++, G_MTX_MODELVIEW);
-diff --git a/src/pc/controller/controller_touchscreen.h b/src/pc/controller/controller_touchscreen.h
-index bba42aa..631c739 100644
---- a/src/pc/controller/controller_touchscreen.h
-+++ b/src/pc/controller/controller_touchscreen.h
-@@ -20,6 +20,7 @@ void touch_motion(struct TouchEvent* event);
- void touch_up(struct TouchEvent* event);
- 
- void touchscreen_set_imageviews(NSMutableArray *imageViews);
-+void update_touch_controls(void);
- 
- void (*menu_button_pressed)(void); 
- 
-diff --git a/src/pc/controller/controller_touchscreen.m b/src/pc/controller/controller_touchscreen.m
-index 99cb4d4..1b05875 100644
---- a/src/pc/controller/controller_touchscreen.m
-+++ b/src/pc/controller/controller_touchscreen.m
-@@ -208,7 +208,6 @@ static void touchscreen_init(void) {
-     if(hapticsSupported) {
-         haptics = [[HapticsController alloc] init];
-     }
--    [frameController.onScreenRefresh addObject:[NSValue valueWithPointer:update_touch_controls]];
- }
- 
- void touchscreen_set_imageviews(NSMutableArray *imageViews) {
 diff --git a/src/pc/gfx/gfx_dxgi.cpp b/src/pc/gfx/gfx_dxgi.cpp
 index 0467495..fa4eb33 100644
 --- a/src/pc/gfx/gfx_dxgi.cpp
@@ -1926,10 +1902,10 @@ index 0467495..fa4eb33 100644
  
  using namespace Microsoft::WRL; // For ComPtr
 diff --git a/src/pc/gfx/gfx_sdl2.m b/src/pc/gfx/gfx_sdl2.m
-index bed05a3..c58b874 100644
+index 66b719f..d602533 100644
 --- a/src/pc/gfx/gfx_sdl2.m
 +++ b/src/pc/gfx/gfx_sdl2.m
-@@ -181,7 +181,11 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
+@@ -177,7 +177,11 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
      if (enabled) {
          // try to detect refresh rate
          SDL_GL_SetSwapInterval(1);
@@ -1942,7 +1918,7 @@ index bed05a3..c58b874 100644
          if (vblanks) {
              printf("determined swap interval: %d\n", vblanks);
              SDL_GL_SetSwapInterval(vblanks);
-@@ -272,7 +276,7 @@ static void gfx_sdl_init(const char *window_title) {
+@@ -268,7 +272,7 @@ static void gfx_sdl_init(const char *window_title) {
      gfx_sdl_set_fullscreen();
  
      perf_freq = SDL_GetPerformanceFrequency();
@@ -1951,7 +1927,7 @@ index bed05a3..c58b874 100644
  
      for (size_t i = 0; i < sizeof(windows_scancode_table) / sizeof(SDL_Scancode); i++) {
          inverted_scancode_table[windows_scancode_table[i]] = i;
-@@ -287,7 +291,7 @@ static void gfx_sdl_init(const char *window_title) {
+@@ -283,7 +287,7 @@ static void gfx_sdl_init(const char *window_title) {
          inverted_scancode_table[scancode_rmapping_nonextended[i][1]] += 0x100;
      }
      
@@ -1960,7 +1936,7 @@ index bed05a3..c58b874 100644
      SDL_RaiseWindow(wnd);
  }
  
-@@ -487,6 +491,7 @@ static inline void sync_framerate_with_timer(void) {
+@@ -468,6 +472,7 @@ static inline void sync_framerate_with_timer(void) {
  
  static void gfx_sdl_swap_buffers_begin(void) {
      if (use_timer) sync_framerate_with_timer();
@@ -1969,10 +1945,10 @@ index bed05a3..c58b874 100644
  
  static void gfx_sdl_swap_buffers_end(void) {
 diff --git a/src/pc/pc_main.m b/src/pc/pc_main.m
-index 0734130..8c8f693 100644
+index 1a531ee..107cf8e 100644
 --- a/src/pc/pc_main.m
 +++ b/src/pc/pc_main.m
-@@ -97,6 +97,25 @@ void send_display_list(struct SPTask *spTask) {
+@@ -95,6 +95,25 @@ void send_display_list(struct SPTask *spTask) {
  #define SAMPLES_LOW 528
  #endif
  
@@ -1998,11 +1974,11 @@ index 0734130..8c8f693 100644
  void produce_one_frame(void) {
      wm_api->handle_events();
      if(!paused_by_menu) {
-@@ -126,6 +145,11 @@ void produce_one_frame(void) {
+@@ -123,6 +142,11 @@ void produce_one_frame(void) {
          audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
          gfx_end_frame();
      }
-+    
++
 +    gfx_start_frame();
 +    patch_interpolations();
 +    send_display_list(gGfxSPTask);
@@ -2010,7 +1986,7 @@ index 0734130..8c8f693 100644
  }
  
  void audio_shutdown(void) {
-@@ -298,9 +322,11 @@ void main_func(void) {
+@@ -289,9 +313,10 @@ void main_func(void) {
      emscripten_set_main_loop(em_main_loop, 0, 0);
      request_anim_frame(on_anim_frame);
  #else
@@ -2018,7 +1994,6 @@ index 0734130..8c8f693 100644
 -    [gameTimer startMainLoop:1.0 / 30.0];
      [frameController startMainLoop];
 +    while(true) {
-+        update_touch_controls();
 +        ios_produce_one_frame();
 +    }
  #endif
