@@ -151,10 +151,13 @@ def main():
                 + expected_sha1
             )
             sys.exit(1)
+    
+    # Get version of GCC we've installed through brew
+    osx_gcc_ver = subprocess.run("find `brew --prefix`/bin/gcc* | grep -oE '[[:digit:]]+' | sort -n | uniq | tail -1", stdout=subprocess.PIPE, shell=True).stdout.decode("utf-8").strip()
 
     # Make sure tools exist
     subprocess.check_call(
-        ["gmake", "-s", "-C", "tools/", "n64graphics", "skyconv", "mio0", "aifc_decode"]
+        ["gmake", "-s", "-C", "tools/", "CC=gcc-" + osx_gcc_ver, "CXX=g++-" + osx_gcc_ver, "n64graphics", "skyconv", "mio0", "aifc_decode"]
     )
 
     # Go through the assets in roughly alphabetical order (but assets in the same
