@@ -1723,7 +1723,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$PROJECT_DIR/..\" && \"./build.sh\"\n";
+			shellScript = "if [[ $(uname -m) == \"arm64\" ]]; then\n  eval \"$(/opt/homebrew/bin/brew shellenv)\"\nfi\ncd \"$PROJECT_DIR/..\" && \"./build.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
