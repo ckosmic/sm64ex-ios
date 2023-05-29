@@ -37,6 +37,4 @@ cp -R "build/us_pc/Base.lproj" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/"
 [[ -e "build/us_pc/dynos" ]] && cp -R "build/us_pc/dynos" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/"
 rsync -aP --exclude="README.md" "ios/" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}"
 
-echo "${CODE_SIGN_IDENTITY} ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}"
-
 codesign --force --deep --sign "${CODE_SIGN_IDENTITY}" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}"
