@@ -115,6 +115,23 @@ ifeq ($(WINDOWS_BUILD),1)
   endif
 endif
 
+## macOS overrides
+ifeq ($(HOST_OS),Darwin)
+  OSX_BUILD := 1
+  # Using Homebrew?
+  ifeq ($(shell which brew >/dev/null 2>&1 && echo y),y)
+	PLATFORM := $(shell uname -m)
+	OSX_GCC_VER = $(shell find `brew --prefix`/bin/gcc* | grep -oE '[[:digit:]]+' | sort -n | uniq | tail -1)
+	TOOLS_CC := gcc-$(OSX_GCC_VER)
+	TOOLS_CXX := g++-$(OSX_GCC_VER)
+	CPP := cpp-$(OSX_GCC_VER) -P
+	PLATFORM_CFLAGS := -I $(shell brew --prefix)/include
+	PLATFORM_LDFLAGS := -L $(shell brew --prefix)/lib
+  else
+    $(error No suitable macOS toolchain found, have you installed Homebrew?)
+  endif
+endif
+
 ifneq ($(TARGET_BITS),0)
   BITS := -m$(TARGET_BITS)
 endif
@@ -246,6 +263,7 @@ endif
 # in the makefile that we want should cover assets.)
 
 ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(MAKECMDGOALS),cleantools)
 ifneq ($(MAKECMDGOALS),distclean)
 
 # Make sure assets exist
@@ -258,11 +276,12 @@ endif
 endif
 
 # Make tools if out of date
-DUMMY != make -C tools >&2 || echo FAIL
+DUMMY != CC=$(TOOLS_CC) CXX=$(TOOLS_CXX) $(MAKE) -C tools -j1 >&2 || echo FAIL
 ifeq ($(DUMMY),FAIL)
   $(error Failed to build tools)
 endif
 
+endif
 endif
 endif
 
@@ -469,7 +488,7 @@ AS := i686-w64-mingw32-as
 endif
 
 ifneq ($(TARGET_WEB),1) # As in, not-web PC port
-  CC ?= $(CROSS)gcc-12
+  CC ?= $(CROSS)gcc
   CXX ?= $(CROSS)g++
 else
   CC := emcc
