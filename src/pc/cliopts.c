@@ -50,6 +50,11 @@ void parse_cli_opts(int argc, char* argv[]) {
     strcat(spbuf, "/Documents");
     arg_string("--savepath", spbuf, gCLIOpts.SavePath);
     
+    char gdbuf[512];
+    strcpy(gdbuf, getenv("HOME"));
+    strcat(gdbuf, "/Documents");
+    arg_string("--gamedir", gdbuf, gCLIOpts.GameDir);
+    
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--skip-intro") == 0) // Skip Peach Intro
             gCLIOpts.SkipIntro = 1;

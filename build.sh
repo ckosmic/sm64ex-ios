@@ -32,7 +32,11 @@ export IOSLIBS="${BUILT_PRODUCTS_DIR}/"
 
 gmake -j4 TARGET_IOS=1
 
-cp -R "build/us_pc/sm64ios" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/"
+GAMEDIR_CP_SRC="build/us_pc/sm64ios"
+if [[ $EXTERNAL_DATA -eq 1 ]]; then
+    GAMEDIR_CP_SRC="build/us_pc/."
+fi
+cp -R $GAMEDIR_CP_SRC "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/"
 cp -R "build/us_pc/Base.lproj" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/"
 [[ -e "build/us_pc/dynos" ]] && cp -R "build/us_pc/dynos" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}/"
 rsync -aP --exclude="README.md" "ios/" "${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}"
