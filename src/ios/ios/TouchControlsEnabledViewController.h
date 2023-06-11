@@ -15,6 +15,10 @@
 
 @property (nonatomic) NSInteger lastSelected;
 
+@property (weak, nonatomic) IBOutlet UISlider* uiScaleSlider;
+@property (weak, nonatomic) IBOutlet UILabel* uiScaleLabel;
+
+
 @end
 
 #endif /* TouchControlsEnabledViewController_h */

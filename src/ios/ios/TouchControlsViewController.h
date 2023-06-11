@@ -58,6 +58,8 @@
 @property (weak, nonatomic) IBOutlet UIView* m_group_main;
 @property (weak, nonatomic) IBOutlet UIView* m_group_cbuttons;
 
+- (void)setTouchControlsScale:(CGFloat)scale;
+
 @end
 
 #endif /* TouchControlsViewController_h */

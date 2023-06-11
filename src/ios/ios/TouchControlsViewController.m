@@ -148,13 +148,27 @@
     [self.m_gl_right setRotation:90.0];
     
     CGFloat scale = ((float)configTouchUiScale/100.0);
+    [self setTouchControlsScale:scale];
+    
+    [self setTouchscreenImageViews];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTouchControlsScaleHandler:) name:@"SetTouchUIScale" object:nil];
+}
+
+- (void)setTouchControlsScaleHandler:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    CGFloat scale = (CGFloat)[dict[@"scale"] floatValue];
+    [self setTouchControlsScale:scale];
+}
+
+- (void)setTouchControlsScale:(CGFloat)scale {
     self.m_group_lr.transform = CGAffineTransformMakeScale(scale, scale);
     self.m_group_joystick.transform = CGAffineTransformMakeScale(scale, scale);
     self.m_group_startmenu.transform = CGAffineTransformMakeScale(scale, scale);
     self.m_group_main.transform = CGAffineTransformMakeScale(scale, scale);
     self.m_group_cbuttons.transform = CGAffineTransformMakeScale(scale, scale);
     
-    [self setTouchscreenImageViews];
+    touchscreen_reset_joystick_size();
 }
 
 - (void)setTouchscreenImageViews {
