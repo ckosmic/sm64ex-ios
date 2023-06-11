@@ -64,11 +64,11 @@ sm64config.txt
 *.mobileprovision
 .DS_Store
 enhancements/experimental/*
-/sm64ios/build/
-/sm64ios/sm64ios/Assets.xcassets/AppIcon.appiconset/icon*.png
-/sm64ios/sm64tvos/Assets.xcassets/AppIcon.brandassets/**/*.png
-/sm64ios/sm64ios.xcodeproj/xcuserdata/
-/sm64ios.xcworkspace/xcuserdata/
+sm64ios/build/
+sm64ios/sm64ios/Assets.xcassets/AppIcon.appiconset/icon*.png
+sm64ios/sm64tvos/Assets.xcassets/AppIcon.brandassets/**/*.png
+sm64ios/sm64ios.xcodeproj/xcuserdata/
+sm64ios.xcworkspace/xcuserdata/
 
 # Assets. Generally ignored, but ones with "custom" in the name are fine.
 /levels/**/*.png

@@ -1902,10 +1902,10 @@ index 0467495..fa4eb33 100644
  
  using namespace Microsoft::WRL; // For ComPtr
 diff --git a/src/pc/gfx/gfx_sdl2.m b/src/pc/gfx/gfx_sdl2.m
-index 66b719f..d602533 100644
+index bed05a3..c58b874 100644
 --- a/src/pc/gfx/gfx_sdl2.m
 +++ b/src/pc/gfx/gfx_sdl2.m
-@@ -177,7 +177,11 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
+@@ -181,7 +181,11 @@ static inline void gfx_sdl_set_vsync(const bool enabled) {
      if (enabled) {
          // try to detect refresh rate
          SDL_GL_SetSwapInterval(1);
@@ -1918,7 +1918,7 @@ index 66b719f..d602533 100644
          if (vblanks) {
              printf("determined swap interval: %d\n", vblanks);
              SDL_GL_SetSwapInterval(vblanks);
-@@ -268,7 +272,7 @@ static void gfx_sdl_init(const char *window_title) {
+@@ -272,7 +276,7 @@ static void gfx_sdl_init(const char *window_title) {
      gfx_sdl_set_fullscreen();
  
      perf_freq = SDL_GetPerformanceFrequency();
@@ -1927,7 +1927,7 @@ index 66b719f..d602533 100644
  
      for (size_t i = 0; i < sizeof(windows_scancode_table) / sizeof(SDL_Scancode); i++) {
          inverted_scancode_table[windows_scancode_table[i]] = i;
-@@ -283,7 +287,7 @@ static void gfx_sdl_init(const char *window_title) {
+@@ -287,7 +291,7 @@ static void gfx_sdl_init(const char *window_title) {
          inverted_scancode_table[scancode_rmapping_nonextended[i][1]] += 0x100;
      }
      
@@ -1936,7 +1936,7 @@ index 66b719f..d602533 100644
      SDL_RaiseWindow(wnd);
  }
  
-@@ -468,6 +472,7 @@ static inline void sync_framerate_with_timer(void) {
+@@ -487,6 +491,7 @@ static inline void sync_framerate_with_timer(void) {
  
  static void gfx_sdl_swap_buffers_begin(void) {
      if (use_timer) sync_framerate_with_timer();
@@ -1945,10 +1945,10 @@ index 66b719f..d602533 100644
  
  static void gfx_sdl_swap_buffers_end(void) {
 diff --git a/src/pc/pc_main.m b/src/pc/pc_main.m
-index 1a531ee..107cf8e 100644
+index 0734130..4e3f9c2 100644
 --- a/src/pc/pc_main.m
 +++ b/src/pc/pc_main.m
-@@ -95,6 +95,25 @@ void send_display_list(struct SPTask *spTask) {
+@@ -97,6 +97,25 @@ void send_display_list(struct SPTask *spTask) {
  #define SAMPLES_LOW 528
  #endif
  
@@ -1974,7 +1974,7 @@ index 1a531ee..107cf8e 100644
  void produce_one_frame(void) {
      wm_api->handle_events();
      if(!paused_by_menu) {
-@@ -123,6 +142,11 @@ void produce_one_frame(void) {
+@@ -126,6 +145,11 @@ void produce_one_frame(void) {
          audio_api->play((u8 *)audio_buffer, 2 * num_audio_samples * 4);
          gfx_end_frame();
      }
@@ -1986,15 +1986,16 @@ index 1a531ee..107cf8e 100644
  }
  
  void audio_shutdown(void) {
-@@ -289,9 +313,10 @@ void main_func(void) {
+@@ -298,9 +322,10 @@ void main_func(void) {
      emscripten_set_main_loop(em_main_loop, 0, 0);
      request_anim_frame(on_anim_frame);
  #else
 -    [gameTimer.onGameTick addObject:[NSValue valueWithPointer:ios_produce_one_frame]];
 -    [gameTimer startMainLoop:1.0 / 30.0];
-     [frameController startMainLoop];
+-    [frameController startMainLoop];
 +    while(true) {
 +        ios_produce_one_frame();
++        [frameController tick:nil];
 +    }
  #endif
  }

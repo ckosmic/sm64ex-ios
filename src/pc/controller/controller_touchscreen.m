@@ -183,8 +183,8 @@ void update_touch_controls(void) {
                 ;
                 CGRect bounds = ControlElements[i].imageView.subimage.bounds;
                 CGFloat scale = ((float)configTouchUiScale/100.0);
-                bounds.origin.x = ControlElements[i].joyX + joystick_size/2 - bounds.size.width/2;
-                bounds.origin.y = ControlElements[i].joyY + joystick_size/2 - bounds.size.height/2;
+                bounds.origin.x = (ControlElements[i].joyX + joystick_size/4)/scale;
+                bounds.origin.y = (ControlElements[i].joyY + joystick_size/4)/scale;
                 ControlElements[i].imageView.subimage.frame = bounds;
                 break;
             case Button:
@@ -209,6 +209,8 @@ static void touchscreen_init(void) {
         haptics = [[HapticsController alloc] init];
     }
     [frameController.onScreenRefresh addObject:[NSValue valueWithPointer:update_touch_controls]];
+    
+    joystick_size = 128 * ((float)configTouchUiScale/100.0);
 }
 
 void touchscreen_set_imageviews(NSMutableArray *imageViews) {

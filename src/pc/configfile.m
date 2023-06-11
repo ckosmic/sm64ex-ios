@@ -378,7 +378,7 @@ void configfile_save(const char *filename) {
 
     printf("Saving configuration to '%s'\n", filename);
 
-    file = fopen(fs_get_write_path(filename), "rw");
+    file = fopen(fs_get_write_path(filename), "w");
     if (file == NULL) {
         // error
         return;
