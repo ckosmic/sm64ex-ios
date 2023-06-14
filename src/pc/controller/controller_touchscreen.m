@@ -210,6 +210,10 @@ static void touchscreen_init(void) {
     }
     [frameController.onScreenRefresh addObject:[NSValue valueWithPointer:update_touch_controls]];
     
+    touchscreen_reset_joystick_size();
+}
+
+void touchscreen_reset_joystick_size(void) {
     joystick_size = 128 * ((float)configTouchUiScale/100.0);
 }
 

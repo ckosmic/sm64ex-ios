@@ -19,6 +19,7 @@ void touch_down(struct TouchEvent* event);
 void touch_motion(struct TouchEvent* event);
 void touch_up(struct TouchEvent* event);
 
+void touchscreen_reset_joystick_size(void);
 void touchscreen_set_imageviews(NSMutableArray *imageViews);
 
 void (*menu_button_pressed)(void); 

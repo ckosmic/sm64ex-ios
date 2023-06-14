@@ -10,6 +10,9 @@
 		5918D43E271C1EB80085DDED /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5918D43C271C1EB80085DDED /* libSDL2.a */; };
 		5918D43F271C1EB80085DDED /* libSDLmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5918D43D271C1EB80085DDED /* libSDLmain.a */; };
 		591E1CF6274048E9004DA542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59B7C215273CBC89002CDC11 /* Assets.xcassets */; };
+		592998FC2A366B51003022D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59793DC6273CFC0300F6F356 /* Main.storyboard */; };
+		592998FD2A366B58003022D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59793DC5273CFC0300F6F356 /* LaunchScreen.storyboard */; };
+		592998FF2A366E71003022D1 /* TVOSSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 592998FE2A366E71003022D1 /* TVOSSlider.xib */; };
 		59A67E1D27275B5100FF5D6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59AA7BDC2716685000B9AF30 /* Assets.xcassets */; };
 		59B7C220273CBCC2002CDC11 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7C21F273CBCC2002CDC11 /* libSDL2.a */; };
 		59B7C222273CBCCA002CDC11 /* libSDLmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7C221273CBCCA002CDC11 /* libSDLmain.a */; };
@@ -541,6 +544,11 @@
 		5918D686271C223F0085DDED /* geo_layout.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = geo_layout.c; sourceTree = "<group>"; };
 		591E1CF427403832004DA542 /* TVOSTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVOSTableViewCell.m; sourceTree = "<group>"; };
 		591E1CF52740383F004DA542 /* TVOSTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVOSTableViewCell.h; sourceTree = "<group>"; };
+		592998F62A363EA5003022D1 /* VolumeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VolumeViewController.m; sourceTree = "<group>"; };
+		592998F72A363EBA003022D1 /* VolumeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeViewController.h; sourceTree = "<group>"; };
+		592998F82A364890003022D1 /* TVOSSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVOSSlider.h; sourceTree = "<group>"; };
+		592998F92A3648A8003022D1 /* TVOSSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVOSSlider.m; sourceTree = "<group>"; };
+		592998FE2A366E71003022D1 /* TVOSSlider.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TVOSSlider.xib; sourceTree = "<group>"; };
 		59793DBF273CD99E00F6F356 /* build_tvos.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = build_tvos.sh; path = ../build_tvos.sh; sourceTree = "<group>"; };
 		59793DC5273CFC0300F6F356 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59793DC6273CFC0300F6F356 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -1275,6 +1283,8 @@
 				5918D614271C223F0085DDED /* AboutViewController.m */,
 				5918D613271C223F0085DDED /* native_ui_controller.h */,
 				5918D61E271C223F0085DDED /* native_ui_controller.m */,
+				592998F72A363EBA003022D1 /* VolumeViewController.h */,
+				592998F62A363EA5003022D1 /* VolumeViewController.m */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -1419,8 +1429,11 @@
 				59793DCC273E626600F6F356 /* TVOSSettingsViewController.m */,
 				59B7A8E5273F766F00346E7F /* TVOSSwitch.h */,
 				59B7A8E4273F766500346E7F /* TVOSSwitch.m */,
-				591E1CF427403832004DA542 /* TVOSTableViewCell.m */,
 				591E1CF52740383F004DA542 /* TVOSTableViewCell.h */,
+				591E1CF427403832004DA542 /* TVOSTableViewCell.m */,
+				592998F82A364890003022D1 /* TVOSSlider.h */,
+				592998F92A3648A8003022D1 /* TVOSSlider.m */,
+				592998FE2A366E71003022D1 /* TVOSSlider.xib */,
 			);
 			path = tvos;
 			sourceTree = "<group>";
@@ -1682,6 +1695,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				592998FC2A366B51003022D1 /* Main.storyboard in Resources */,
+				592998FD2A366B58003022D1 /* LaunchScreen.storyboard in Resources */,
+				592998FF2A366E71003022D1 /* TVOSSlider.xib in Resources */,
 				591E1CF6274048E9004DA542 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1798,10 +1814,10 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64ex;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDL2_INCLUDE_DIR = "$(PROJECT_DIR)/../../include";
@@ -1875,10 +1891,10 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64ex;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDL2_INCLUDE_DIR = "$(PROJECT_DIR)/../../include";
@@ -1929,10 +1945,10 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64tvo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
@@ -1978,10 +1994,10 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64tvo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christiankosman.sm64ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;

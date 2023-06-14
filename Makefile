@@ -404,6 +404,7 @@ CXX_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 S_FILES := $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
 GODDARD_C_FILES := $(foreach dir,$(GODDARD_SRC_DIRS),$(wildcard $(dir)/*.c))
 STORYBOARD_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.storyboard))
+XIB_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.xib))
 
 GENERATED_C_FILES := $(BUILD_DIR)/assets/mario_anim_data.c $(BUILD_DIR)/assets/demo_data.c \
   $(addprefix $(BUILD_DIR)/bin/,$(addsuffix _skybox.c,$(notdir $(basename $(wildcard textures/skyboxes/*.png)))))
@@ -745,6 +746,7 @@ CODESIGN = codesign
 
 all: $(EXE)
 ifeq ($(TARGET_IOS),1)
+	@for xib_path in ${XIB_FILES}; do ${IBTOOL} $${xib_path} --compilation-directory ${BUILD_DIR}/Base.lproj; done
 	@for storyboard_path in ${STORYBOARD_FILES}; do ${IBTOOL} $${storyboard_path} --compilation-directory ${BUILD_DIR}/Base.lproj; done
 endif
 
